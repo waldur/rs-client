@@ -1,0 +1,67 @@
+include:
+  - project: "waldur/waldur-pipelines"
+    file: "/templates/utils/release-utils.yml"
+
+stages:
+  - test
+  - release
+
+Fetch OpenAPI schema:
+  extends: .fetch-openapi-schema
+
+Build Rust SDK:
+  stage: test
+  image: registry.hpc.ut.ee/mirror/library/rust:1.88-bookworm
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+  needs:
+    - job: Fetch OpenAPI schema
+      artifacts: true
+  cache:
+    key: cargo
+    paths:
+      - .cargo/registry
+  variables:
+    CARGO_HOME: "$CI_PROJECT_DIR/.cargo"
+  script:
+    - set -e
+    # waldur-openapi-schema.yaml is downloaded automatically from needs
+    - cargo install --locked openapi-to-rust
+    - openapi-to-rust generate waldur-openapi-schema.yaml
+    - echo "Compiling generated Rust crate..."
+    - cargo build --locked --all-features || cargo build --all-features
+  artifacts:
+    paths:
+      - src/generated/
+    expire_in: 1 day
+
+Release Rust SDK:
+  stage: release
+  image: registry.hpc.ut.ee/mirror/library/rust:1.88-bookworm
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+  needs:
+    - job: Build Rust SDK
+      artifacts: true
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends git
+    - git config --global user.name "$GITLAB_USER_NAME"
+    - git config --global user.email "$GITLAB_USER_EMAIL"
+    # Authenticate origin with token for pushing back commits & tags
+    - git remote set-url origin "https://gitlab-ci-token:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+  script:
+    # src/generated/ is passed from the Build Rust SDK job automatically
+    - |
+      if [ -n "$RELEASE_VERSION" ]; then
+        sed -i 's/^version = "[^"]*"/version = "'$RELEASE_VERSION'"/' Cargo.toml
+        git add Cargo.toml src/generated
+        git diff --cached --quiet && echo "rs-client version already set" || git commit -m "Release: bump version and update code to $RELEASE_VERSION"
+        git tag -a $RELEASE_VERSION -m "Release version $RELEASE_VERSION" || echo "Tag $RELEASE_VERSION already exists"
+        git push origin $RELEASE_VERSION || echo "Tag $RELEASE_VERSION already pushed"
+      else
+        git add src/generated
+        git diff --cached --quiet && echo "No changes" || git commit -m "chore: nightly update of Waldur Rust SDK"
+      fi
+    - git push origin HEAD:main || echo "main already up to date in rs-client"

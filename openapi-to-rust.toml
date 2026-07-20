@@ -1,0 +1,79 @@
+# Configuration for https://github.com/gpu-cli/openapi-to-rust
+#
+# Regenerate with:
+#   openapi-to-rust generate waldur-openapi-schema.yaml
+# (this file is auto-detected from the current directory, no --config needed)
+
+[generator]
+spec_path = "waldur-openapi-schema.yaml"
+output_dir = "src/generated"
+
+[features]
+enable_async_client = true
+
+[http_client]
+# Placeholder default; every generated client method also accepts overriding
+# the base URL/auth at construction time, so this is not load-bearing.
+base_url = "https://api.example.com"
+
+[http_client.auth]
+type = "Bearer"
+header_name = "Authorization"
+
+[client]
+# Keep the generated surface to two areas of the Waldur API: OpenStack
+# resource management, and team/organization management (customers, projects,
+# users, roles, permissions, invitations). Everything else (marketplace,
+# billing, support, monitoring integrations, other cloud providers, ...) is
+# excluded to keep this crate small and reviewable.
+#
+# Widen or narrow this list, then re-run `openapi-to-rust generate` to update
+# src/generated/.
+prune_models = true
+operations = [
+  # OpenStack
+  "tag:openstack",
+  "tag:openstack-backups",
+  "tag:openstack-external-networks",
+  "tag:openstack-flavors",
+  "tag:openstack-floating-ips",
+  "tag:openstack-health-monitors",
+  "tag:openstack-hypervisor-inventories",
+  "tag:openstack-hypervisors",
+  "tag:openstack-images",
+  "tag:openstack-instance-availability-zones",
+  "tag:openstack-instances",
+  "tag:openstack-listeners",
+  "tag:openstack-loadbalancers",
+  "tag:openstack-marketplace-tenants",
+  "tag:openstack-migrations",
+  "tag:openstack-network-rbac-policies",
+  "tag:openstack-networks",
+  "tag:openstack-pool-members",
+  "tag:openstack-pools",
+  "tag:openstack-ports",
+  "tag:openstack-routers",
+  "tag:openstack-security-groups",
+  "tag:openstack-server-groups",
+  "tag:openstack-snapshots",
+  "tag:openstack-subnets",
+  "tag:openstack-tenants",
+  "tag:openstack-volume-availability-zones",
+  "tag:openstack-volume-types",
+  "tag:openstack-volumes",
+
+  # Team management
+  "tag:customers",
+  "tag:customer-permissions-reviews",
+  "tag:organization-groups",
+  "tag:project-permissions-reviews",
+  "tag:project-types",
+  "tag:projects",
+  "tag:role-availabilities",
+  "tag:roles",
+  "tag:user-group-invitations",
+  "tag:user-invitations",
+  "tag:user-permission-requests",
+  "tag:user-permissions",
+  "tag:users",
+]
