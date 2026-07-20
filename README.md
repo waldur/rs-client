@@ -18,15 +18,18 @@ in that file and re-run generation (see [CI](#ci) below).
 ## Example usage
 
 ```rust
-use waldur_client::{Client, Auth};
+use waldur_client::HttpClient;
 
 #[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let client = Client::new("https://api.example.com")
-        .with_auth(Auth::Token("API_TOKEN".into()));
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client = HttpClient::new()
+        .with_base_url("https://api.example.com")
+        .with_api_key("API_TOKEN");
 
-    let tenants = client.openstack_tenants_list().await?;
-    println!("{tenants:?}");
+    let tenant = client
+        .openstack_tenants_retrieve("00000000000000000000000000000000", None)
+        .await?;
+    println!("{tenant:?}");
 
     Ok(())
 }
@@ -36,13 +39,21 @@ async fn main() -> anyhow::Result<()> {
 
 ```bash
 cargo install --locked openapi-to-rust
-openapi-to-rust generate waldur-openapi-schema.yaml
+openapi-to-rust generate
 cargo build
 ```
 
-`openapi-to-rust` auto-detects `openapi-to-rust.toml` in the working directory, so no
-`--config` flag is needed. Generation overwrites everything under `src/generated/`;
-hand-written code lives outside that directory.
+`openapi-to-rust` auto-detects `openapi-to-rust.toml` in the working directory. **Do not**
+pass the schema path as a positional argument (`openapi-to-rust generate waldur-openapi-schema.yaml`)
+— that switches the tool to "direct mode", which ignores the config file entirely, including
+the `operations` tag filter, and generates the full unrestricted API surface. Config mode
+(no positional argument; `spec_path` is read from `openapi-to-rust.toml`) is what actually
+applies it. Generation overwrites everything under `src/generated/`; hand-written code lives
+outside that directory.
+
+After regenerating, diff `src/generated/REQUIRED_DEPS.toml` against `Cargo.toml` — the tool
+can start requiring a new dependency or feature flag between versions, and `Cargo.toml` is
+hand-maintained, not auto-synced.
 
 ## CI
 

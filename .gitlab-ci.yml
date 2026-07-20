@@ -30,7 +30,11 @@ Build Rust SDK:
     - export PATH="$CARGO_HOME/bin:$PATH"
     # waldur-openapi-schema.yaml is downloaded automatically from needs
     - cargo install --locked openapi-to-rust
-    - openapi-to-rust generate waldur-openapi-schema.yaml
+    # No positional source arg: that switches the tool to "direct mode",
+    # which ignores openapi-to-rust.toml entirely (including the
+    # `operations` tag filter) and generates the full API surface.
+    # Config mode (spec_path read from the TOML) is what actually applies it.
+    - openapi-to-rust generate
     - echo "Compiling generated Rust crate..."
     - cargo build --locked --all-features || cargo build --all-features
   artifacts:
