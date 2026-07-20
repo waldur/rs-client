@@ -27,6 +27,7 @@ Build Rust SDK:
     CARGO_HOME: "$CI_PROJECT_DIR/.cargo"
   script:
     - set -e
+    - export PATH="$CARGO_HOME/bin:$PATH"
     # waldur-openapi-schema.yaml is downloaded automatically from needs
     - cargo install --locked openapi-to-rust
     - openapi-to-rust generate waldur-openapi-schema.yaml
