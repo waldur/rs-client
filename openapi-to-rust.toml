@@ -12,6 +12,9 @@ module_name = "types"
 [features]
 enable_async_client = true
 
+[generator.types]
+uri = "string"
+
 [http_client]
 # Placeholder default; every generated client method also accepts overriding
 # the base URL/auth at construction time, so this is not load-bearing.

@@ -14,7 +14,7 @@ pub struct VisibleInvitationDetails {
     ///Full name of the user who created this invitation
     pub created_by_full_name: String,
     ///Profile image of the user who created this invitation
-    pub created_by_image: url::Url,
+    pub created_by_image: String,
     ///Username of the user who created this invitation
     pub created_by_username: String,
     ///Name of the customer organization
@@ -547,7 +547,7 @@ pub struct PermissionRequest {
     pub created_by_username: String,
     pub customer_name: String,
     pub customer_uuid: uuid::Uuid,
-    pub invitation: url::Url,
+    pub invitation: String,
     ///Custom project description provided by user during invitation acceptance.
     ///Constraint: maxLength=2000
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -570,7 +570,7 @@ pub struct PermissionRequest {
     pub scope_name: String,
     pub scope_uuid: uuid::Uuid,
     pub state: String,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -637,7 +637,7 @@ pub struct UserMe {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub identity_source: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image: Option<url::Url>,
+    pub image: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip_address: Option<String>,
     ///Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
@@ -740,7 +740,7 @@ pub struct UserMe {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid_number: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
     ///Constraint: maxLength=128, pattern=`^[0-9a-z_.@+-]+$`
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -810,7 +810,7 @@ pub type UserGroupInvitationsProjectsListResponse = Vec<NestedProject>;
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct NestedProject {
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -834,7 +834,7 @@ pub struct GroupInvitation {
     ///Full name of the user who created this invitation
     pub created_by_full_name: String,
     ///Profile image of the user who created this invitation
-    pub created_by_image: url::Url,
+    pub created_by_image: String,
     ///Username of the user who created this invitation
     pub created_by_username: String,
     ///Custom description text displayed to users viewing this invitation.
@@ -866,7 +866,7 @@ pub struct GroupInvitation {
     pub scope_description: String,
     ///Image URL of the invitation scope (Customer or Project)
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_image: Option<url::Url>,
+    pub scope_image: Option<String>,
     ///Name of the invitation scope
     pub scope_name: String,
     ///Type of the invitation scope (e.g., 'customer', 'project')
@@ -874,7 +874,7 @@ pub struct GroupInvitation {
     pub scope_type: Option<String>,
     ///UUID of the invitation scope (Customer or Project)
     pub scope_uuid: uuid::Uuid,
-    pub url: url::Url,
+    pub url: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1568,7 +1568,7 @@ pub struct ProjectType {
     pub description: Option<String>,
     ///Constraint: maxLength=150
     pub name: String,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -1579,7 +1579,7 @@ pub struct ProjectRequest {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub backend_id: Option<String>,
-    pub customer: url::Url,
+    pub customer: String,
     ///Project description (HTML content will be sanitized)
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1615,7 +1615,7 @@ pub struct ProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub start_date: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<url::Url>,
+    pub r#type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1625,7 +1625,7 @@ pub struct ProjectRequest {
 }
 impl ProjectRequest {
     /// Construct this request with every required wire field.
-    pub fn new(customer: url::Url, name: String) -> Self {
+    pub fn new(customer: String, name: String) -> Self {
         Self {
             customer,
             name,
@@ -1649,7 +1649,7 @@ impl ProjectRequest {
         }
     }
     /// Start a dependency-free builder with every required wire field.
-    pub fn builder(customer: url::Url, name: String) -> ProjectRequestBuilder {
+    pub fn builder(customer: String, name: String) -> ProjectRequestBuilder {
         ProjectRequestBuilder::new(customer, name)
     }
 }
@@ -1661,7 +1661,7 @@ pub struct ProjectRequestBuilder {
 }
 impl ProjectRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(customer: url::Url, name: String) -> Self {
+    pub fn new(customer: String, name: String) -> Self {
         Self {
             value: ProjectRequest::new(customer, name),
         }
@@ -1749,7 +1749,7 @@ impl ProjectRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "type", "` request field.")]
     #[must_use]
-    pub fn r#type(mut self, r#type: url::Url) -> Self {
+    pub fn r#type(mut self, r#type: String) -> Self {
         self.value.r#type = Some(r#type);
         self
     }
@@ -1798,7 +1798,7 @@ pub struct ProjectPermissionReview {
     pub reviewer_full_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reviewer_uuid: Option<uuid::Uuid>,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -1855,7 +1855,7 @@ pub struct PreviewServiceAttributesRequestRequest {
     pub auth_type: Option<AuthTypeEnum>,
     ///Keystone auth URL (e.g., https://cloud.example.com:5000/v3)
     ///Constraint: minLength=1
-    pub auth_url: url::Url,
+    pub auth_url: String,
     ///PEM-encoded CA certificate for SSL verification
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: Option<String>,
@@ -1892,7 +1892,7 @@ pub struct PreviewServiceAttributesRequestRequest {
 }
 impl PreviewServiceAttributesRequestRequest {
     /// Construct this request with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             auth_url,
             password,
@@ -1910,7 +1910,7 @@ impl PreviewServiceAttributesRequestRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        auth_url: url::Url,
+        auth_url: String,
         password: String,
         username: String,
     ) -> PreviewServiceAttributesRequestRequestBuilder {
@@ -1925,7 +1925,7 @@ pub struct PreviewServiceAttributesRequestRequestBuilder {
 }
 impl PreviewServiceAttributesRequestRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             value: PreviewServiceAttributesRequestRequest::new(
                 auth_url,
@@ -2135,7 +2135,7 @@ pub struct PatchedProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub backend_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     ///Project description (HTML content will be sanitized)
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2172,7 +2172,7 @@ pub struct PatchedProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub start_date: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<url::Url>,
+    pub r#type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2335,18 +2335,18 @@ pub struct PatchedOpenStackPortRequest {
     pub security_groups: Option<Vec<OpenStackPortNestedSecurityGroupRequest>>,
     ///Target tenant for shared network port creation. If not specified, defaults to network's tenant.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_tenant: Option<url::Url>,
+    pub target_tenant: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct PatchedNetworkRBACPolicyRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub network: Option<url::Url>,
+    pub network: Option<String>,
     ///Type of access granted - either shared access or external network access
     #[serde(skip_serializing_if = "Option::is_none")]
     pub policy_type: Option<PolicyTypeEnum>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_tenant: Option<url::Url>,
+    pub target_tenant: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -2421,7 +2421,7 @@ pub struct PatchedCustomerRequest {
     pub grace_period_days: Option<i64>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub homepage: Option<url::Url>,
+    pub homepage: Option<String>,
     ///Constraint: maxLength=100
     #[serde(skip_serializing_if = "Option::is_none")]
     pub house_nr: Option<String>,
@@ -2530,8 +2530,8 @@ pub struct OpenStackVolumeType {
     pub description: Option<String>,
     ///Constraint: maxLength=150
     pub name: String,
-    pub settings: url::Url,
-    pub url: url::Url,
+    pub settings: String,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -2546,8 +2546,8 @@ pub struct OpenStackVolumeAvailabilityZone {
     ///Constraint: maxLength=150
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub settings: Option<url::Url>,
-    pub url: url::Url,
+    pub settings: Option<String>,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 pub type OpenstackTenantsPushSecurityGroupsRequest = Vec<
@@ -2663,7 +2663,7 @@ pub type OpenstackMarketplaceTenantsListResponse = Vec<Tenant>;
 pub struct Tenant {
     ///Constraint: maxLength=150
     pub name: String,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -2693,8 +2693,8 @@ pub struct OpenStackInstanceAvailabilityZone {
     ///Constraint: maxLength=150
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub settings: Option<url::Url>,
-    pub url: url::Url,
+    pub settings: Option<String>,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -2725,8 +2725,8 @@ pub struct OpenStackImage {
     pub min_ram: Option<i64>,
     ///Constraint: maxLength=150
     pub name: String,
-    pub settings: url::Url,
-    pub url: url::Url,
+    pub settings: String,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -2762,7 +2762,7 @@ pub struct Hypervisor {
     ///Constraint: minimum=0, maximum=2147483647
     #[serde(skip_serializing_if = "Option::is_none")]
     pub running_vms: Option<i64>,
-    pub settings: url::Url,
+    pub settings: String,
     ///Hypervisor state, e.g. up or down
     ///Constraint: maxLength=50
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2772,7 +2772,7 @@ pub struct Hypervisor {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     pub traits: Vec<String>,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
     ///Total vCPUs
     ///Constraint: minimum=0, maximum=2147483647
@@ -2792,7 +2792,7 @@ pub struct HypervisorInventory {
     pub allocation_ratio: Option<f64>,
     ///Capacity the Nova scheduler treats as available.
     pub effective_total: i64,
-    pub hypervisor: url::Url,
+    pub hypervisor: String,
     pub hypervisor_name: String,
     pub hypervisor_uuid: uuid::Uuid,
     ///Constraint: minimum=0, maximum=9223372036854775807
@@ -2801,12 +2801,12 @@ pub struct HypervisorInventory {
     ///Placement resource class, e.g. VCPU, MEMORY_MB, DISK_GB, VGPU, PCI_DEVICE, NUMA_CORE, CUSTOM_*.
     ///Constraint: maxLength=255
     pub resource_class: String,
-    pub settings: url::Url,
+    pub settings: String,
     pub settings_uuid: uuid::Uuid,
     ///Constraint: minimum=0, maximum=9223372036854775807
     #[serde(skip_serializing_if = "Option::is_none")]
     pub total: Option<i64>,
-    pub url: url::Url,
+    pub url: String,
     ///Constraint: minimum=0, maximum=9223372036854775807
     #[serde(skip_serializing_if = "Option::is_none")]
     pub used: Option<i64>,
@@ -2842,9 +2842,9 @@ pub struct OpenStackFlavor {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ram: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub settings: Option<url::Url>,
+    pub settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -2904,7 +2904,7 @@ pub struct OpenStackVolume {
     pub action_details: Option<OpenStackVolumeActionDetails>,
     ///Availability zone where this volume is located
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub availability_zone: Option<url::Url>,
+    pub availability_zone: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub availability_zone_name: Option<String>,
     ///Volume ID in the OpenStack backend
@@ -2916,7 +2916,7 @@ pub struct OpenStackVolume {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2939,7 +2939,7 @@ pub struct OpenStackVolume {
     pub extend_enabled: Option<bool>,
     ///Image that this volume was created from, if any
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image: Option<url::Url>,
+    pub image: Option<String>,
     ///Metadata of the image this volume was created from
     #[serde(skip_serializing_if = "Option::is_none")]
     pub image_metadata: Option<String>,
@@ -2948,7 +2948,7 @@ pub struct OpenStackVolume {
     pub image_name: Option<String>,
     ///Instance that this volume is attached to, if any
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub instance: Option<url::Url>,
+    pub instance: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub instance_marketplace_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2985,7 +2985,7 @@ pub struct OpenStackVolume {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2997,7 +2997,7 @@ pub struct OpenStackVolume {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3010,20 +3010,20 @@ pub struct OpenStackVolume {
     pub size: Option<i64>,
     ///Snapshot that this volume was created from, if any
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub source_snapshot: Option<url::Url>,
+    pub source_snapshot: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     ///Type of the volume (e.g. SSD, HDD)
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<url::Url>,
+    pub r#type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -3191,7 +3191,7 @@ pub struct OpenStackTenant {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3251,7 +3251,7 @@ pub struct OpenStackTenant {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3263,7 +3263,7 @@ pub struct OpenStackTenant {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3275,7 +3275,7 @@ pub struct OpenStackTenant {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     ///Password of the tenant user
     ///Constraint: maxLength=50
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3462,7 +3462,7 @@ pub struct OpenStackSubNet {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3528,13 +3528,13 @@ pub struct OpenStackSubNet {
     pub name: Option<String>,
     ///Network to which this subnet belongs
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub network: Option<url::Url>,
+    pub network: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub network_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_security_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3544,7 +3544,7 @@ pub struct OpenStackSubNet {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3554,11 +3554,11 @@ pub struct OpenStackSubNet {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -3677,7 +3677,7 @@ pub struct OpenStackSnapshot {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3728,7 +3728,7 @@ pub struct OpenStackSnapshot {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3742,7 +3742,7 @@ pub struct OpenStackSnapshot {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3754,7 +3754,7 @@ pub struct OpenStackSnapshot {
     pub size: Option<i64>,
     ///Volume from which this snapshot was created
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub source_volume: Option<url::Url>,
+    pub source_volume: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub source_volume_marketplace_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3762,7 +3762,7 @@ pub struct OpenStackSnapshot {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -3778,7 +3778,7 @@ pub struct OpenStackSnapshotRestoration {
     pub uuid: Option<uuid::Uuid>,
     ///Volume that is being restored from the snapshot
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub volume: Option<url::Url>,
+    pub volume: Option<String>,
     ///Name of volume as instance device e.g. /dev/vdb.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub volume_device: Option<String>,
@@ -3899,7 +3899,7 @@ pub struct OpenStackServerGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3952,7 +3952,7 @@ pub struct OpenStackServerGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub policy: Option<OpenStackServerGroupPolicy>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3962,7 +3962,7 @@ pub struct OpenStackServerGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3972,13 +3972,13 @@ pub struct OpenStackServerGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -4041,7 +4041,7 @@ pub struct OpenStackSecurityGroupRuleUpdateRequest {
     pub protocol: Option<String>,
     ///Remote security group that this rule references, if any
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub remote_group: Option<url::Url>,
+    pub remote_group: Option<String>,
     ///Ending port number in the range (1-65535)
     ///Constraint: minimum=-2147483648, maximum=65535
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4072,7 +4072,7 @@ pub struct OpenStackSecurityGroupRuleUpdateByNameRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub protocol: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub remote_group: Option<url::Url>,
+    pub remote_group: Option<String>,
     ///Constraint: minLength=1
     #[serde(skip_serializing_if = "Option::is_none")]
     pub remote_group_name: Option<String>,
@@ -4164,7 +4164,7 @@ pub struct OpenStackSecurityGroupRuleCreateRequest {
     pub protocol: Option<String>,
     ///Remote security group that this rule references, if any
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub remote_group: Option<url::Url>,
+    pub remote_group: Option<String>,
     ///Ending port number in the range (1-65535)
     ///Constraint: minimum=-2147483648, maximum=65535
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4203,7 +4203,7 @@ pub struct OpenStackRouter {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4270,7 +4270,7 @@ pub struct OpenStackRouter {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: Option<Vec<OpenStackNestedPort>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4282,7 +4282,7 @@ pub struct OpenStackRouter {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4293,13 +4293,13 @@ pub struct OpenStackRouter {
     pub state: Option<CoreStates>,
     ///OpenStack tenant this router belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -4356,7 +4356,7 @@ pub struct OpenStackPortRequest {
     pub name: String,
     ///Network to which this port belongs
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub network: Option<url::Url>,
+    pub network: Option<String>,
     ///If True, security groups and rules will be applied to this port
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_security_enabled: Option<bool>,
@@ -4364,7 +4364,7 @@ pub struct OpenStackPortRequest {
     pub security_groups: Option<Vec<OpenStackPortNestedSecurityGroupRequest>>,
     ///Target tenant for shared network port creation. If not specified, defaults to network's tenant.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_tenant: Option<url::Url>,
+    pub target_tenant: Option<String>,
 }
 impl OpenStackPortRequest {
     /// Construct this request with every required wire field.
@@ -4428,7 +4428,7 @@ impl OpenStackPortRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "network", "` request field.")]
     #[must_use]
-    pub fn network(mut self, network: url::Url) -> Self {
+    pub fn network(mut self, network: String) -> Self {
         self.value.network = Some(network);
         self
     }
@@ -4449,7 +4449,7 @@ impl OpenStackPortRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "target_tenant", "` request field.")]
     #[must_use]
-    pub fn target_tenant(mut self, target_tenant: url::Url) -> Self {
+    pub fn target_tenant(mut self, target_tenant: String) -> Self {
         self.value.target_tenant = Some(target_tenant);
         self
     }
@@ -4471,7 +4471,7 @@ pub struct OpenStackPortIPUpdateRequest {
     ///Constraint: minLength=1
     pub ip_address: OpenStackPortIPUpdateRequestIpAddress,
     ///The subnet where the new IP address will be allocated
-    pub subnet: url::Url,
+    pub subnet: String,
 }
 ///The IP address to assign within the subnet
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -4496,7 +4496,7 @@ pub struct OpenStackPort {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4557,7 +4557,7 @@ pub struct OpenStackPort {
     pub name: Option<String>,
     ///Network to which this port belongs
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub network: Option<url::Url>,
+    pub network: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub network_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4566,7 +4566,7 @@ pub struct OpenStackPort {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_security_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4578,7 +4578,7 @@ pub struct OpenStackPort {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4592,13 +4592,13 @@ pub struct OpenStackPort {
     pub status: Option<String>,
     ///OpenStack tenant this port belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -4609,7 +4609,7 @@ pub struct OpenStackPortNestedSecurityGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -4641,7 +4641,7 @@ pub struct OpenStackPoolMember {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4692,13 +4692,13 @@ pub struct OpenStackPoolMember {
     pub operating_status: Option<String>,
     ///Pool this member belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pool: Option<url::Url>,
+    pub pool: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4712,7 +4712,7 @@ pub struct OpenStackPoolMember {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4722,9 +4722,9 @@ pub struct OpenStackPoolMember {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subnet: Option<url::Url>,
+    pub subnet: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4762,7 +4762,7 @@ pub struct OpenStackPool {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4786,7 +4786,7 @@ pub struct OpenStackPool {
     pub lb_algorithm: Option<String>,
     ///Load balancer this pool belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub load_balancer: Option<url::Url>,
+    pub load_balancer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub load_balancer_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4819,7 +4819,7 @@ pub struct OpenStackPool {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operating_status: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4833,7 +4833,7 @@ pub struct OpenStackPool {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4843,7 +4843,7 @@ pub struct OpenStackPool {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -4870,7 +4870,7 @@ pub struct OpenStackNetwork {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4925,7 +4925,7 @@ pub struct OpenStackNetwork {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_security_enabled: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4940,7 +4940,7 @@ pub struct OpenStackNetwork {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4953,7 +4953,7 @@ pub struct OpenStackNetwork {
     pub subnets: Option<Vec<OpenStackNestedSubNet>>,
     ///OpenStack tenant this network belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4962,7 +4962,7 @@ pub struct OpenStackNetwork {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -5047,7 +5047,7 @@ pub struct OpenStackLoadBalancer {
     pub access_url: Option<OpenStackLoadBalancerAccessUrl>,
     ///Floating IP attached to the VIP port
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub attached_floating_ip: Option<url::Url>,
+    pub attached_floating_ip: Option<String>,
     ///Load balancer ID in Octavia
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5055,7 +5055,7 @@ pub struct OpenStackLoadBalancer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5103,7 +5103,7 @@ pub struct OpenStackLoadBalancer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operating_status: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5117,7 +5117,7 @@ pub struct OpenStackLoadBalancer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5128,25 +5128,25 @@ pub struct OpenStackLoadBalancer {
     pub state: Option<CoreStates>,
     ///OpenStack tenant this load balancer belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
     ///An IPv4 or IPv6 address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vip_address: Option<OpenStackLoadBalancerVipAddress>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vip_port: Option<url::Url>,
+    pub vip_port: Option<String>,
     ///Security groups assigned to the VIP port.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vip_security_groups: Option<Vec<OpenStackLoadBalancerVIPSecurityGroup>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vip_subnet: Option<url::Url>,
+    pub vip_subnet: Option<String>,
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -5161,7 +5161,7 @@ pub struct OpenStackLoadBalancerVIPSecurityGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<String>,
 }
@@ -5190,7 +5190,7 @@ pub struct OpenStackListener {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5201,7 +5201,7 @@ pub struct OpenStackListener {
     pub customer_uuid: Option<uuid::Uuid>,
     ///Default pool for this listener
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_pool: Option<url::Url>,
+    pub default_pool: Option<String>,
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -5215,7 +5215,7 @@ pub struct OpenStackListener {
     pub is_usage_based: Option<bool>,
     ///Load balancer this listener belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub load_balancer: Option<url::Url>,
+    pub load_balancer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub load_balancer_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5248,7 +5248,7 @@ pub struct OpenStackListener {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub operating_status: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5264,7 +5264,7 @@ pub struct OpenStackListener {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5274,7 +5274,7 @@ pub struct OpenStackListener {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -5308,7 +5308,7 @@ pub struct OpenStackInstanceAllowedAddressPairsUpdateRequest {
     ///List of allowed address pairs to set on the port. Each pair should contain 'ip_address' and optional 'mac_address'.
     pub allowed_address_pairs: Vec<OpenStackAllowedAddressPairRequest>,
     ///The subnet to update allowed address pairs for.
-    pub subnet: url::Url,
+    pub subnet: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -5332,7 +5332,7 @@ pub struct OpenStackInstance {
     pub action_details: Option<OpenStackInstanceActionDetails>,
     ///Availability zone where this instance is located
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub availability_zone: Option<url::Url>,
+    pub availability_zone: Option<String>,
     ///Name of the availability zone where instance is located
     #[serde(skip_serializing_if = "Option::is_none")]
     pub availability_zone_name: Option<String>,
@@ -5351,7 +5351,7 @@ pub struct OpenStackInstance {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5435,7 +5435,7 @@ pub struct OpenStackInstance {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ports: Option<Vec<OpenStackNestedPort>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5457,7 +5457,7 @@ pub struct OpenStackInstance {
     pub service_name: Option<String>,
     ///OpenStack provider settings
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5470,12 +5470,12 @@ pub struct OpenStackInstance {
     pub state: Option<CoreStates>,
     ///The OpenStack tenant to create the instance in
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     ///UUID of the OpenStack tenant
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     ///Cloud-init user data passed to the instance on provisioning. SECURITY: this value is stored and transmitted in plain text — it is kept unencrypted in Waldur's database, forwarded to OpenStack where any process on the instance can read it via the metadata service, and it may appear in logs. Do NOT put unencrypted secrets (passwords, private keys, API tokens) here; reference a secrets manager or inject them through an encrypted channel instead.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_data: Option<String>,
@@ -5524,11 +5524,11 @@ pub struct OpenStackNestedVolume {
     pub state: Option<String>,
     ///Type of the volume (e.g. SSD, HDD)
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<url::Url>,
+    pub r#type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -5543,7 +5543,7 @@ pub struct OpenStackNestedServerGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
@@ -5610,7 +5610,7 @@ pub struct OpenStackHealthMonitor {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5665,13 +5665,13 @@ pub struct OpenStackHealthMonitor {
     pub operating_status: Option<String>,
     ///Pool this health monitor belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub pool: Option<url::Url>,
+    pub pool: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pool_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5683,7 +5683,7 @@ pub struct OpenStackHealthMonitor {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5697,7 +5697,7 @@ pub struct OpenStackHealthMonitor {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -5730,7 +5730,7 @@ pub struct OpenStackFloatingIP {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5783,11 +5783,11 @@ pub struct OpenStackFloatingIP {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub port: Option<url::Url>,
+    pub port: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_fixed_ips: Option<Vec<OpenStackFixedIp>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5799,7 +5799,7 @@ pub struct OpenStackFloatingIP {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5810,13 +5810,13 @@ pub struct OpenStackFloatingIP {
     pub state: Option<CoreStates>,
     ///OpenStack tenant this floating IP belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -5855,7 +5855,7 @@ pub struct OpenStackCredentialsRequest {
     pub auth_type: Option<AuthTypeEnum>,
     ///Keystone auth URL (e.g., https://cloud.example.com:5000/v3)
     ///Constraint: minLength=1
-    pub auth_url: url::Url,
+    pub auth_url: String,
     ///PEM-encoded CA certificate for SSL verification
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: Option<String>,
@@ -5880,7 +5880,7 @@ pub struct OpenStackCredentialsRequest {
 }
 impl OpenStackCredentialsRequest {
     /// Construct this request with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             auth_url,
             password,
@@ -5895,7 +5895,7 @@ impl OpenStackCredentialsRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        auth_url: url::Url,
+        auth_url: String,
         password: String,
         username: String,
     ) -> OpenStackCredentialsRequestBuilder {
@@ -5910,7 +5910,7 @@ pub struct OpenStackCredentialsRequestBuilder {
 }
 impl OpenStackCredentialsRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             value: OpenStackCredentialsRequest::new(auth_url, password, username),
         }
@@ -5960,7 +5960,7 @@ impl OpenStackCredentialsRequestBuilder {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenStackBackupRestorationCreateRequest {
     ///Flavor to be used for the restored instance. If not specified, original instance flavor will be used
-    pub flavor: url::Url,
+    pub flavor: String,
     ///Floating IPs that will be assigned to the restored instance
     #[serde(skip_serializing_if = "Option::is_none")]
     pub floating_ips: Option<Vec<OpenStackCreateFloatingIPRequest>>,
@@ -5977,7 +5977,7 @@ pub struct OpenStackBackupRestorationCreateRequest {
 }
 impl OpenStackBackupRestorationCreateRequest {
     /// Construct this request with every required wire field.
-    pub fn new(flavor: url::Url) -> Self {
+    pub fn new(flavor: String) -> Self {
         Self {
             flavor,
             floating_ips: None,
@@ -5987,7 +5987,7 @@ impl OpenStackBackupRestorationCreateRequest {
         }
     }
     /// Start a dependency-free builder with every required wire field.
-    pub fn builder(flavor: url::Url) -> OpenStackBackupRestorationCreateRequestBuilder {
+    pub fn builder(flavor: String) -> OpenStackBackupRestorationCreateRequestBuilder {
         OpenStackBackupRestorationCreateRequestBuilder::new(flavor)
     }
 }
@@ -5999,7 +5999,7 @@ pub struct OpenStackBackupRestorationCreateRequestBuilder {
 }
 impl OpenStackBackupRestorationCreateRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(flavor: url::Url) -> Self {
+    pub fn new(flavor: String) -> Self {
         Self {
             value: OpenStackBackupRestorationCreateRequest::new(flavor),
         }
@@ -6042,7 +6042,7 @@ impl OpenStackBackupRestorationCreateRequestBuilder {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenStackSecurityGroupHyperlinkRequest {
-    pub url: url::Url,
+    pub url: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -6050,13 +6050,13 @@ pub struct OpenStackCreatePortRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fixed_ips: Option<Vec<OpenStackFixedIpRequest>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub port: Option<url::Url>,
+    pub port: Option<String>,
     ///Subnet to which this port belongs
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subnet: Option<url::Url>,
+    pub subnet: Option<String>,
     ///Target tenant for port creation. If not specified, uses subnet's tenant.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -6082,9 +6082,9 @@ pub struct OpenStackCreateFloatingIPRequest {
     ///Constraint: minLength=1
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip_address: Option<OpenStackCreateFloatingIPRequestIpAddress>,
-    pub subnet: url::Url,
+    pub subnet: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
 }
 ///Existing floating IP address in selected OpenStack tenant to be assigned to new virtual machine
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -6103,7 +6103,7 @@ pub struct OpenStackBackup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6121,7 +6121,7 @@ pub struct OpenStackBackup {
     pub error_traceback: Option<String>,
     ///Instance that this backup is created from
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub instance: Option<url::Url>,
+    pub instance: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub instance_floating_ips: Option<Vec<OpenStackNestedFloatingIP>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6167,7 +6167,7 @@ pub struct OpenStackBackup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6179,7 +6179,7 @@ pub struct OpenStackBackup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6191,7 +6191,7 @@ pub struct OpenStackBackup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -6202,12 +6202,12 @@ pub struct OpenStackBackupRestoration {
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     ///Flavor to be used for the restored instance. If not specified, original instance flavor will be used
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub flavor: Option<url::Url>,
+    pub flavor: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub floating_ips: Option<Vec<OpenStackNestedFloatingIP>>,
     ///Instance that is being restored from the backup
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub instance: Option<url::Url>,
+    pub instance: Option<String>,
     ///New instance name. Leave blank to use source instance name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -6243,7 +6243,7 @@ pub struct OpenStackNestedSecurityGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -6265,7 +6265,7 @@ pub struct OpenStackNestedPort {
     pub security_groups: Option<Vec<OpenStackSecurityGroup>>,
     ///Subnet to which this port belongs
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subnet: Option<url::Url>,
+    pub subnet: Option<String>,
     ///IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subnet_cidr: Option<String>,
@@ -6276,7 +6276,7 @@ pub struct OpenStackNestedPort {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subnet_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -6288,7 +6288,7 @@ pub struct OpenStackSecurityGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6334,7 +6334,7 @@ pub struct OpenStackSecurityGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub project: Option<url::Url>,
+    pub project: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub project_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6346,7 +6346,7 @@ pub struct OpenStackSecurityGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_settings: Option<url::Url>,
+    pub service_settings: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_settings_error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6356,13 +6356,13 @@ pub struct OpenStackSecurityGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<url::Url>,
+    pub tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -6394,7 +6394,7 @@ pub struct OpenStackSecurityGroupRuleCreate {
     pub protocol: Option<String>,
     ///Remote security group that this rule references, if any
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub remote_group: Option<url::Url>,
+    pub remote_group: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub remote_group_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6437,7 +6437,7 @@ pub struct OpenStackNestedFloatingIP {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_mac_address: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subnet: Option<url::Url>,
+    pub subnet: Option<String>,
     ///IPv4 network address in CIDR format (e.g. 192.168.0.0/24)
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subnet_cidr: Option<String>,
@@ -6448,7 +6448,7 @@ pub struct OpenStackNestedFloatingIP {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subnet_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -6485,15 +6485,15 @@ pub enum OpenStackBackupAccessUrl {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct NetworkRBACPolicyRequest {
-    pub network: url::Url,
+    pub network: String,
     ///Type of access granted - either shared access or external network access
     #[serde(skip_serializing_if = "Option::is_none")]
     pub policy_type: Option<PolicyTypeEnum>,
-    pub target_tenant: url::Url,
+    pub target_tenant: String,
 }
 impl NetworkRBACPolicyRequest {
     /// Construct this request with every required wire field.
-    pub fn new(network: url::Url, target_tenant: url::Url) -> Self {
+    pub fn new(network: String, target_tenant: String) -> Self {
         Self {
             network,
             target_tenant,
@@ -6502,8 +6502,8 @@ impl NetworkRBACPolicyRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        network: url::Url,
-        target_tenant: url::Url,
+        network: String,
+        target_tenant: String,
     ) -> NetworkRBACPolicyRequestBuilder {
         NetworkRBACPolicyRequestBuilder::new(network, target_tenant)
     }
@@ -6516,7 +6516,7 @@ pub struct NetworkRBACPolicyRequestBuilder {
 }
 impl NetworkRBACPolicyRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(network: url::Url, target_tenant: url::Url) -> Self {
+    pub fn new(network: String, target_tenant: String) -> Self {
         Self {
             value: NetworkRBACPolicyRequest::new(network, target_tenant),
         }
@@ -6542,7 +6542,7 @@ pub struct NetworkRBACPolicy {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub direction: Option<RbacPolicyDirectionEnum>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub network: Option<url::Url>,
+    pub network: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub network_name: Option<String>,
     ///Type of access granted - either shared access or external network access
@@ -6555,11 +6555,11 @@ pub struct NetworkRBACPolicy {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_label: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_tenant: Option<url::Url>,
+    pub target_tenant: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub target_tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -6771,12 +6771,12 @@ pub struct BasicUser {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub full_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image: Option<url::Url>,
+    pub image: Option<String>,
     ///Constraint: maxLength=100
     #[serde(skip_serializing_if = "Option::is_none")]
     pub native_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
     ///Constraint: maxLength=128, pattern=`^[0-9a-z_.@+-]+$`
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6848,7 +6848,7 @@ pub struct User {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub identity_source: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image: Option<url::Url>,
+    pub image: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ip_address: Option<String>,
     ///Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
@@ -6949,7 +6949,7 @@ pub struct User {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uid_number: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
     ///Constraint: maxLength=128, pattern=`^[0-9a-z_.@+-]+$`
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -7047,7 +7047,7 @@ pub struct Project {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<url::Url>,
+    pub customer: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_abbreviation: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -7074,7 +7074,7 @@ pub struct Project {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub end_date_requested_by: Option<url::Url>,
+    pub end_date_requested_by: Option<String>,
     ///Timestamp of the last end_date change.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end_date_updated_at: Option<chrono::DateTime<chrono::Utc>>,
@@ -7083,7 +7083,7 @@ pub struct Project {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub grace_period_days: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image: Option<url::Url>,
+    pub image: Option<String>,
     ///True if the project is past its end date but still within the grace period.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_in_grace_period: Option<bool>,
@@ -7144,13 +7144,13 @@ pub struct Project {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_metadata: Option<ProjectTerminationMetadata>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<url::Url>,
+    pub r#type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub type_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -7512,7 +7512,7 @@ pub struct Invitation {
     ///Full name of the user who created this invitation
     pub created_by_full_name: String,
     ///Profile image of the user who created this invitation
-    pub created_by_image: url::Url,
+    pub created_by_image: String,
     ///Username of the user who created this invitation
     pub created_by_username: String,
     ///Name of the customer organization
@@ -7560,7 +7560,7 @@ pub struct Invitation {
     ///UUID of the invitation scope (Customer or Project)
     pub scope_uuid: uuid::Uuid,
     pub state: InvitationStateEnum,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -7903,14 +7903,14 @@ pub struct ExternalNetwork {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub settings: Option<url::Url>,
+    pub settings: Option<String>,
     ///Constraint: maxLength=30
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub subnets: Option<Vec<ExternalSubnet>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -8063,7 +8063,7 @@ pub struct DiscoverVolumeTypesRequestRequest {
     pub auth_type: Option<AuthTypeEnum>,
     ///Keystone auth URL (e.g., https://cloud.example.com:5000/v3)
     ///Constraint: minLength=1
-    pub auth_url: url::Url,
+    pub auth_url: String,
     ///PEM-encoded CA certificate for SSL verification
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: Option<String>,
@@ -8088,7 +8088,7 @@ pub struct DiscoverVolumeTypesRequestRequest {
 }
 impl DiscoverVolumeTypesRequestRequest {
     /// Construct this request with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             auth_url,
             password,
@@ -8103,7 +8103,7 @@ impl DiscoverVolumeTypesRequestRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        auth_url: url::Url,
+        auth_url: String,
         password: String,
         username: String,
     ) -> DiscoverVolumeTypesRequestRequestBuilder {
@@ -8118,7 +8118,7 @@ pub struct DiscoverVolumeTypesRequestRequestBuilder {
 }
 impl DiscoverVolumeTypesRequestRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             value: DiscoverVolumeTypesRequestRequest::new(auth_url, password, username),
         }
@@ -8172,7 +8172,7 @@ pub struct DiscoverVolumeAvailabilityZonesRequestRequest {
     pub auth_type: Option<AuthTypeEnum>,
     ///Keystone auth URL (e.g., https://cloud.example.com:5000/v3)
     ///Constraint: minLength=1
-    pub auth_url: url::Url,
+    pub auth_url: String,
     ///PEM-encoded CA certificate for SSL verification
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: Option<String>,
@@ -8197,7 +8197,7 @@ pub struct DiscoverVolumeAvailabilityZonesRequestRequest {
 }
 impl DiscoverVolumeAvailabilityZonesRequestRequest {
     /// Construct this request with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             auth_url,
             password,
@@ -8212,7 +8212,7 @@ impl DiscoverVolumeAvailabilityZonesRequestRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        auth_url: url::Url,
+        auth_url: String,
         password: String,
         username: String,
     ) -> DiscoverVolumeAvailabilityZonesRequestRequestBuilder {
@@ -8231,7 +8231,7 @@ pub struct DiscoverVolumeAvailabilityZonesRequestRequestBuilder {
 }
 impl DiscoverVolumeAvailabilityZonesRequestRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             value: DiscoverVolumeAvailabilityZonesRequestRequest::new(
                 auth_url,
@@ -8289,7 +8289,7 @@ pub struct DiscoverInstanceAvailabilityZonesRequestRequest {
     pub auth_type: Option<AuthTypeEnum>,
     ///Keystone auth URL (e.g., https://cloud.example.com:5000/v3)
     ///Constraint: minLength=1
-    pub auth_url: url::Url,
+    pub auth_url: String,
     ///PEM-encoded CA certificate for SSL verification
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: Option<String>,
@@ -8314,7 +8314,7 @@ pub struct DiscoverInstanceAvailabilityZonesRequestRequest {
 }
 impl DiscoverInstanceAvailabilityZonesRequestRequest {
     /// Construct this request with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             auth_url,
             password,
@@ -8329,7 +8329,7 @@ impl DiscoverInstanceAvailabilityZonesRequestRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        auth_url: url::Url,
+        auth_url: String,
         password: String,
         username: String,
     ) -> DiscoverInstanceAvailabilityZonesRequestRequestBuilder {
@@ -8348,7 +8348,7 @@ pub struct DiscoverInstanceAvailabilityZonesRequestRequestBuilder {
 }
 impl DiscoverInstanceAvailabilityZonesRequestRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             value: DiscoverInstanceAvailabilityZonesRequestRequest::new(
                 auth_url,
@@ -8406,7 +8406,7 @@ pub struct DiscoverFlavorsRequestRequest {
     pub auth_type: Option<AuthTypeEnum>,
     ///Keystone auth URL (e.g., https://cloud.example.com:5000/v3)
     ///Constraint: minLength=1
-    pub auth_url: url::Url,
+    pub auth_url: String,
     ///PEM-encoded CA certificate for SSL verification
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: Option<String>,
@@ -8431,7 +8431,7 @@ pub struct DiscoverFlavorsRequestRequest {
 }
 impl DiscoverFlavorsRequestRequest {
     /// Construct this request with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             auth_url,
             password,
@@ -8446,7 +8446,7 @@ impl DiscoverFlavorsRequestRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        auth_url: url::Url,
+        auth_url: String,
         password: String,
         username: String,
     ) -> DiscoverFlavorsRequestRequestBuilder {
@@ -8461,7 +8461,7 @@ pub struct DiscoverFlavorsRequestRequestBuilder {
 }
 impl DiscoverFlavorsRequestRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             value: DiscoverFlavorsRequestRequest::new(auth_url, password, username),
         }
@@ -8515,7 +8515,7 @@ pub struct DiscoverExternalNetworksRequestRequest {
     pub auth_type: Option<AuthTypeEnum>,
     ///Keystone auth URL (e.g., https://cloud.example.com:5000/v3)
     ///Constraint: minLength=1
-    pub auth_url: url::Url,
+    pub auth_url: String,
     ///PEM-encoded CA certificate for SSL verification
     #[serde(skip_serializing_if = "Option::is_none")]
     pub certificate: Option<String>,
@@ -8540,7 +8540,7 @@ pub struct DiscoverExternalNetworksRequestRequest {
 }
 impl DiscoverExternalNetworksRequestRequest {
     /// Construct this request with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             auth_url,
             password,
@@ -8555,7 +8555,7 @@ impl DiscoverExternalNetworksRequestRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        auth_url: url::Url,
+        auth_url: String,
         password: String,
         username: String,
     ) -> DiscoverExternalNetworksRequestRequestBuilder {
@@ -8570,7 +8570,7 @@ pub struct DiscoverExternalNetworksRequestRequestBuilder {
 }
 impl DiscoverExternalNetworksRequestRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(auth_url: url::Url, password: String, username: String) -> Self {
+    pub fn new(auth_url: String, password: String, username: String) -> Self {
         Self {
             value: DiscoverExternalNetworksRequestRequest::new(
                 auth_url,
@@ -8704,20 +8704,18 @@ pub struct DeprecatedNetworkRBACPolicyRequest {
     ///Type of access granted - either shared access or external network access
     #[serde(skip_serializing_if = "Option::is_none")]
     pub policy_type: Option<PolicyTypeEnum>,
-    pub target_tenant: url::Url,
+    pub target_tenant: String,
 }
 impl DeprecatedNetworkRBACPolicyRequest {
     /// Construct this request with every required wire field.
-    pub fn new(target_tenant: url::Url) -> Self {
+    pub fn new(target_tenant: String) -> Self {
         Self {
             target_tenant,
             policy_type: None,
         }
     }
     /// Start a dependency-free builder with every required wire field.
-    pub fn builder(
-        target_tenant: url::Url,
-    ) -> DeprecatedNetworkRBACPolicyRequestBuilder {
+    pub fn builder(target_tenant: String) -> DeprecatedNetworkRBACPolicyRequestBuilder {
         DeprecatedNetworkRBACPolicyRequestBuilder::new(target_tenant)
     }
 }
@@ -8729,7 +8727,7 @@ pub struct DeprecatedNetworkRBACPolicyRequestBuilder {
 }
 impl DeprecatedNetworkRBACPolicyRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(target_tenant: url::Url) -> Self {
+    pub fn new(target_tenant: String) -> Self {
         Self {
             value: DeprecatedNetworkRBACPolicyRequest::new(target_tenant),
         }
@@ -8751,7 +8749,7 @@ pub struct DeprecatedNetworkRBACPolicy {
     pub backend_id: String,
     pub created: chrono::DateTime<chrono::Utc>,
     pub direction: RbacPolicyDirectionEnum,
-    pub network: url::Url,
+    pub network: String,
     pub network_name: String,
     ///Type of access granted - either shared access or external network access
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -8759,9 +8757,9 @@ pub struct DeprecatedNetworkRBACPolicy {
     pub source_tenant_name: String,
     pub source_tenant_uuid: uuid::Uuid,
     pub target_label: String,
-    pub target_tenant: url::Url,
+    pub target_tenant: String,
     pub target_tenant_name: String,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -9026,13 +9024,13 @@ pub struct CustomerUser {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub full_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image: Option<url::Url>,
+    pub image: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub projects: Option<Vec<NestedProjectPermission>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
     ///Constraint: maxLength=128, pattern=`^[0-9a-z_.@+-]+$`
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9050,7 +9048,7 @@ pub struct NestedProjectPermission {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<String>,
 }
@@ -9117,7 +9115,7 @@ pub struct CustomerRequest {
     pub grace_period_days: Option<i64>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub homepage: Option<url::Url>,
+    pub homepage: Option<String>,
     ///Constraint: maxLength=100
     #[serde(skip_serializing_if = "Option::is_none")]
     pub house_nr: Option<String>,
@@ -9387,7 +9385,7 @@ impl CustomerRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "homepage", "` request field.")]
     #[must_use]
-    pub fn homepage(mut self, homepage: url::Url) -> Self {
+    pub fn homepage(mut self, homepage: String) -> Self {
         self.value.homepage = Some(homepage);
         self
     }
@@ -9555,7 +9553,7 @@ pub struct CustomerPermissionReview {
     pub reviewer_full_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reviewer_uuid: Option<uuid::Uuid>,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -9642,7 +9640,7 @@ pub struct Customer {
     pub has_affiliate_links: Option<bool>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub homepage: Option<url::Url>,
+    pub homepage: Option<String>,
     ///Constraint: maxLength=100
     #[serde(skip_serializing_if = "Option::is_none")]
     pub house_nr: Option<String>,
@@ -9650,7 +9648,7 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub household: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub image: Option<url::Url>,
+    pub image: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_service_provider: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9699,7 +9697,7 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub registration_code: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub service_provider: Option<url::Url>,
+    pub service_provider: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_provider_uuid: Option<uuid::Uuid>,
     ///URL-friendly identifier. Only editable by staff users.
@@ -9717,7 +9715,7 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub street: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9745,7 +9743,7 @@ pub struct PaymentProfile {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub organization: Option<url::Url>,
+    pub organization: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9753,7 +9751,7 @@ pub struct PaymentProfile {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payment_type_display: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -9846,7 +9844,7 @@ pub struct CreatePoolRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lb_algorithm: Option<LbAlgorithmEnum>,
     ///Load balancer this pool belongs to
-    pub load_balancer: url::Url,
+    pub load_balancer: String,
     ///Constraint: minLength=1
     pub name: String,
     pub protocol: LoadBalancerProtocolEnum,
@@ -9854,7 +9852,7 @@ pub struct CreatePoolRequest {
 impl CreatePoolRequest {
     /// Construct this request with every required wire field.
     pub fn new(
-        load_balancer: url::Url,
+        load_balancer: String,
         name: String,
         protocol: LoadBalancerProtocolEnum,
     ) -> Self {
@@ -9867,7 +9865,7 @@ impl CreatePoolRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        load_balancer: url::Url,
+        load_balancer: String,
         name: String,
         protocol: LoadBalancerProtocolEnum,
     ) -> CreatePoolRequestBuilder {
@@ -9883,7 +9881,7 @@ pub struct CreatePoolRequestBuilder {
 impl CreatePoolRequestBuilder {
     /// Start a builder with every required wire field.
     pub fn new(
-        load_balancer: url::Url,
+        load_balancer: String,
         name: String,
         protocol: LoadBalancerProtocolEnum,
     ) -> Self {
@@ -9911,11 +9909,11 @@ pub struct CreatePoolMemberRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     ///Pool this member belongs to
-    pub pool: url::Url,
+    pub pool: String,
     ///Port on the backend server
     ///Constraint: minimum=1, maximum=65535
     pub protocol_port: i64,
-    pub subnet: url::Url,
+    pub subnet: String,
     ///Constraint: minimum=1, maximum=256
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i64>,
@@ -9924,9 +9922,9 @@ impl CreatePoolMemberRequest {
     /// Construct this request with every required wire field.
     pub fn new(
         address: CreatePoolMemberRequestAddress,
-        pool: url::Url,
+        pool: String,
         protocol_port: i64,
-        subnet: url::Url,
+        subnet: String,
     ) -> Self {
         Self {
             address,
@@ -9940,9 +9938,9 @@ impl CreatePoolMemberRequest {
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
         address: CreatePoolMemberRequestAddress,
-        pool: url::Url,
+        pool: String,
         protocol_port: i64,
-        subnet: url::Url,
+        subnet: String,
     ) -> CreatePoolMemberRequestBuilder {
         CreatePoolMemberRequestBuilder::new(address, pool, protocol_port, subnet)
     }
@@ -9957,9 +9955,9 @@ impl CreatePoolMemberRequestBuilder {
     /// Start a builder with every required wire field.
     pub fn new(
         address: CreatePoolMemberRequestAddress,
-        pool: url::Url,
+        pool: String,
         protocol_port: i64,
-        subnet: url::Url,
+        subnet: String,
     ) -> Self {
         Self {
             value: CreatePoolMemberRequest::new(address, pool, protocol_port, subnet),
@@ -9997,12 +9995,12 @@ pub struct CreatePoolMember {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     ///Pool this member belongs to
-    pub pool: url::Url,
+    pub pool: String,
     ///Port on the backend server
     ///Constraint: minimum=1, maximum=65535
     pub protocol_port: i64,
-    pub subnet: url::Url,
-    pub url: url::Url,
+    pub subnet: String,
+    pub url: String,
     pub uuid: uuid::Uuid,
     ///Constraint: minimum=1, maximum=256
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -10021,10 +10019,10 @@ pub struct CreatePool {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub lb_algorithm: Option<LbAlgorithmEnum>,
     ///Load balancer this pool belongs to
-    pub load_balancer: url::Url,
+    pub load_balancer: String,
     pub name: String,
     pub protocol: LoadBalancerProtocolEnum,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -10064,9 +10062,9 @@ impl AsRef<str> for LbAlgorithmEnum {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct CreateListenerRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_pool: Option<url::Url>,
+    pub default_pool: Option<String>,
     ///Load balancer this listener belongs to
-    pub load_balancer: url::Url,
+    pub load_balancer: String,
     ///Constraint: minLength=1
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -10078,7 +10076,7 @@ pub struct CreateListenerRequest {
 impl CreateListenerRequest {
     /// Construct this request with every required wire field.
     pub fn new(
-        load_balancer: url::Url,
+        load_balancer: String,
         protocol: LoadBalancerProtocolEnum,
         protocol_port: i64,
     ) -> Self {
@@ -10092,7 +10090,7 @@ impl CreateListenerRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        load_balancer: url::Url,
+        load_balancer: String,
         protocol: LoadBalancerProtocolEnum,
         protocol_port: i64,
     ) -> CreateListenerRequestBuilder {
@@ -10108,7 +10106,7 @@ pub struct CreateListenerRequestBuilder {
 impl CreateListenerRequestBuilder {
     /// Start a builder with every required wire field.
     pub fn new(
-        load_balancer: url::Url,
+        load_balancer: String,
         protocol: LoadBalancerProtocolEnum,
         protocol_port: i64,
     ) -> Self {
@@ -10118,7 +10116,7 @@ impl CreateListenerRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "default_pool", "` request field.")]
     #[must_use]
-    pub fn default_pool(mut self, default_pool: url::Url) -> Self {
+    pub fn default_pool(mut self, default_pool: String) -> Self {
         self.value.default_pool = Some(default_pool);
         self
     }
@@ -10137,16 +10135,16 @@ impl CreateListenerRequestBuilder {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct CreateListener {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_pool: Option<url::Url>,
+    pub default_pool: Option<String>,
     ///Load balancer this listener belongs to
-    pub load_balancer: url::Url,
+    pub load_balancer: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     pub protocol: LoadBalancerProtocolEnum,
     ///Port on which the listener listens
     ///Constraint: minimum=1, maximum=65535
     pub protocol_port: i64,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -10165,7 +10163,7 @@ pub struct CreateHealthMonitorRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     ///Pool this health monitor belongs to
-    pub pool: url::Url,
+    pub pool: String,
     ///Time in seconds to timeout a health check
     ///Constraint: minimum=1
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -10174,7 +10172,7 @@ pub struct CreateHealthMonitorRequest {
 }
 impl CreateHealthMonitorRequest {
     /// Construct this request with every required wire field.
-    pub fn new(pool: url::Url, r#type: LoadBalancerProtocolEnum) -> Self {
+    pub fn new(pool: String, r#type: LoadBalancerProtocolEnum) -> Self {
         Self {
             pool,
             r#type,
@@ -10187,7 +10185,7 @@ impl CreateHealthMonitorRequest {
     }
     /// Start a dependency-free builder with every required wire field.
     pub fn builder(
-        pool: url::Url,
+        pool: String,
         r#type: LoadBalancerProtocolEnum,
     ) -> CreateHealthMonitorRequestBuilder {
         CreateHealthMonitorRequestBuilder::new(pool, r#type)
@@ -10201,7 +10199,7 @@ pub struct CreateHealthMonitorRequestBuilder {
 }
 impl CreateHealthMonitorRequestBuilder {
     /// Start a builder with every required wire field.
-    pub fn new(pool: url::Url, r#type: LoadBalancerProtocolEnum) -> Self {
+    pub fn new(pool: String, r#type: LoadBalancerProtocolEnum) -> Self {
         Self {
             value: CreateHealthMonitorRequest::new(pool, r#type),
         }
@@ -10257,13 +10255,13 @@ pub struct CreateHealthMonitor {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     ///Pool this health monitor belongs to
-    pub pool: url::Url,
+    pub pool: String,
     ///Time in seconds to timeout a health check
     ///Constraint: minimum=1
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timeout: Option<i64>,
     pub r#type: LoadBalancerProtocolEnum,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -10793,7 +10791,7 @@ pub struct UserRoleDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_full_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_image: Option<url::Url>,
+    pub user_image: Option<String>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_username: Option<String>,
@@ -11593,7 +11591,7 @@ pub struct OrganizationGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<url::Url>,
+    pub parent: Option<String>,
     ///Name of the parent organization group
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent_name: Option<String>,
@@ -11601,7 +11599,7 @@ pub struct OrganizationGroup {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -11845,7 +11843,7 @@ pub struct AffiliatedOrganization {
     pub email: Option<String>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub homepage: Option<url::Url>,
+    pub homepage: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub modified: Option<chrono::DateTime<chrono::Utc>>,
     ///Constraint: maxLength=150
@@ -11855,7 +11853,7 @@ pub struct AffiliatedOrganization {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub projects_count: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub url: Option<url::Url>,
+    pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -11954,17 +11952,17 @@ pub struct ConfirmEmailRequestRequest {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct ConsoleUrl {
-    pub url: url::Url,
+    pub url: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct CreateLoadBalancer {
     pub name: String,
     ///OpenStack tenant this load balancer belongs to
-    pub tenant: url::Url,
-    pub url: url::Url,
+    pub tenant: String,
+    pub url: String,
     pub uuid: uuid::Uuid,
-    pub vip_subnet: url::Url,
+    pub vip_subnet: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -11972,18 +11970,18 @@ pub struct CreateLoadBalancerRequest {
     ///Constraint: minLength=1
     pub name: String,
     ///OpenStack tenant this load balancer belongs to
-    pub tenant: url::Url,
-    pub vip_subnet: url::Url,
+    pub tenant: String,
+    pub vip_subnet: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct CreateRouter {
     pub name: String,
-    pub project: url::Url,
-    pub service_settings: url::Url,
+    pub project: String,
+    pub service_settings: String,
     ///OpenStack tenant this router belongs to
-    pub tenant: url::Url,
-    pub url: url::Url,
+    pub tenant: String,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -11992,7 +11990,7 @@ pub struct CreateRouterRequest {
     ///Constraint: minLength=1
     pub name: String,
     ///OpenStack tenant this router belongs to
-    pub tenant: url::Url,
+    pub tenant: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -12005,7 +12003,7 @@ pub struct CustomerContactUpdate {
     pub email: Option<String>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub homepage: Option<url::Url>,
+    pub homepage: Option<String>,
     ///Comma-separated list of notification email addresses
     ///Constraint: maxLength=640
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -12025,7 +12023,7 @@ pub struct CustomerContactUpdateRequest {
     pub email: Option<String>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub homepage: Option<url::Url>,
+    pub homepage: Option<String>,
     ///Comma-separated list of notification email addresses
     ///Constraint: maxLength=640
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -12699,14 +12697,14 @@ pub struct ImageUploadResponse {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct InstanceFlavorChangeRequest {
     ///The new flavor to use for the instance. Flavor change can only be done when instance is stopped.
-    pub flavor: url::Url,
+    pub flavor: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct InstanceRescueRequest {
     ///Optional rescue image. Required for volume-backed instances; must be a Glance image with hw_rescue_device or hw_rescue_bus set (a 'stable device rescue' image).
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rescue_image: Option<url::Url>,
+    pub rescue_image: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -12937,7 +12935,7 @@ impl InvitationUpdateRequestBuilder {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct LoadBalancerAttachFloatingIPRequest {
-    pub floating_ip: url::Url,
+    pub floating_ip: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -13109,7 +13107,7 @@ impl AsRef<str> for MarketplaceServiceProviderUserOEnum {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct MoveProjectRequest {
-    pub customer: url::Url,
+    pub customer: String,
     pub preserve_permissions: bool,
 }
 ///
@@ -13512,7 +13510,7 @@ impl AsRef<str> for OpenStackFlavorOEnum {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenStackFloatingIPAttachRequest {
-    pub port: url::Url,
+    pub port: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -13697,7 +13695,7 @@ impl AsRef<str> for OpenStackFloatingIPFieldEnum {
 pub struct OpenStackFloatingIPRequest {
     ///Optional router to use for external network detection
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub router: Option<url::Url>,
+    pub router: Option<String>,
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
@@ -15439,10 +15437,10 @@ impl AsRef<str> for OpenStackRouterFieldEnum {
 pub struct OpenStackRouterInterfaceRequest {
     ///The port to connect to the router. Either subnet or port must be specified, but not both.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub port: Option<url::Url>,
+    pub port: Option<String>,
     ///The subnet to connect to the router. Either subnet or port must be specified, but not both.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub subnet: Option<url::Url>,
+    pub subnet: Option<String>,
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
@@ -16604,7 +16602,7 @@ impl OpenStackVolumeRequestBuilder {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenStackVolumeRetypeRequest {
-    pub r#type: url::Url,
+    pub r#type: String,
 }
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct OpenstackFlavorsUsageStatsRetrieveResponse {
@@ -16671,7 +16669,7 @@ pub struct OrganizationGroupRequest {
     ///Constraint: minLength=1, maxLength=150
     pub name: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<url::Url>,
+    pub parent: Option<String>,
 }
 impl OrganizationGroupRequest {
     /// Construct this request with every required wire field.
@@ -16698,7 +16696,7 @@ impl OrganizationGroupRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "parent", "` request field.")]
     #[must_use]
-    pub fn parent(mut self, parent: url::Url) -> Self {
+    pub fn parent(mut self, parent: String) -> Self {
         self.value.parent = Some(parent);
         self
     }
@@ -16835,7 +16833,7 @@ pub struct PatchedOrganizationGroupRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<url::Url>,
+    pub parent: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -16915,7 +16913,7 @@ pub struct PatchedUpdateHealthMonitorRequest {
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct PatchedUpdateListenerRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_pool: Option<url::Url>,
+    pub default_pool: Option<String>,
     ///Constraint: minLength=1
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -17660,7 +17658,7 @@ pub struct UpdateHealthMonitor {
     ///Constraint: minimum=1
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timeout: Option<i64>,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -17687,7 +17685,7 @@ pub struct UpdateHealthMonitorRequest {
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct UpdateListener {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_pool: Option<url::Url>,
+    pub default_pool: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
@@ -17695,7 +17693,7 @@ pub struct UpdateListener {
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct UpdateListenerRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub default_pool: Option<url::Url>,
+    pub default_pool: Option<String>,
     ///Constraint: minLength=1
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -17704,7 +17702,7 @@ pub struct UpdateListenerRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct UpdateLoadBalancer {
     pub name: String,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -17717,7 +17715,7 @@ pub struct UpdateLoadBalancerRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct UpdatePool {
     pub name: String,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
 }
 ///
@@ -17725,7 +17723,7 @@ pub struct UpdatePool {
 pub struct UpdatePoolMember {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    pub url: url::Url,
+    pub url: String,
     pub uuid: uuid::Uuid,
     ///Constraint: minimum=1, maximum=256
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18467,5 +18465,5 @@ pub struct UsersHistoryAtRetrieveResponse404 {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct VolumeAttachRequest {
     ///Instance that this volume is attached to, if any
-    pub instance: url::Url,
+    pub instance: String,
 }
