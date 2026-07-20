@@ -18,7 +18,7 @@ enable_async_client = true
 base_url = "https://api.example.com"
 
 [http_client.auth]
-type = "Bearer"
+type = "ApiKey"
 header_name = "Authorization"
 
 [client]

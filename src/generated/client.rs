@@ -329,7 +329,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -439,7 +439,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -547,7 +547,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -616,7 +616,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -693,7 +693,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -774,7 +774,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -972,7 +972,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -1157,7 +1157,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -1342,7 +1342,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -1415,7 +1415,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -1492,7 +1492,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -1552,7 +1552,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -1620,7 +1620,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -1855,7 +1855,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2063,7 +2063,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2202,7 +2202,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2283,7 +2283,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2361,7 +2361,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2434,7 +2434,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2508,7 +2508,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2586,7 +2586,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2677,7 +2677,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2768,7 +2768,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2859,7 +2859,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -2948,7 +2948,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3031,7 +3031,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3108,7 +3108,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3190,7 +3190,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3259,7 +3259,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3328,7 +3328,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3410,7 +3410,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3487,7 +3487,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3659,7 +3659,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3836,7 +3836,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -3896,7 +3896,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4070,7 +4070,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4151,7 +4151,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4224,7 +4224,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4305,7 +4305,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4394,7 +4394,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4475,7 +4475,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4548,7 +4548,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4623,7 +4623,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4687,7 +4687,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4752,7 +4752,7 @@ impl HttpClient {
         let request_url = format!("{}{}", self.base_url, "/api/openstack/discovery/");
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4808,7 +4808,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4885,7 +4885,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -4975,7 +4975,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5066,7 +5066,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5157,7 +5157,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5247,7 +5247,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5326,7 +5326,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5382,7 +5382,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.patch(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5442,7 +5442,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5511,7 +5511,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5567,7 +5567,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.put(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5627,7 +5627,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5728,7 +5728,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5826,7 +5826,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -5915,7 +5915,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6090,7 +6090,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6262,7 +6262,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6351,7 +6351,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6422,7 +6422,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.head(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6483,7 +6483,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6561,7 +6561,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6742,7 +6742,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6802,7 +6802,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -6863,7 +6863,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7054,7 +7054,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7127,7 +7127,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7220,7 +7220,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7301,7 +7301,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7374,7 +7374,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7449,7 +7449,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7518,7 +7518,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7638,7 +7638,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7700,7 +7700,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7773,7 +7773,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7890,7 +7890,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -7971,7 +7971,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8044,7 +8044,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8120,7 +8120,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8201,7 +8201,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8298,7 +8298,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8383,7 +8383,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8452,7 +8452,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8542,7 +8542,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8619,7 +8619,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8733,7 +8733,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8832,7 +8832,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8901,7 +8901,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -8981,7 +8981,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9048,7 +9048,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9167,7 +9167,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9273,7 +9273,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9346,7 +9346,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9417,7 +9417,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.head(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9475,7 +9475,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9584,7 +9584,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9683,7 +9683,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9757,7 +9757,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9834,7 +9834,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9911,7 +9911,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -9997,7 +9997,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10070,7 +10070,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10264,7 +10264,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10333,7 +10333,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10423,7 +10423,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10627,7 +10627,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10708,7 +10708,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10799,7 +10799,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10886,7 +10886,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -10959,7 +10959,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11044,7 +11044,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11117,7 +11117,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11206,7 +11206,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11287,7 +11287,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11360,7 +11360,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11433,7 +11433,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11506,7 +11506,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11581,7 +11581,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11641,7 +11641,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11718,7 +11718,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11796,7 +11796,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11878,7 +11878,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -11955,7 +11955,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12033,7 +12033,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12147,7 +12147,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12207,7 +12207,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12280,7 +12280,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12391,7 +12391,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12472,7 +12472,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12545,7 +12545,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12621,7 +12621,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12702,7 +12702,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12780,7 +12780,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12891,7 +12891,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -12953,7 +12953,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13026,7 +13026,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13087,7 +13087,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13208,7 +13208,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13289,7 +13289,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13362,7 +13362,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13438,7 +13438,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13516,7 +13516,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13589,7 +13589,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13653,7 +13653,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13814,7 +13814,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -13875,7 +13875,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14034,7 +14034,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14103,7 +14103,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14183,7 +14183,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14274,7 +14274,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14330,7 +14330,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14399,7 +14399,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14475,7 +14475,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14552,7 +14552,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14621,7 +14621,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14694,7 +14694,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14812,7 +14812,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14874,7 +14874,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -14947,7 +14947,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15055,7 +15055,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15132,7 +15132,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15205,7 +15205,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15278,7 +15278,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15463,7 +15463,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15527,7 +15527,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15600,7 +15600,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15782,7 +15782,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15863,7 +15863,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -15936,7 +15936,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16018,7 +16018,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16094,7 +16094,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16170,7 +16170,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16251,7 +16251,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16328,7 +16328,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16401,7 +16401,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16476,7 +16476,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16540,7 +16540,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16658,7 +16658,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16718,7 +16718,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16791,7 +16791,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16906,7 +16906,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -16987,7 +16987,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17060,7 +17060,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17136,7 +17136,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17217,7 +17217,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17331,7 +17331,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17391,7 +17391,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17464,7 +17464,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17575,7 +17575,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17656,7 +17656,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17729,7 +17729,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17805,7 +17805,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -17882,7 +17882,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18054,7 +18054,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18114,7 +18114,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18187,7 +18187,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18247,7 +18247,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18308,7 +18308,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18368,7 +18368,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18429,7 +18429,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18598,7 +18598,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18679,7 +18679,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18752,7 +18752,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18845,7 +18845,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -18923,7 +18923,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19004,7 +19004,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19077,7 +19077,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19152,7 +19152,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19216,7 +19216,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19293,7 +19293,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19358,7 +19358,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19440,7 +19440,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19557,7 +19557,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19666,7 +19666,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19726,7 +19726,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19799,7 +19799,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19859,7 +19859,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -19978,7 +19978,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20052,7 +20052,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20134,7 +20134,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20223,7 +20223,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20304,7 +20304,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20382,7 +20382,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20455,7 +20455,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20532,7 +20532,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20707,7 +20707,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20767,7 +20767,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -20939,7 +20939,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21020,7 +21020,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21093,7 +21093,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21188,7 +21188,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21270,7 +21270,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21343,7 +21343,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21421,7 +21421,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21496,7 +21496,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21556,7 +21556,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21727,7 +21727,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21785,7 +21785,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -21858,7 +21858,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22026,7 +22026,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22099,7 +22099,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22194,7 +22194,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22275,7 +22275,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22348,7 +22348,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22423,7 +22423,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22600,7 +22600,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22660,7 +22660,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22847,7 +22847,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -22928,7 +22928,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23001,7 +23001,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23095,7 +23095,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23172,7 +23172,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23261,7 +23261,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23342,7 +23342,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23415,7 +23415,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23490,7 +23490,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23554,7 +23554,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23627,7 +23627,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23820,7 +23820,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23880,7 +23880,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -23940,7 +23940,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24143,7 +24143,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24224,7 +24224,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24297,7 +24297,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24390,7 +24390,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24471,7 +24471,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24544,7 +24544,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24619,7 +24619,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24683,7 +24683,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -24852,7 +24852,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25020,7 +25020,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25097,7 +25097,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25258,7 +25258,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25327,7 +25327,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25404,7 +25404,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25482,7 +25482,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25560,7 +25560,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25731,7 +25731,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25812,7 +25812,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25885,7 +25885,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -25963,7 +25963,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26023,7 +26023,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26097,7 +26097,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26171,7 +26171,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26255,7 +26255,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26344,7 +26344,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26425,7 +26425,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26498,7 +26498,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26610,7 +26610,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26683,7 +26683,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26758,7 +26758,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26822,7 +26822,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -26931,7 +26931,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27030,7 +27030,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27104,7 +27104,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27215,7 +27215,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27313,7 +27313,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27384,7 +27384,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.head(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27445,7 +27445,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27518,7 +27518,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27595,7 +27595,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27797,7 +27797,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27857,7 +27857,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -27934,7 +27934,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28146,7 +28146,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28227,7 +28227,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28300,7 +28300,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28393,7 +28393,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28470,7 +28470,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28551,7 +28551,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28624,7 +28624,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28701,7 +28701,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28776,7 +28776,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28840,7 +28840,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28937,7 +28937,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -28993,7 +28993,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29062,7 +29062,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29144,7 +29144,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29221,7 +29221,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29290,7 +29290,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29363,7 +29363,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29436,7 +29436,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29546,7 +29546,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29654,7 +29654,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29723,7 +29723,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29814,7 +29814,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29892,7 +29892,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -29965,7 +29965,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30042,7 +30042,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30123,7 +30123,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30225,7 +30225,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30293,7 +30293,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30391,7 +30391,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30673,7 +30673,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30733,7 +30733,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30810,7 +30810,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -30870,7 +30870,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31125,7 +31125,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31264,7 +31264,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31341,7 +31341,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31492,7 +31492,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31573,7 +31573,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31654,7 +31654,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31743,7 +31743,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31826,7 +31826,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31901,7 +31901,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -31992,7 +31992,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32056,7 +32056,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32137,7 +32137,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32201,7 +32201,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32298,7 +32298,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32354,7 +32354,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32436,7 +32436,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32505,7 +32505,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32600,7 +32600,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32660,7 +32660,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32733,7 +32733,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32793,7 +32793,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32853,7 +32853,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -32945,7 +32945,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33022,7 +33022,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33111,7 +33111,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33188,7 +33188,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33269,7 +33269,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33342,7 +33342,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33464,7 +33464,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33524,7 +33524,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33597,7 +33597,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33719,7 +33719,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33800,7 +33800,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33890,7 +33890,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -33963,7 +33963,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34045,7 +34045,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34126,7 +34126,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34199,7 +34199,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34264,7 +34264,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34324,7 +34324,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34397,7 +34397,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34472,7 +34472,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34630,7 +34630,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34690,7 +34690,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34763,7 +34763,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34823,7 +34823,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -34883,7 +34883,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35041,7 +35041,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35122,7 +35122,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35200,7 +35200,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35260,7 +35260,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35333,7 +35333,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35397,7 +35397,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35478,7 +35478,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35539,7 +35539,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35674,7 +35674,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35734,7 +35734,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35856,7 +35856,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35937,7 +35937,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -35997,7 +35997,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36171,7 +36171,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36332,7 +36332,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36405,7 +36405,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36478,7 +36478,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36542,7 +36542,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36606,7 +36606,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36666,7 +36666,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36853,7 +36853,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -36909,7 +36909,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37127,7 +37127,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37200,7 +37200,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37269,7 +37269,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.delete(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37337,7 +37337,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37572,7 +37572,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37645,7 +37645,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37853,7 +37853,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37920,7 +37920,7 @@ impl HttpClient {
         let request_url = format!("{}{}", self.base_url, "/api/users/me/");
         let mut req = self.http_client.head(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -37992,7 +37992,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38069,7 +38069,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38140,7 +38140,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.head(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38198,7 +38198,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38269,7 +38269,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38329,7 +38329,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38400,7 +38400,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38473,7 +38473,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38545,7 +38545,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38614,7 +38614,7 @@ impl HttpClient {
         let request_url = format!("{}{}", self.base_url, "/api/users/scim_sync_all/");
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38687,7 +38687,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.post(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38758,7 +38758,7 @@ impl HttpClient {
         );
         let mut req = self.http_client.get(request_url);
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38831,7 +38831,7 @@ impl HttpClient {
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -38912,7 +38912,7 @@ impl HttpClient {
                 .header("content-type", "application/json");
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -39116,7 +39116,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -39307,7 +39307,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -39511,7 +39511,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -39702,7 +39702,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -39906,7 +39906,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
@@ -40097,7 +40097,7 @@ impl HttpClient {
             }
         }
         if let Some(api_key) = &self.api_key {
-            req = req.bearer_auth(api_key);
+            req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
             req = req.header(name, value);
