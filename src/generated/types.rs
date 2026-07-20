@@ -189,6 +189,10 @@ pub struct UserRequest {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization: Option<String>,
+    ///Postal address of the user's organization
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization_address: Option<String>,
     ///Constraint: maxLength=2
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_country: Option<String>,
@@ -200,6 +204,10 @@ pub struct UserRequest {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_type: Option<String>,
+    ///VAT code of the user's organization
+    ///Constraint: maxLength=20
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization_vat_code: Option<String>,
     ///Honorific title (Mr, Ms, Dr, Prof, etc.)
     ///Constraint: maxLength=50
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -256,9 +264,11 @@ impl UserRequest {
             native_name: None,
             notifications_enabled: None,
             organization: None,
+            organization_address: None,
             organization_country: None,
             organization_registry_code: None,
             organization_type: None,
+            organization_vat_code: None,
             personal_title: None,
             phone_number: None,
             place_of_birth: None,
@@ -440,6 +450,12 @@ impl UserRequestBuilder {
         self.value.organization = Some(organization);
         self
     }
+    #[doc = concat!("Set the optional `", "organization_address", "` request field.")]
+    #[must_use]
+    pub fn organization_address(mut self, organization_address: String) -> Self {
+        self.value.organization_address = Some(organization_address);
+        self
+    }
     #[doc = concat!("Set the optional `", "organization_country", "` request field.")]
     #[must_use]
     pub fn organization_country(mut self, organization_country: String) -> Self {
@@ -461,6 +477,12 @@ impl UserRequestBuilder {
     #[must_use]
     pub fn organization_type(mut self, organization_type: String) -> Self {
         self.value.organization_type = Some(organization_type);
+        self
+    }
+    #[doc = concat!("Set the optional `", "organization_vat_code", "` request field.")]
+    #[must_use]
+    pub fn organization_vat_code(mut self, organization_vat_code: String) -> Self {
+        self.value.organization_vat_code = Some(organization_vat_code);
         self
     }
     #[doc = concat!("Set the optional `", "personal_title", "` request field.")]
@@ -656,6 +678,10 @@ pub struct UserMe {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization: Option<String>,
+    ///Postal address of the user's organization
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization_address: Option<String>,
     ///Constraint: maxLength=2
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_country: Option<String>,
@@ -667,8 +693,12 @@ pub struct UserMe {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_type: Option<String>,
+    ///VAT code of the user's organization
+    ///Constraint: maxLength=20
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<Vec<Permission>>,
+    pub organization_vat_code: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub permissions: Option<Vec<MePermission>>,
     ///Honorific title (Mr, Ms, Dr, Prof, etc.)
     ///Constraint: maxLength=50
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -682,6 +712,9 @@ pub struct UserMe {
     ///Constraint: maxLength=10
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preferred_language: Option<String>,
+    ///POSIX primary GID from the identity provider; used when an offering's gid_source is 'user_attribute'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub primary_gid: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub profile_completeness: Option<ProfileCompleteness>,
     ///Indicates what registration method was used.
@@ -703,6 +736,9 @@ pub struct UserMe {
     ///Constraint: minimum=60, maximum=2147483647
     #[serde(skip_serializing_if = "Option::is_none")]
     pub token_lifetime: Option<i64>,
+    ///POSIX UID from the identity provider; used when an offering's uid_source is 'user_attribute'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uid_number: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<url::Url>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
@@ -742,6 +778,30 @@ pub struct ProfileCompleteness {
     ///List of mandatory fields that are missing.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub missing_fields: Option<Vec<String>>,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct MePermission {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub customer_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub customer_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiration_time: Option<chrono::DateTime<chrono::Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub project_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resource_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub role_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub role_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_type: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_uuid: Option<uuid::Uuid>,
 }
 ///
 pub type UserInvitationsListResponse = Vec<Invitation>;
@@ -1354,6 +1414,10 @@ pub struct RoleModifyRequestPermissions {
 pub struct RoleDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub content_type: Option<RoleType>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub customer_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub customer_uuid: Option<uuid::Uuid>,
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -1408,6 +1472,10 @@ pub struct RoleDetails {
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub template_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub template_uuid: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub users_count: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -1513,6 +1581,7 @@ pub struct ProjectRequest {
     pub backend_id: Option<String>,
     pub customer: url::Url,
     ///Project description (HTML content will be sanitized)
+    ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     ///Project end date. Setting this field requires DELETE_PROJECT permission.
@@ -1539,6 +1608,7 @@ pub struct ProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
     ///Internal notes visible only to staff and support users (HTML content will be sanitized)
+    ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub staff_notes: Option<String>,
     ///Project start date. Cannot be edited after the start date has arrived.
@@ -1547,12 +1617,11 @@ pub struct ProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<url::Url>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_affiliations: Option<ProjectRequestUserAffiliations>,
+    pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_email_patterns: Option<ProjectRequestUserEmailPatterns>,
-    ///List of allowed identity sources (identity providers).
+    pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_identity_sources: Option<ProjectRequestUserIdentitySources>,
+    pub user_identity_sources: Option<Vec<String>>,
 }
 impl ProjectRequest {
     /// Construct this request with every required wire field.
@@ -1686,28 +1755,19 @@ impl ProjectRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "user_affiliations", "` request field.")]
     #[must_use]
-    pub fn user_affiliations(
-        mut self,
-        user_affiliations: ProjectRequestUserAffiliations,
-    ) -> Self {
+    pub fn user_affiliations(mut self, user_affiliations: Vec<String>) -> Self {
         self.value.user_affiliations = Some(user_affiliations);
         self
     }
     #[doc = concat!("Set the optional `", "user_email_patterns", "` request field.")]
     #[must_use]
-    pub fn user_email_patterns(
-        mut self,
-        user_email_patterns: ProjectRequestUserEmailPatterns,
-    ) -> Self {
+    pub fn user_email_patterns(mut self, user_email_patterns: Vec<String>) -> Self {
         self.value.user_email_patterns = Some(user_email_patterns);
         self
     }
     #[doc = concat!("Set the optional `", "user_identity_sources", "` request field.")]
     #[must_use]
-    pub fn user_identity_sources(
-        mut self,
-        user_identity_sources: ProjectRequestUserIdentitySources,
-    ) -> Self {
+    pub fn user_identity_sources(mut self, user_identity_sources: Vec<String>) -> Self {
         self.value.user_identity_sources = Some(user_identity_sources);
         self
     }
@@ -1715,25 +1775,6 @@ impl ProjectRequestBuilder {
     pub fn build(self) -> ProjectRequest {
         self.value
     }
-}
-///List of allowed identity sources (identity providers).
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct ProjectRequestUserIdentitySources {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct ProjectRequestUserEmailPatterns {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct ProjectRequestUserAffiliations {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -2032,6 +2073,10 @@ pub struct PatchedUserRequest {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization: Option<String>,
+    ///Postal address of the user's organization
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization_address: Option<String>,
     ///Constraint: maxLength=2
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_country: Option<String>,
@@ -2043,6 +2088,10 @@ pub struct PatchedUserRequest {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_type: Option<String>,
+    ///VAT code of the user's organization
+    ///Constraint: maxLength=20
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization_vat_code: Option<String>,
     ///Honorific title (Mr, Ms, Dr, Prof, etc.)
     ///Constraint: maxLength=50
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2088,6 +2137,7 @@ pub struct PatchedProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer: Option<url::Url>,
     ///Project description (HTML content will be sanitized)
+    ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     ///Project end date. Setting this field requires DELETE_PROJECT permission.
@@ -2115,6 +2165,7 @@ pub struct PatchedProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
     ///Internal notes visible only to staff and support users (HTML content will be sanitized)
+    ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub staff_notes: Option<String>,
     ///Project start date. Cannot be edited after the start date has arrived.
@@ -2123,31 +2174,11 @@ pub struct PatchedProjectRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<url::Url>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_affiliations: Option<PatchedProjectRequestUserAffiliations>,
+    pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_email_patterns: Option<PatchedProjectRequestUserEmailPatterns>,
-    ///List of allowed identity sources (identity providers).
+    pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_identity_sources: Option<PatchedProjectRequestUserIdentitySources>,
-}
-///List of allowed identity sources (identity providers).
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedProjectRequestUserIdentitySources {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedProjectRequestUserEmailPatterns {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedProjectRequestUserAffiliations {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
+    pub user_identity_sources: Option<Vec<String>>,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -2451,35 +2482,15 @@ pub struct PatchedCustomerRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub street: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_affiliations: Option<PatchedCustomerRequestUserAffiliations>,
+    pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_email_patterns: Option<PatchedCustomerRequestUserEmailPatterns>,
-    ///List of allowed identity sources (identity providers).
+    pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_identity_sources: Option<PatchedCustomerRequestUserIdentitySources>,
+    pub user_identity_sources: Option<Vec<String>>,
     ///VAT number
     ///Constraint: maxLength=20
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vat_code: Option<String>,
-}
-///List of allowed identity sources (identity providers).
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedCustomerRequestUserIdentitySources {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedCustomerRequestUserEmailPatterns {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedCustomerRequestUserAffiliations {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///Country code (ISO 3166-1 alpha-2)
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -2576,7 +2587,7 @@ pub struct OpenStackBackendVolumes {
     ///Arbitrary key-value pairs associated with the volume
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<String>,
-    ///Constraint: maxLength=150
+    ///Constraint: maxLength=255
     pub name: String,
     ///Constraint: maxLength=150
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2605,7 +2616,7 @@ pub struct OpenStackBackendInstance {
     ///Constraint: maxLength=50
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key_name: Option<String>,
-    ///Constraint: maxLength=150
+    ///Constraint: maxLength=255
     pub name: String,
     ///Constraint: maxLength=150
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2970,7 +2981,7 @@ pub struct OpenStackVolume {
     pub metadata: Option<OpenStackVolumeMetadata>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub modified: Option<chrono::DateTime<chrono::Utc>>,
-    ///Constraint: maxLength=150
+    ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3998,7 +4009,7 @@ pub struct OpenStackNestedInstance {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub backend_id: Option<String>,
-    ///Constraint: maxLength=150
+    ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5418,7 +5429,7 @@ pub struct OpenStackInstance {
     pub min_ram: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub modified: Option<chrono::DateTime<chrono::Utc>>,
-    ///Constraint: maxLength=150
+    ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5465,7 +5476,7 @@ pub struct OpenStackInstance {
     pub tenant_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<url::Url>,
-    ///Additional data that will be added to instance on provisioning
+    ///Cloud-init user data passed to the instance on provisioning. SECURITY: this value is stored and transmitted in plain text — it is kept unencrypted in Waldur's database, forwarded to OpenStack where any process on the instance can read it via the metadata service, and it may appear in logs. Do NOT put unencrypted secrets (passwords, private keys, API tokens) here; reference a secrets manager or inject them through an encrypted channel instead.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_data: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -5496,7 +5507,7 @@ pub struct OpenStackNestedVolume {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device: Option<String>,
     ///Name of the image this volume was created from
-    ///Constraint: maxLength=150
+    ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub image_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6410,6 +6421,8 @@ pub enum OpenStackSecurityGroupAccessUrl {
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct OpenStackAllowedAddressPair {
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_address: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub mac_address: Option<String>,
 }
 ///
@@ -6876,6 +6889,10 @@ pub struct User {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization: Option<String>,
+    ///Postal address of the user's organization
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization_address: Option<String>,
     ///Constraint: maxLength=2
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_country: Option<String>,
@@ -6887,6 +6904,10 @@ pub struct User {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub organization_type: Option<String>,
+    ///VAT code of the user's organization
+    ///Constraint: maxLength=20
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization_vat_code: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<Permission>>,
     ///Honorific title (Mr, Ms, Dr, Prof, etc.)
@@ -6902,6 +6923,9 @@ pub struct User {
     ///Constraint: maxLength=10
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preferred_language: Option<String>,
+    ///POSIX primary GID from the identity provider; used when an offering's gid_source is 'user_attribute'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub primary_gid: Option<i64>,
     ///Indicates what registration method was used.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub registration_method: Option<String>,
@@ -6921,6 +6945,9 @@ pub struct User {
     ///Constraint: minimum=60, maximum=2147483647
     #[serde(skip_serializing_if = "Option::is_none")]
     pub token_lifetime: Option<i64>,
+    ///POSIX UID from the identity provider; used when an offering's uid_source is 'user_attribute'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uid_number: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<url::Url>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
@@ -6961,9 +6988,18 @@ pub struct Permission {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_time: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_active: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub project_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resource_uuid: Option<uuid::Uuid>,
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub revoke_reason: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub revoked_by_full_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub revoked_by_username: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role_description: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -6971,17 +7007,25 @@ pub struct Permission {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_is_removed: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_uuid: Option<uuid::Uuid>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_email: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_slug: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_username: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uuid: Option<uuid::Uuid>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -7020,6 +7064,7 @@ pub struct Project {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_uuid: Option<uuid::Uuid>,
     ///Project description (HTML content will be sanitized)
+    ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     ///Effective end date including grace period. After this date, project resources will be terminated.
@@ -7089,6 +7134,7 @@ pub struct Project {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
     ///Internal notes visible only to staff and support users (HTML content will be sanitized)
+    ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub staff_notes: Option<String>,
     ///Project start date. Cannot be edited after the start date has arrived.
@@ -7106,33 +7152,13 @@ pub struct Project {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<url::Url>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_affiliations: Option<ProjectUserAffiliations>,
+    pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_email_patterns: Option<ProjectUserEmailPatterns>,
-    ///List of allowed identity sources (identity providers).
+    pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_identity_sources: Option<ProjectUserIdentitySources>,
+    pub user_identity_sources: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
-}
-///List of allowed identity sources (identity providers).
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct ProjectUserIdentitySources {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct ProjectUserEmailPatterns {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct ProjectUserAffiliations {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///Metadata about project termination (read-only)
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -9151,12 +9177,11 @@ pub struct CustomerRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub street: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_affiliations: Option<CustomerRequestUserAffiliations>,
+    pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_email_patterns: Option<CustomerRequestUserEmailPatterns>,
-    ///List of allowed identity sources (identity providers).
+    pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_identity_sources: Option<CustomerRequestUserIdentitySources>,
+    pub user_identity_sources: Option<Vec<String>>,
     ///VAT number
     ///Constraint: maxLength=20
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9481,28 +9506,19 @@ impl CustomerRequestBuilder {
     }
     #[doc = concat!("Set the optional `", "user_affiliations", "` request field.")]
     #[must_use]
-    pub fn user_affiliations(
-        mut self,
-        user_affiliations: CustomerRequestUserAffiliations,
-    ) -> Self {
+    pub fn user_affiliations(mut self, user_affiliations: Vec<String>) -> Self {
         self.value.user_affiliations = Some(user_affiliations);
         self
     }
     #[doc = concat!("Set the optional `", "user_email_patterns", "` request field.")]
     #[must_use]
-    pub fn user_email_patterns(
-        mut self,
-        user_email_patterns: CustomerRequestUserEmailPatterns,
-    ) -> Self {
+    pub fn user_email_patterns(mut self, user_email_patterns: Vec<String>) -> Self {
         self.value.user_email_patterns = Some(user_email_patterns);
         self
     }
     #[doc = concat!("Set the optional `", "user_identity_sources", "` request field.")]
     #[must_use]
-    pub fn user_identity_sources(
-        mut self,
-        user_identity_sources: CustomerRequestUserIdentitySources,
-    ) -> Self {
+    pub fn user_identity_sources(mut self, user_identity_sources: Vec<String>) -> Self {
         self.value.user_identity_sources = Some(user_identity_sources);
         self
     }
@@ -9516,25 +9532,6 @@ impl CustomerRequestBuilder {
     pub fn build(self) -> CustomerRequest {
         self.value
     }
-}
-///List of allowed identity sources (identity providers).
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct CustomerRequestUserIdentitySources {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct CustomerRequestUserEmailPatterns {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct CustomerRequestUserAffiliations {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///Country code (ISO 3166-1 alpha-2)
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -9641,6 +9638,8 @@ pub struct Customer {
     ///Constraint: minimum=0, maximum=2147483647
     #[serde(skip_serializing_if = "Option::is_none")]
     pub grace_period_days: Option<i64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_affiliate_links: Option<bool>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub homepage: Option<url::Url>,
@@ -9720,12 +9719,11 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<url::Url>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_affiliations: Option<CustomerUserAffiliations>,
+    pub user_affiliations: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_email_patterns: Option<CustomerUserEmailPatterns>,
-    ///List of allowed identity sources (identity providers).
+    pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_identity_sources: Option<CustomerUserIdentitySources>,
+    pub user_identity_sources: Option<Vec<String>>,
     ///Number of users with access to this organization
     #[serde(skip_serializing_if = "Option::is_none")]
     pub users_count: Option<i64>,
@@ -9735,25 +9733,6 @@ pub struct Customer {
     ///Constraint: maxLength=20
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vat_code: Option<String>,
-}
-///List of allowed identity sources (identity providers).
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct CustomerUserIdentitySources {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct CustomerUserEmailPatterns {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct CustomerUserAffiliations {
-    /// Additional properties not explicitly defined in the schema
-    #[serde(flatten)]
-    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -12121,6 +12100,8 @@ pub enum CustomerFieldEnum {
     Email,
     #[serde(rename = "grace_period_days")]
     GracePeriodDays,
+    #[serde(rename = "has_affiliate_links")]
+    HasAffiliateLinks,
     #[serde(rename = "homepage")]
     Homepage,
     #[serde(rename = "house_nr")]
@@ -12219,6 +12200,7 @@ impl CustomerFieldEnum {
             Self::Domain => "domain",
             Self::Email => "email",
             Self::GracePeriodDays => "grace_period_days",
+            Self::HasAffiliateLinks => "has_affiliate_links",
             Self::Homepage => "homepage",
             Self::HouseNr => "house_nr",
             Self::Household => "household",
@@ -14146,7 +14128,7 @@ pub struct OpenStackInstanceRequest {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    ///Constraint: minLength=1, maxLength=150
+    ///Constraint: minLength=1, maxLength=255
     pub name: String,
 }
 impl OpenStackInstanceRequest {
@@ -16572,7 +16554,7 @@ pub struct OpenStackVolumeRequest {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    ///Constraint: minLength=1, maxLength=150
+    ///Constraint: minLength=1, maxLength=255
     pub name: String,
 }
 impl OpenStackVolumeRequest {
@@ -16809,7 +16791,7 @@ pub struct PatchedOpenStackInstanceRequest {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    ///Constraint: minLength=1, maxLength=150
+    ///Constraint: minLength=1, maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
@@ -16842,7 +16824,7 @@ pub struct PatchedOpenStackVolumeRequest {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    ///Constraint: minLength=1, maxLength=150
+    ///Constraint: minLength=1, maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
@@ -17265,6 +17247,59 @@ pub struct ReviewCommentRequest {
     pub comment: Option<String>,
 }
 ///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct RoleCloneRequest {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conceal_template: Option<bool>,
+    pub customer: uuid::Uuid,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+}
+impl RoleCloneRequest {
+    /// Construct this request with every required wire field.
+    pub fn new(customer: uuid::Uuid) -> Self {
+        Self {
+            customer,
+            conceal_template: None,
+            description: None,
+        }
+    }
+    /// Start a dependency-free builder with every required wire field.
+    pub fn builder(customer: uuid::Uuid) -> RoleCloneRequestBuilder {
+        RoleCloneRequestBuilder::new(customer)
+    }
+}
+/// Dependency-free builder for [`#struct_name`].
+#[derive(Debug, Clone)]
+#[must_use]
+pub struct RoleCloneRequestBuilder {
+    value: RoleCloneRequest,
+}
+impl RoleCloneRequestBuilder {
+    /// Start a builder with every required wire field.
+    pub fn new(customer: uuid::Uuid) -> Self {
+        Self {
+            value: RoleCloneRequest::new(customer),
+        }
+    }
+    #[doc = concat!("Set the optional `", "conceal_template", "` request field.")]
+    #[must_use]
+    pub fn conceal_template(mut self, conceal_template: bool) -> Self {
+        self.value.conceal_template = Some(conceal_template);
+        self
+    }
+    #[doc = concat!("Set the optional `", "description", "` request field.")]
+    #[must_use]
+    pub fn description(mut self, description: String) -> Self {
+        self.value.description = Some(description);
+        self
+    }
+    /// Finish building the request model.
+    pub fn build(self) -> RoleCloneRequest {
+        self.value
+    }
+}
+///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct RoleDescription {
     ///Constraint: maxLength=4096
@@ -17368,6 +17403,10 @@ pub enum RoleDetailsFieldEnum {
     #[default]
     #[serde(rename = "content_type")]
     ContentType,
+    #[serde(rename = "customer_name")]
+    CustomerName,
+    #[serde(rename = "customer_uuid")]
+    CustomerUuid,
     #[serde(rename = "description")]
     Description,
     #[serde(rename = "description_ar")]
@@ -17406,6 +17445,10 @@ pub enum RoleDetailsFieldEnum {
     Name,
     #[serde(rename = "permissions")]
     Permissions,
+    #[serde(rename = "template_name")]
+    TemplateName,
+    #[serde(rename = "template_uuid")]
+    TemplateUuid,
     #[serde(rename = "users_count")]
     UsersCount,
     #[serde(rename = "uuid")]
@@ -17415,6 +17458,8 @@ impl RoleDetailsFieldEnum {
     pub fn as_str(&self) -> &'static str {
         match self {
             Self::ContentType => "content_type",
+            Self::CustomerName => "customer_name",
+            Self::CustomerUuid => "customer_uuid",
             Self::Description => "description",
             Self::DescriptionAr => "description_ar",
             Self::DescriptionCs => "description_cs",
@@ -17434,6 +17479,8 @@ impl RoleDetailsFieldEnum {
             Self::IsSystemRole => "is_system_role",
             Self::Name => "name",
             Self::Permissions => "permissions",
+            Self::TemplateName => "template_name",
+            Self::TemplateUuid => "template_uuid",
             Self::UsersCount => "users_count",
             Self::Uuid => "uuid",
         }
@@ -17445,6 +17492,57 @@ impl ::std::fmt::Display for RoleDetailsFieldEnum {
     }
 }
 impl AsRef<str> for RoleDetailsFieldEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum RoleDetailsOEnum {
+    #[default]
+    #[serde(rename = "-is_active")]
+    IsActive,
+    #[serde(rename = "-name")]
+    Name,
+    #[serde(rename = "-origin")]
+    Origin,
+    #[serde(rename = "-scope")]
+    Scope,
+    #[serde(rename = "-users_count")]
+    UsersCount,
+    #[serde(rename = "is_active")]
+    IsActive_2,
+    #[serde(rename = "name")]
+    Name_2,
+    #[serde(rename = "origin")]
+    Origin_2,
+    #[serde(rename = "scope")]
+    Scope_2,
+    #[serde(rename = "users_count")]
+    UsersCount_2,
+}
+impl RoleDetailsOEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::IsActive => "-is_active",
+            Self::Name => "-name",
+            Self::Origin => "-origin",
+            Self::Scope => "-scope",
+            Self::UsersCount => "-users_count",
+            Self::IsActive_2 => "is_active",
+            Self::Name_2 => "name",
+            Self::Origin_2 => "origin",
+            Self::Scope_2 => "scope",
+            Self::UsersCount_2 => "users_count",
+        }
+    }
+}
+impl ::std::fmt::Display for RoleDetailsOEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for RoleDetailsOEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
@@ -17754,12 +17852,16 @@ pub enum UserFieldEnum {
     NotificationsEnabled,
     #[serde(rename = "organization")]
     Organization,
+    #[serde(rename = "organization_address")]
+    OrganizationAddress,
     #[serde(rename = "organization_country")]
     OrganizationCountry,
     #[serde(rename = "organization_registry_code")]
     OrganizationRegistryCode,
     #[serde(rename = "organization_type")]
     OrganizationType,
+    #[serde(rename = "organization_vat_code")]
+    OrganizationVatCode,
     #[serde(rename = "permissions")]
     Permissions,
     #[serde(rename = "personal_title")]
@@ -17770,6 +17872,8 @@ pub enum UserFieldEnum {
     PlaceOfBirth,
     #[serde(rename = "preferred_language")]
     PreferredLanguage,
+    #[serde(rename = "primary_gid")]
+    PrimaryGid,
     #[serde(rename = "registration_method")]
     RegistrationMethod,
     #[serde(rename = "requested_email")]
@@ -17784,6 +17888,8 @@ pub enum UserFieldEnum {
     TokenExpiresAt,
     #[serde(rename = "token_lifetime")]
     TokenLifetime,
+    #[serde(rename = "uid_number")]
+    UidNumber,
     #[serde(rename = "url")]
     Url,
     #[serde(rename = "username")]
@@ -17834,14 +17940,17 @@ impl UserFieldEnum {
             Self::NativeName => "native_name",
             Self::NotificationsEnabled => "notifications_enabled",
             Self::Organization => "organization",
+            Self::OrganizationAddress => "organization_address",
             Self::OrganizationCountry => "organization_country",
             Self::OrganizationRegistryCode => "organization_registry_code",
             Self::OrganizationType => "organization_type",
+            Self::OrganizationVatCode => "organization_vat_code",
             Self::Permissions => "permissions",
             Self::PersonalTitle => "personal_title",
             Self::PhoneNumber => "phone_number",
             Self::PlaceOfBirth => "place_of_birth",
             Self::PreferredLanguage => "preferred_language",
+            Self::PrimaryGid => "primary_gid",
             Self::RegistrationMethod => "registration_method",
             Self::RequestedEmail => "requested_email",
             Self::ShouldProtectUserDetails => "should_protect_user_details",
@@ -17849,6 +17958,7 @@ impl UserFieldEnum {
             Self::Token => "token",
             Self::TokenExpiresAt => "token_expires_at",
             Self::TokenLifetime => "token_lifetime",
+            Self::UidNumber => "uid_number",
             Self::Url => "url",
             Self::Username => "username",
             Self::Uuid => "uuid",
@@ -17951,12 +18061,16 @@ pub enum UserMeFieldEnum {
     NotificationsEnabled,
     #[serde(rename = "organization")]
     Organization,
+    #[serde(rename = "organization_address")]
+    OrganizationAddress,
     #[serde(rename = "organization_country")]
     OrganizationCountry,
     #[serde(rename = "organization_registry_code")]
     OrganizationRegistryCode,
     #[serde(rename = "organization_type")]
     OrganizationType,
+    #[serde(rename = "organization_vat_code")]
+    OrganizationVatCode,
     #[serde(rename = "permissions")]
     Permissions,
     #[serde(rename = "personal_title")]
@@ -17967,6 +18081,8 @@ pub enum UserMeFieldEnum {
     PlaceOfBirth,
     #[serde(rename = "preferred_language")]
     PreferredLanguage,
+    #[serde(rename = "primary_gid")]
+    PrimaryGid,
     #[serde(rename = "profile_completeness")]
     ProfileCompleteness,
     #[serde(rename = "registration_method")]
@@ -17983,6 +18099,8 @@ pub enum UserMeFieldEnum {
     TokenExpiresAt,
     #[serde(rename = "token_lifetime")]
     TokenLifetime,
+    #[serde(rename = "uid_number")]
+    UidNumber,
     #[serde(rename = "url")]
     Url,
     #[serde(rename = "username")]
@@ -18033,14 +18151,17 @@ impl UserMeFieldEnum {
             Self::NativeName => "native_name",
             Self::NotificationsEnabled => "notifications_enabled",
             Self::Organization => "organization",
+            Self::OrganizationAddress => "organization_address",
             Self::OrganizationCountry => "organization_country",
             Self::OrganizationRegistryCode => "organization_registry_code",
             Self::OrganizationType => "organization_type",
+            Self::OrganizationVatCode => "organization_vat_code",
             Self::Permissions => "permissions",
             Self::PersonalTitle => "personal_title",
             Self::PhoneNumber => "phone_number",
             Self::PlaceOfBirth => "place_of_birth",
             Self::PreferredLanguage => "preferred_language",
+            Self::PrimaryGid => "primary_gid",
             Self::ProfileCompleteness => "profile_completeness",
             Self::RegistrationMethod => "registration_method",
             Self::RequestedEmail => "requested_email",
@@ -18049,6 +18170,7 @@ impl UserMeFieldEnum {
             Self::Token => "token",
             Self::TokenExpiresAt => "token_expires_at",
             Self::TokenLifetime => "token_lifetime",
+            Self::UidNumber => "uid_number",
             Self::Url => "url",
             Self::Username => "username",
             Self::Uuid => "uuid",
@@ -18269,6 +18391,13 @@ impl AsRef<str> for UserRoleDetailsOEnum {
 pub struct UserRoleExpirationTime {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expiration_time: Option<chrono::DateTime<chrono::Utc>>,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct UserRolePermissionActionRequest {
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reason: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]

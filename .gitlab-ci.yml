@@ -59,16 +59,20 @@ Release Rust SDK:
     # Authenticate origin with token for pushing back commits & tags
     - git remote set-url origin "https://gitlab-ci-token:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
   script:
-    # src/generated/ is passed from the Build Rust SDK job automatically
+    # src/generated/ is passed from the Build Rust SDK job automatically.
+    # Only the .rs files are part of the crate -- REQUIRED_DEPS.toml is a
+    # generation-time hint file for humans maintaining Cargo.toml, not
+    # something to commit (see openapi-to-rust.toml's own comment on it).
+    - rm -f src/generated/REQUIRED_DEPS.toml
     - |
       if [ -n "$RELEASE_VERSION" ]; then
         sed -i 's/^version = "[^"]*"/version = "'$RELEASE_VERSION'"/' Cargo.toml
-        git add Cargo.toml src/generated
+        git add Cargo.toml src/generated/*.rs
         git diff --cached --quiet && echo "rs-client version already set" || git commit -m "Release: bump version and update code to $RELEASE_VERSION"
         git tag -a $RELEASE_VERSION -m "Release version $RELEASE_VERSION" || echo "Tag $RELEASE_VERSION already exists"
         git push origin $RELEASE_VERSION || echo "Tag $RELEASE_VERSION already pushed"
       else
-        git add src/generated
+        git add src/generated/*.rs
         git diff --cached --quiet && echo "No changes" || git commit -m "chore: nightly update of Waldur Rust SDK"
       fi
     - git push origin HEAD:main || echo "main already up to date in rs-client"
