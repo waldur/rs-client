@@ -24,7 +24,7 @@ use waldur_client::HttpClient;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = HttpClient::new()
         .with_base_url("https://api.example.com")
-        .with_api_key("API_TOKEN");
+        .with_api_key("Token API_TOKEN");
 
     let tenant = client
         .openstack_tenants_retrieve("00000000000000000000000000000000", None)
