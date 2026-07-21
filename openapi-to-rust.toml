@@ -13,7 +13,16 @@ module_name = "types"
 enable_async_client = true
 
 [generator.types]
+# DRF's convention for an unset optional CharField-like value is "", not
+# null. That's fine for Rust's String, but strict typed scalars (url::Url,
+# and IP-address oneOf[ipv4, ipv6] enums) can never parse "" as an instance
+# of "no value" -- there's no valid IP address or URL that means "empty".
+# Confirmed live against a real instance for both uri (Customer.homepage)
+# and ipv4/ipv6 (OpenStackFixedIp.ip_address, among others -- this shape
+# recurs across many schemas, not just ones in our tag scope).
 uri = "string"
+ipv4 = "string"
+ipv6 = "string"
 
 [http_client]
 # Placeholder default; every generated client method also accepts overriding

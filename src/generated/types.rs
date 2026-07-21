@@ -904,8 +904,8 @@ pub struct UserDataAccessLog {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum UserDataAccessLogIpAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct UserDataAccessLogContext {
@@ -2291,15 +2291,15 @@ pub struct PatchedOpenStackSubNetRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum PatchedOpenStackSubNetRequestGatewayIp {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum PatchedOpenStackSubNetRequestDnsNameserversItemUnion {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -3414,15 +3414,15 @@ impl OpenStackSubNetRequestBuilder {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetRequestGatewayIp {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetRequestDnsNameserversItemUnion {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -3438,15 +3438,15 @@ pub struct OpenStackSubNetAllocationPoolRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetAllocationPoolRequestStart {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetAllocationPoolRequestEnd {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -3573,15 +3573,15 @@ pub struct OpenStackSubNetMarketplaceOfferingPluginOptions {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetGatewayIp {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetDnsNameserversItemUnion {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -4188,8 +4188,8 @@ pub struct OpenStackStaticRouteRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackStaticRouteRequestNexthop {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -4316,8 +4316,8 @@ pub struct OpenStackStaticRoute {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackStaticRouteNexthop {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct OpenStackRouterMarketplaceOfferingPluginOptions {
@@ -4477,8 +4477,8 @@ pub struct OpenStackPortIPUpdateRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackPortIPUpdateRequestIpAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -4741,8 +4741,8 @@ pub struct OpenStackPoolMemberMarketplaceOfferingPluginOptions {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackPoolMemberAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -5023,22 +5023,22 @@ pub struct OpenStackSubNetAllocationPool {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetAllocationPoolStart {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetAllocationPoolEnd {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///IP address of the gateway for this subnet
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackNestedSubNetGatewayIp {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -5152,8 +5152,8 @@ pub struct OpenStackLoadBalancer {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackLoadBalancerVipAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -5831,15 +5831,15 @@ pub struct OpenStackFloatingIPMarketplaceOfferingPluginOptions {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackFloatingIPExternalAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///The public IPv4 address of the floating IP
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackFloatingIPAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -6072,8 +6072,8 @@ pub struct OpenStackFixedIpRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackFixedIpRequestIpAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -6090,8 +6090,8 @@ pub struct OpenStackCreateFloatingIPRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackCreateFloatingIPRequestIpAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -6456,8 +6456,8 @@ pub struct OpenStackNestedFloatingIP {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackNestedFloatingIPAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -6473,8 +6473,8 @@ pub struct OpenStackFixedIp {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackFixedIpIpAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -7952,8 +7952,8 @@ pub struct ExternalSubnet {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum ExternalSubnetGatewayIp {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct ExternalSubnetDnsNameservers {
@@ -8038,22 +8038,22 @@ impl AsRef<str> for EffectiveRouteSourceEnum {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum EffectiveRouteNexthop {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum EffectiveRouteIpOnRouter {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///An IPv4 or IPv6 address.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum EffectiveRouteGatewayIpOnRouter {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -9984,8 +9984,8 @@ impl CreatePoolMemberRequestBuilder {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum CreatePoolMemberRequestAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -10010,8 +10010,8 @@ pub struct CreatePoolMember {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum CreatePoolMemberAddress {
-    Ipv4(std::net::Ipv4Addr),
-    Ipv6(std::net::Ipv6Addr),
+    String(String),
+    String2(String),
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
