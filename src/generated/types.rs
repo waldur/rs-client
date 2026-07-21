@@ -9609,9 +9609,9 @@ pub struct Customer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub created: Option<chrono::DateTime<chrono::Utc>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_credit: Option<f64>,
+    pub customer_credit: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_unallocated_credit: Option<f64>,
+    pub customer_unallocated_credit: Option<String>,
     ///Affiliations offered to project creators of this organization.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default_affiliations: Option<Vec<AffiliatedOrganization>>,
