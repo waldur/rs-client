@@ -9791,7 +9791,7 @@ pub struct PaymentProfileAttributes {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub agreement_number: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub contract_sum: Option<i64>,
+    pub contract_sum: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end_date: Option<String>,
 }
