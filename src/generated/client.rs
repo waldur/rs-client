@@ -846,7 +846,6 @@ impl HttpClient {
         backend_id: Option<impl AsRef<str>>,
         contact_details: Option<impl AsRef<str>>,
         current_user_has_project_create_permission: Option<bool>,
-        current_user_has_role: Option<Vec<String>>,
         has_resources: Option<impl AsRef<str>>,
         is_call_managing_organization: Option<bool>,
         is_service_provider: Option<bool>,
@@ -895,31 +894,6 @@ impl HttpClient {
                         "current_user_has_project_create_permission".to_string(),
                         v.to_string(),
                     ));
-            }
-            if let Some(v) = current_user_has_role {
-                if v.is_empty() {
-                    query_params
-                        .push((format!("{}[]", "current_user_has_role"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "current_user_has_role",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params
-                        .push(("current_user_has_role".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = has_resources {
                 query_params.push(("has_resources".to_string(), v.as_ref().to_string()));
@@ -1057,7 +1031,6 @@ impl HttpClient {
         backend_id: Option<impl AsRef<str>>,
         contact_details: Option<impl AsRef<str>>,
         current_user_has_project_create_permission: Option<bool>,
-        current_user_has_role: Option<Vec<String>>,
         has_resources: Option<impl AsRef<str>>,
         is_call_managing_organization: Option<bool>,
         is_service_provider: Option<bool>,
@@ -1106,31 +1079,6 @@ impl HttpClient {
                         "current_user_has_project_create_permission".to_string(),
                         v.to_string(),
                     ));
-            }
-            if let Some(v) = current_user_has_role {
-                if v.is_empty() {
-                    query_params
-                        .push((format!("{}[]", "current_user_has_role"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "current_user_has_role",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params
-                        .push(("current_user_has_role".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = has_resources {
                 query_params.push(("has_resources".to_string(), v.as_ref().to_string()));
@@ -1268,7 +1216,6 @@ impl HttpClient {
         backend_id: Option<impl AsRef<str>>,
         contact_details: Option<impl AsRef<str>>,
         current_user_has_project_create_permission: Option<bool>,
-        current_user_has_role: Option<Vec<String>>,
         has_resources: Option<impl AsRef<str>>,
         is_call_managing_organization: Option<bool>,
         is_service_provider: Option<bool>,
@@ -1317,31 +1264,6 @@ impl HttpClient {
                         "current_user_has_project_create_permission".to_string(),
                         v.to_string(),
                     ));
-            }
-            if let Some(v) = current_user_has_role {
-                if v.is_empty() {
-                    query_params
-                        .push((format!("{}[]", "current_user_has_role"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "current_user_has_role",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params
-                        .push(("current_user_has_role".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = has_resources {
                 query_params.push(("has_resources".to_string(), v.as_ref().to_string()));
@@ -1797,7 +1719,6 @@ impl HttpClient {
         created_after: Option<impl AsRef<str>>,
         created_before: Option<impl AsRef<str>>,
         current_user_has_project_create_permission: Option<bool>,
-        current_user_has_role: Option<Vec<String>>,
         has_resources: Option<impl AsRef<str>>,
         is_call_managing_organization: Option<bool>,
         is_service_provider: Option<bool>,
@@ -1856,31 +1777,6 @@ impl HttpClient {
                         "current_user_has_project_create_permission".to_string(),
                         v.to_string(),
                     ));
-            }
-            if let Some(v) = current_user_has_role {
-                if v.is_empty() {
-                    query_params
-                        .push((format!("{}[]", "current_user_has_role"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "current_user_has_role",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params
-                        .push(("current_user_has_role".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = has_resources {
                 query_params.push(("has_resources".to_string(), v.as_ref().to_string()));
@@ -2031,7 +1927,6 @@ impl HttpClient {
         backend_id: Option<impl AsRef<str>>,
         contact_details: Option<impl AsRef<str>>,
         current_user_has_project_create_permission: Option<bool>,
-        current_user_has_role: Option<Vec<String>>,
         field: Option<Vec<CustomerFieldEnum>>,
         has_resources: Option<impl AsRef<str>>,
         is_call_managing_organization: Option<bool>,
@@ -2081,31 +1976,6 @@ impl HttpClient {
                         "current_user_has_project_create_permission".to_string(),
                         v.to_string(),
                     ));
-            }
-            if let Some(v) = current_user_has_role {
-                if v.is_empty() {
-                    query_params
-                        .push((format!("{}[]", "current_user_has_role"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "current_user_has_role",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params
-                        .push(("current_user_has_role".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = field {
                 if v.is_empty() {
@@ -2253,138 +2123,6 @@ impl HttpClient {
     }
     /// List users and their roles in a scope
     ///
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/customers/{uuid}/list_users/`
-    pub async fn customers_list_users_count(
-        &self,
-        uuid: impl AsRef<str>,
-        field: Option<Vec<UserRoleDetailsFieldEnum>>,
-        full_name: Option<impl AsRef<str>>,
-        native_name: Option<impl AsRef<str>>,
-        o: Option<Vec<UserRoleDetailsOEnum>>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-        role: Option<Vec<String>>,
-        search_string: Option<impl AsRef<str>>,
-        user: Option<impl AsRef<str>>,
-        user_slug: Option<impl AsRef<str>>,
-        user_url: Option<impl AsRef<str>>,
-        username: Option<impl AsRef<str>>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url, format!("/api/customers/{}/list_users/",
-            __pct_encode_path_segment(uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = field {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "field"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("field".to_string(), item.to_string()));
-                    }
-                }
-            }
-            if let Some(v) = full_name {
-                query_params.push(("full_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = native_name {
-                query_params.push(("native_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = o {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "o"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("o".to_string(), item.to_string()));
-                    }
-                }
-            }
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if let Some(v) = role {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "role"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("role".to_string(), item.to_string()));
-                    }
-                }
-            }
-            if let Some(v) = search_string {
-                query_params.push(("search_string".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user {
-                query_params.push(("user".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user_slug {
-                query_params.push(("user_slug".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user_url {
-                query_params.push(("user_url".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = username {
-                query_params.push(("username".to_string(), v.as_ref().to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// List users and their roles in a scope
-    ///
     /// Retrieves a list of users who have a role within a specific scope (e.g., a project or an organization). The list can be filtered by user details or role.
     ///
     /// `GET /api/customers/{uuid}/list_users/`
@@ -2397,7 +2135,7 @@ impl HttpClient {
         o: Option<Vec<UserRoleDetailsOEnum>>,
         page: Option<i64>,
         page_size: Option<i64>,
-        role: Option<Vec<String>>,
+        role: Option<impl AsRef<str>>,
         search_string: Option<impl AsRef<str>>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
@@ -2442,13 +2180,7 @@ impl HttpClient {
                 query_params.push(("page_size".to_string(), v.to_string()));
             }
             if let Some(v) = role {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "role"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("role".to_string(), item.to_string()));
-                    }
-                }
+                query_params.push(("role".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = search_string {
                 query_params.push(("search_string".to_string(), v.as_ref().to_string()));
@@ -2823,81 +2555,6 @@ impl HttpClient {
     }
     /// Get detailed project metadata compliance
     ///
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/customers/{customer_uuid}/project-metadata-compliance-details/`
-    pub async fn customers_project_metadata_compliance_details_count(
-        &self,
-        customer_uuid: impl AsRef<str>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url,
-            format!("/api/customers/{}/project-metadata-compliance-details/",
-            __pct_encode_path_segment(customer_uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// Get detailed project metadata compliance
-    ///
     /// Provides detailed compliance status for all projects within a customer, including individual answers and completion status.
     ///
     /// `GET /api/customers/{customer_uuid}/project-metadata-compliance-details/`
@@ -2959,81 +2616,6 @@ impl HttpClient {
                     )
                 }
             }
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// Get project metadata compliance overview
-    ///
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/customers/{customer_uuid}/project-metadata-compliance-overview/`
-    pub async fn customers_project_metadata_compliance_overview_count(
-        &self,
-        customer_uuid: impl AsRef<str>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url,
-            format!("/api/customers/{}/project-metadata-compliance-overview/",
-            __pct_encode_path_segment(customer_uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
         } else {
             let typed: Option<serde_json::Value>;
             let parse_error: Option<String>;
@@ -3155,81 +2737,6 @@ impl HttpClient {
     }
     /// List projects with compliance data
     ///
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/customers/{customer_uuid}/project-metadata-compliance-projects/`
-    pub async fn customers_project_metadata_compliance_projects_count(
-        &self,
-        customer_uuid: impl AsRef<str>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url,
-            format!("/api/customers/{}/project-metadata-compliance-projects/",
-            __pct_encode_path_segment(customer_uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// List projects with compliance data
-    ///
     /// Provides a paginated list of projects with their checklist completion status and answer details.
     ///
     /// `GET /api/customers/{customer_uuid}/project-metadata-compliance-projects/`
@@ -3291,81 +2798,6 @@ impl HttpClient {
                     )
                 }
             }
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// List questions with project answers
-    ///
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/customers/{customer_uuid}/project-metadata-question-answers/`
-    pub async fn customers_project_metadata_question_answers_count(
-        &self,
-        customer_uuid: impl AsRef<str>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url,
-            format!("/api/customers/{}/project-metadata-question-answers/",
-            __pct_encode_path_segment(customer_uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
         } else {
             let typed: Option<serde_json::Value>;
             let parse_error: Option<String>;
@@ -4085,155 +3517,6 @@ impl HttpClient {
                     )
                 }
             }
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// List users of a customer
-    ///
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/customers/{customer_uuid}/users/`
-    pub async fn customers_users_count(
-        &self,
-        customer_uuid: impl AsRef<str>,
-        agreement_date: Option<impl AsRef<str>>,
-        civil_number: Option<impl AsRef<str>>,
-        date_joined: Option<impl AsRef<str>>,
-        description: Option<impl AsRef<str>>,
-        email: Option<impl AsRef<str>>,
-        full_name: Option<impl AsRef<str>>,
-        is_active: Option<bool>,
-        job_title: Option<impl AsRef<str>>,
-        modified: Option<impl AsRef<str>>,
-        native_name: Option<impl AsRef<str>>,
-        o: Option<CustomerUserOEnum>,
-        organization: Option<impl AsRef<str>>,
-        organization_role: Option<impl AsRef<str>>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-        phone_number: Option<impl AsRef<str>>,
-        project_role: Option<impl AsRef<str>>,
-        registration_method: Option<impl AsRef<str>>,
-        user_keyword: Option<impl AsRef<str>>,
-        username: Option<impl AsRef<str>>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url, format!("/api/customers/{}/users/",
-            __pct_encode_path_segment(customer_uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = agreement_date {
-                query_params
-                    .push(("agreement_date".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = civil_number {
-                query_params.push(("civil_number".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = date_joined {
-                query_params.push(("date_joined".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = description {
-                query_params.push(("description".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = email {
-                query_params.push(("email".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = full_name {
-                query_params.push(("full_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = is_active {
-                query_params.push(("is_active".to_string(), v.to_string()));
-            }
-            if let Some(v) = job_title {
-                query_params.push(("job_title".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = modified {
-                query_params.push(("modified".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = native_name {
-                query_params.push(("native_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = o {
-                query_params.push(("o".to_string(), v.to_string()));
-            }
-            if let Some(v) = organization {
-                query_params.push(("organization".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = organization_role {
-                query_params
-                    .push(("organization_role".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if let Some(v) = phone_number {
-                query_params.push(("phone_number".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = project_role {
-                query_params.push(("project_role".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = registration_method {
-                query_params
-                    .push(("registration_method".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user_keyword {
-                query_params.push(("user_keyword".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = username {
-                query_params.push(("username".to_string(), v.as_ref().to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
         } else {
             let typed: Option<serde_json::Value>;
             let parse_error: Option<String>;
@@ -31206,7 +30489,6 @@ impl HttpClient {
         conceal_finished_projects: Option<bool>,
         created: Option<impl AsRef<str>>,
         created_before: Option<impl AsRef<str>>,
-        current_user_has_role: Option<Vec<String>>,
         customer: Option<Vec<String>>,
         customer_abbreviation: Option<impl AsRef<str>>,
         customer_name: Option<impl AsRef<str>>,
@@ -31270,31 +30552,6 @@ impl HttpClient {
             if let Some(v) = created_before {
                 query_params
                     .push(("created_before".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = current_user_has_role {
-                if v.is_empty() {
-                    query_params
-                        .push((format!("{}[]", "current_user_has_role"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "current_user_has_role",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params
-                        .push(("current_user_has_role".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = customer {
                 if v.is_empty() {
@@ -31674,7 +30931,6 @@ impl HttpClient {
         conceal_finished_projects: Option<bool>,
         created: Option<impl AsRef<str>>,
         created_before: Option<impl AsRef<str>>,
-        current_user_has_role: Option<Vec<String>>,
         customer: Option<Vec<String>>,
         customer_abbreviation: Option<impl AsRef<str>>,
         customer_name: Option<impl AsRef<str>>,
@@ -31739,31 +30995,6 @@ impl HttpClient {
             if let Some(v) = created_before {
                 query_params
                     .push(("created_before".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = current_user_has_role {
-                if v.is_empty() {
-                    query_params
-                        .push((format!("{}[]", "current_user_has_role"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "current_user_has_role",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params
-                        .push(("current_user_has_role".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = customer {
                 if v.is_empty() {
@@ -31954,138 +31185,6 @@ impl HttpClient {
     }
     /// List users and their roles in a scope
     ///
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/projects/{uuid}/list_users/`
-    pub async fn projects_list_users_count(
-        &self,
-        uuid: impl AsRef<str>,
-        field: Option<Vec<UserRoleDetailsFieldEnum>>,
-        full_name: Option<impl AsRef<str>>,
-        native_name: Option<impl AsRef<str>>,
-        o: Option<Vec<UserRoleDetailsOEnum>>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-        role: Option<Vec<String>>,
-        search_string: Option<impl AsRef<str>>,
-        user: Option<impl AsRef<str>>,
-        user_slug: Option<impl AsRef<str>>,
-        user_url: Option<impl AsRef<str>>,
-        username: Option<impl AsRef<str>>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url, format!("/api/projects/{}/list_users/",
-            __pct_encode_path_segment(uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = field {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "field"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("field".to_string(), item.to_string()));
-                    }
-                }
-            }
-            if let Some(v) = full_name {
-                query_params.push(("full_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = native_name {
-                query_params.push(("native_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = o {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "o"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("o".to_string(), item.to_string()));
-                    }
-                }
-            }
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if let Some(v) = role {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "role"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("role".to_string(), item.to_string()));
-                    }
-                }
-            }
-            if let Some(v) = search_string {
-                query_params.push(("search_string".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user {
-                query_params.push(("user".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user_slug {
-                query_params.push(("user_slug".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user_url {
-                query_params.push(("user_url".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = username {
-                query_params.push(("username".to_string(), v.as_ref().to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// List users and their roles in a scope
-    ///
     /// Retrieves a list of users who have a role within a specific scope (e.g., a project or an organization). The list can be filtered by user details or role.
     ///
     /// `GET /api/projects/{uuid}/list_users/`
@@ -32098,7 +31197,7 @@ impl HttpClient {
         o: Option<Vec<UserRoleDetailsOEnum>>,
         page: Option<i64>,
         page_size: Option<i64>,
-        role: Option<Vec<String>>,
+        role: Option<impl AsRef<str>>,
         search_string: Option<impl AsRef<str>>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
@@ -32143,13 +31242,7 @@ impl HttpClient {
                 query_params.push(("page_size".to_string(), v.to_string()));
             }
             if let Some(v) = role {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "role"), String::new()));
-                } else {
-                    for item in v {
-                        query_params.push(("role".to_string(), item.to_string()));
-                    }
-                }
+                query_params.push(("role".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = search_string {
                 query_params.push(("search_string".to_string(), v.as_ref().to_string()));
@@ -32278,144 +31371,6 @@ impl HttpClient {
                     )
                 }
             }
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// Get number of items in the collection matching the request parameters.
-    ///
-    /// `HEAD /api/projects/{project_uuid}/other_users/`
-    pub async fn projects_other_users_count(
-        &self,
-        project_uuid: impl AsRef<str>,
-        agreement_date: Option<impl AsRef<str>>,
-        civil_number: Option<impl AsRef<str>>,
-        date_joined: Option<impl AsRef<str>>,
-        description: Option<impl AsRef<str>>,
-        email: Option<impl AsRef<str>>,
-        full_name: Option<impl AsRef<str>>,
-        is_active: Option<bool>,
-        job_title: Option<impl AsRef<str>>,
-        modified: Option<impl AsRef<str>>,
-        native_name: Option<impl AsRef<str>>,
-        o: Option<CustomerUserOEnum>,
-        organization: Option<impl AsRef<str>>,
-        page: Option<i64>,
-        page_size: Option<i64>,
-        phone_number: Option<impl AsRef<str>>,
-        registration_method: Option<impl AsRef<str>>,
-        user_keyword: Option<impl AsRef<str>>,
-        username: Option<impl AsRef<str>>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url, format!("/api/projects/{}/other_users/",
-            __pct_encode_path_segment(project_uuid.as_ref()))
-        );
-        let mut req = self.http_client.head(request_url);
-        {
-            let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = agreement_date {
-                query_params
-                    .push(("agreement_date".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = civil_number {
-                query_params.push(("civil_number".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = date_joined {
-                query_params.push(("date_joined".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = description {
-                query_params.push(("description".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = email {
-                query_params.push(("email".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = full_name {
-                query_params.push(("full_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = is_active {
-                query_params.push(("is_active".to_string(), v.to_string()));
-            }
-            if let Some(v) = job_title {
-                query_params.push(("job_title".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = modified {
-                query_params.push(("modified".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = native_name {
-                query_params.push(("native_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = o {
-                query_params.push(("o".to_string(), v.to_string()));
-            }
-            if let Some(v) = organization {
-                query_params.push(("organization".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = page {
-                query_params.push(("page".to_string(), v.to_string()));
-            }
-            if let Some(v) = page_size {
-                query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if let Some(v) = phone_number {
-                query_params.push(("phone_number".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = registration_method {
-                query_params
-                    .push(("registration_method".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = user_keyword {
-                query_params.push(("user_keyword".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = username {
-                query_params.push(("username".to_string(), v.as_ref().to_string()));
-            }
-            if !query_params.is_empty() {
-                req = req.query(&query_params);
-            }
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
         } else {
             let typed: Option<serde_json::Value>;
             let parse_error: Option<String>;
@@ -33608,83 +32563,6 @@ impl HttpClient {
             )
         }
     }
-    /// Clone a role into an organization
-    ///
-    /// Staff-only. Creates an organization-private copy of this role (customer or project scope), bound to the given customer and usable only within that organization and its projects. Cloning the same template into the same organization twice is rejected.
-    ///
-    /// `POST /api/roles/{uuid}/clone_to_customer/`
-    pub async fn roles_clone_to_customer(
-        &self,
-        uuid: impl AsRef<str>,
-        request: RoleCloneRequest,
-    ) -> Result<RoleDetails, ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url, format!("/api/roles/{}/clone_to_customer/",
-            __pct_encode_path_segment(uuid.as_ref()))
-        );
-        let mut req = self.http_client.post(request_url);
-        req = req
-            .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
-            .header("content-type", "application/json");
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            match serde_json::from_str(&body_text) {
-                Ok(body) => Ok(body),
-                Err(e) => {
-                    Err(
-                        ApiOpError::Api(ApiError {
-                            status: status_code,
-                            headers: headers,
-                            body: body_text,
-                            typed: None,
-                            parse_error: Some(
-                                format!("failed to deserialize 2xx response body: {}", e),
-                            ),
-                        }),
-                    )
-                }
-            }
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
     /// List roles
     ///
     /// Get number of items in the collection matching the request parameters.
@@ -33692,78 +32570,30 @@ impl HttpClient {
     /// `HEAD /api/roles/`
     pub async fn roles_count(
         &self,
-        available_for_customer: Option<impl AsRef<str>>,
-        content_type: Option<impl AsRef<str>>,
         description: Option<impl AsRef<str>>,
-        include_concealed: Option<bool>,
         is_active: Option<bool>,
-        is_system_role: Option<bool>,
         name: Option<impl AsRef<str>>,
-        o: Option<Vec<RoleDetailsOEnum>>,
         page: Option<i64>,
         page_size: Option<i64>,
-        query: Option<impl AsRef<str>>,
     ) -> Result<(), ApiOpError<serde_json::Value>> {
         let request_url = format!("{}{}", self.base_url, "/api/roles/");
         let mut req = self.http_client.head(request_url);
         {
             let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = available_for_customer {
-                query_params
-                    .push((
-                        "available_for_customer".to_string(),
-                        v.as_ref().to_string(),
-                    ));
-            }
-            if let Some(v) = content_type {
-                query_params.push(("content_type".to_string(), v.as_ref().to_string()));
-            }
             if let Some(v) = description {
                 query_params.push(("description".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = include_concealed {
-                query_params.push(("include_concealed".to_string(), v.to_string()));
             }
             if let Some(v) = is_active {
                 query_params.push(("is_active".to_string(), v.to_string()));
             }
-            if let Some(v) = is_system_role {
-                query_params.push(("is_system_role".to_string(), v.to_string()));
-            }
             if let Some(v) = name {
                 query_params.push(("name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = o {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "o"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "o",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params.push(("o".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = page {
                 query_params.push(("page".to_string(), v.to_string()));
             }
             if let Some(v) = page_size {
                 query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if let Some(v) = query {
-                query_params.push(("query".to_string(), v.as_ref().to_string()));
             }
             if !query_params.is_empty() {
                 req = req.query(&query_params);
@@ -34075,33 +32905,17 @@ impl HttpClient {
     /// `GET /api/roles/`
     pub async fn roles_list(
         &self,
-        available_for_customer: Option<impl AsRef<str>>,
-        content_type: Option<impl AsRef<str>>,
         description: Option<impl AsRef<str>>,
         field: Option<Vec<RoleDetailsFieldEnum>>,
-        include_concealed: Option<bool>,
         is_active: Option<bool>,
-        is_system_role: Option<bool>,
         name: Option<impl AsRef<str>>,
-        o: Option<Vec<RoleDetailsOEnum>>,
         page: Option<i64>,
         page_size: Option<i64>,
-        query: Option<impl AsRef<str>>,
     ) -> Result<RolesListResponse, ApiOpError<serde_json::Value>> {
         let request_url = format!("{}{}", self.base_url, "/api/roles/");
         let mut req = self.http_client.get(request_url);
         {
             let mut query_params: Vec<(String, String)> = Vec::new();
-            if let Some(v) = available_for_customer {
-                query_params
-                    .push((
-                        "available_for_customer".to_string(),
-                        v.as_ref().to_string(),
-                    ));
-            }
-            if let Some(v) = content_type {
-                query_params.push(("content_type".to_string(), v.as_ref().to_string()));
-            }
             if let Some(v) = description {
                 query_params.push(("description".to_string(), v.as_ref().to_string()));
             }
@@ -34114,49 +32928,17 @@ impl HttpClient {
                     }
                 }
             }
-            if let Some(v) = include_concealed {
-                query_params.push(("include_concealed".to_string(), v.to_string()));
-            }
             if let Some(v) = is_active {
                 query_params.push(("is_active".to_string(), v.to_string()));
             }
-            if let Some(v) = is_system_role {
-                query_params.push(("is_system_role".to_string(), v.to_string()));
-            }
             if let Some(v) = name {
                 query_params.push(("name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = o {
-                if v.is_empty() {
-                    query_params.push((format!("{}[]", "o"), String::new()));
-                } else {
-                    let mut parts = Vec::with_capacity(v.len());
-                    for item in &v {
-                        let item = item.to_string();
-                        if item.contains(',') {
-                            return Err(
-                                HttpError::serialization_error(
-                                        format!(
-                                            "query array `{}` contains a comma; use explode=true for lossless string values",
-                                            "o",
-                                        ),
-                                    )
-                                    .into(),
-                            );
-                        }
-                        parts.push(item);
-                    }
-                    query_params.push(("o".to_string(), parts.join(",")));
-                }
             }
             if let Some(v) = page {
                 query_params.push(("page".to_string(), v.to_string()));
             }
             if let Some(v) = page_size {
                 query_params.push(("page_size".to_string(), v.to_string()));
-            }
-            if let Some(v) = query {
-                query_params.push(("query".to_string(), v.as_ref().to_string()));
             }
             if !query_params.is_empty() {
                 req = req.query(&query_params);
@@ -37282,10 +36064,8 @@ impl HttpClient {
         &self,
         created: Option<impl AsRef<str>>,
         created_before: Option<impl AsRef<str>>,
-        customer_uuid: Option<impl AsRef<str>>,
         expiration_time: Option<impl AsRef<str>>,
         full_name: Option<impl AsRef<str>>,
-        is_active: Option<bool>,
         modified: Option<impl AsRef<str>>,
         modified_before: Option<impl AsRef<str>>,
         native_name: Option<impl AsRef<str>>,
@@ -37297,7 +36077,6 @@ impl HttpClient {
         scope_name: Option<impl AsRef<str>>,
         scope_type: Option<impl AsRef<str>>,
         scope_uuid: Option<impl AsRef<str>>,
-        show_inactive: Option<bool>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
         user_url: Option<impl AsRef<str>>,
@@ -37314,18 +36093,12 @@ impl HttpClient {
                 query_params
                     .push(("created_before".to_string(), v.as_ref().to_string()));
             }
-            if let Some(v) = customer_uuid {
-                query_params.push(("customer_uuid".to_string(), v.as_ref().to_string()));
-            }
             if let Some(v) = expiration_time {
                 query_params
                     .push(("expiration_time".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = full_name {
                 query_params.push(("full_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = is_active {
-                query_params.push(("is_active".to_string(), v.to_string()));
             }
             if let Some(v) = modified {
                 query_params.push(("modified".to_string(), v.as_ref().to_string()));
@@ -37380,9 +36153,6 @@ impl HttpClient {
             }
             if let Some(v) = scope_uuid {
                 query_params.push(("scope_uuid".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = show_inactive {
-                query_params.push(("show_inactive".to_string(), v.to_string()));
             }
             if let Some(v) = user {
                 query_params.push(("user".to_string(), v.as_ref().to_string()));
@@ -37448,17 +36218,15 @@ impl HttpClient {
     }
     /// List user permissions
     ///
-    /// Get a list of all permissions for the current user. Staff and support users can view all user permissions. The list can be filtered by user, scope, role, etc. By default only active grants are returned; staff and support can pass show_inactive=true to include revoked grants (the full history).
+    /// Get a list of all permissions for the current user. Staff and support users can view all user permissions. The list can be filtered by user, scope, role, etc.
     ///
     /// `GET /api/user-permissions/`
     pub async fn user_permissions_list(
         &self,
         created: Option<impl AsRef<str>>,
         created_before: Option<impl AsRef<str>>,
-        customer_uuid: Option<impl AsRef<str>>,
         expiration_time: Option<impl AsRef<str>>,
         full_name: Option<impl AsRef<str>>,
-        is_active: Option<bool>,
         modified: Option<impl AsRef<str>>,
         modified_before: Option<impl AsRef<str>>,
         native_name: Option<impl AsRef<str>>,
@@ -37470,7 +36238,6 @@ impl HttpClient {
         scope_name: Option<impl AsRef<str>>,
         scope_type: Option<impl AsRef<str>>,
         scope_uuid: Option<impl AsRef<str>>,
-        show_inactive: Option<bool>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
         user_url: Option<impl AsRef<str>>,
@@ -37487,18 +36254,12 @@ impl HttpClient {
                 query_params
                     .push(("created_before".to_string(), v.as_ref().to_string()));
             }
-            if let Some(v) = customer_uuid {
-                query_params.push(("customer_uuid".to_string(), v.as_ref().to_string()));
-            }
             if let Some(v) = expiration_time {
                 query_params
                     .push(("expiration_time".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = full_name {
                 query_params.push(("full_name".to_string(), v.as_ref().to_string()));
-            }
-            if let Some(v) = is_active {
-                query_params.push(("is_active".to_string(), v.to_string()));
             }
             if let Some(v) = modified {
                 query_params.push(("modified".to_string(), v.as_ref().to_string()));
@@ -37554,9 +36315,6 @@ impl HttpClient {
             if let Some(v) = scope_uuid {
                 query_params.push(("scope_uuid".to_string(), v.as_ref().to_string()));
             }
-            if let Some(v) = show_inactive {
-                query_params.push(("show_inactive".to_string(), v.to_string()));
-            }
             if let Some(v) = user {
                 query_params.push(("user".to_string(), v.as_ref().to_string()));
             }
@@ -37604,74 +36362,6 @@ impl HttpClient {
                     )
                 }
             }
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// Restore a revoked user role
-    ///
-    /// Restores a previously revoked user role grant, reinstating the associated permissions immediately. Restoring a role whose scope (e.g. a project) has been soft-deleted is not allowed.
-    ///
-    /// `POST /api/user-permissions/{uuid}/restore/`
-    pub async fn user_permissions_restore(
-        &self,
-        uuid: impl AsRef<str>,
-        request: Option<UserRolePermissionActionRequest>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url, format!("/api/user-permissions/{}/restore/",
-            __pct_encode_path_segment(uuid.as_ref()))
-        );
-        let mut req = self.http_client.post(request_url);
-        if let Some(request) = request {
-            req = req
-                .body(
-                    serde_json::to_vec(&request).map_err(HttpError::serialization_error)?,
-                )
-                .header("content-type", "application/json");
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
         } else {
             let typed: Option<serde_json::Value>;
             let parse_error: Option<String>;
@@ -37745,74 +36435,6 @@ impl HttpClient {
                     )
                 }
             }
-        } else {
-            let typed: Option<serde_json::Value>;
-            let parse_error: Option<String>;
-            match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
-                        Ok(v) => {
-                            typed = Some(v);
-                            parse_error = None;
-                        }
-                        Err(e) => {
-                            typed = None;
-                            parse_error = Some(e.to_string());
-                        }
-                    }
-                }
-            }
-            Err(
-                ApiOpError::Api(ApiError {
-                    status: status_code,
-                    headers,
-                    body: body_text,
-                    typed,
-                    parse_error,
-                }),
-            )
-        }
-    }
-    /// Revoke a user role
-    ///
-    /// Revokes a specific user role grant, deactivating the associated permissions immediately.
-    ///
-    /// `POST /api/user-permissions/{uuid}/revoke/`
-    pub async fn user_permissions_revoke(
-        &self,
-        uuid: impl AsRef<str>,
-        request: Option<UserRolePermissionActionRequest>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
-        let request_url = format!(
-            "{}{}", self.base_url, format!("/api/user-permissions/{}/revoke/",
-            __pct_encode_path_segment(uuid.as_ref()))
-        );
-        let mut req = self.http_client.post(request_url);
-        if let Some(request) = request {
-            req = req
-                .body(
-                    serde_json::to_vec(&request).map_err(HttpError::serialization_error)?,
-                )
-                .header("content-type", "application/json");
-        }
-        if let Some(api_key) = &self.api_key {
-            req = req.header("Authorization", api_key.as_str());
-        }
-        for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
-        }
-        let response = req.send().await?;
-        let status = response.status();
-        let status_code = status.as_u16();
-        let headers = response.headers().clone();
-        let body_text = response
-            .text()
-            .await
-            .map_err(|e| ApiOpError::Transport(HttpError::Network(e)))?;
-        if status.is_success() {
-            let _ = body_text;
-            let _ = headers;
-            Ok(())
         } else {
             let typed: Option<serde_json::Value>;
             let parse_error: Option<String>;
