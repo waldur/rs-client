@@ -20,7 +20,3 @@ serde_json = "1"
 thiserror = "1"
 url = { version = "2", features = ["serde"] }
 uuid = { version = "1", features = ["serde", "v4"] }
-
-# Not required by the generated code itself, kept for examples/tests that
-# need an async runtime to actually drive the client's futures.
-tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
