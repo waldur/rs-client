@@ -1,6 +1,6 @@
 [package]
 name = "waldur-client"
-version = "8.1.0"
+version = "8.1.2"
 edition = "2021"
 license = "MIT"
 description = "Rust client for Waldur MasterMind, generated from the OpenAPI schema (OpenStack + team management surface)"
