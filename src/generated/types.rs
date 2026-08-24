@@ -1629,6 +1629,9 @@ pub struct ProjectRequest {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    ///Show credit and usage analytics widgets on this project's dashboard.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display_credit_reports: Option<bool>,
     ///Project end date. Setting this field requires DELETE_PROJECT permission.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
@@ -1677,6 +1680,7 @@ impl ProjectRequest {
             affiliation_uuid: None,
             backend_id: None,
             description: None,
+            display_credit_reports: None,
             end_date: None,
             grace_period_days: None,
             image: None,
@@ -1727,6 +1731,12 @@ impl ProjectRequestBuilder {
     #[must_use]
     pub fn description(mut self, description: String) -> Self {
         self.value.description = Some(description);
+        self
+    }
+    #[doc = concat!("Set the optional `", "display_credit_reports", "` request field.")]
+    #[must_use]
+    pub fn display_credit_reports(mut self, display_credit_reports: bool) -> Self {
+        self.value.display_credit_reports = Some(display_credit_reports);
         self
     }
     #[doc = concat!("Set the optional `", "end_date", "` request field.")]
@@ -2185,6 +2195,9 @@ pub struct PatchedProjectRequest {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    ///Show credit and usage analytics widgets on this project's dashboard.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display_credit_reports: Option<bool>,
     ///Project end date. Setting this field requires DELETE_PROJECT permission.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end_date: Option<chrono::NaiveDate>,
@@ -7112,6 +7125,9 @@ pub struct Project {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    ///Show credit and usage analytics widgets on this project's dashboard.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display_credit_reports: Option<bool>,
     ///Effective end date including grace period. After this date, project resources will be terminated.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub effective_end_date: Option<chrono::NaiveDate>,
@@ -17042,6 +17058,8 @@ pub enum ProjectFieldEnum {
     CustomerUuid,
     #[serde(rename = "description")]
     Description,
+    #[serde(rename = "display_credit_reports")]
+    DisplayCreditReports,
     #[serde(rename = "effective_end_date")]
     EffectiveEndDate,
     #[serde(rename = "end_date")]
@@ -17136,6 +17154,7 @@ impl ProjectFieldEnum {
             Self::CustomerSlug => "customer_slug",
             Self::CustomerUuid => "customer_uuid",
             Self::Description => "description",
+            Self::DisplayCreditReports => "display_credit_reports",
             Self::EffectiveEndDate => "effective_end_date",
             Self::EndDate => "end_date",
             Self::EndDateRequestedBy => "end_date_requested_by",
