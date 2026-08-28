@@ -17718,7 +17718,6 @@ pub struct UpdatePoolRequest {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct UserAuthToken {
     pub created: chrono::DateTime<chrono::Utc>,
-    pub token: String,
     pub user_first_name: String,
     ///Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
     pub user_is_active: bool,
