@@ -13817,6 +13817,8 @@ impl HttpClient {
         project_uuid: Option<impl AsRef<str>>,
         query: Option<impl AsRef<str>>,
         runtime_state: Option<impl AsRef<str>>,
+        security_group: Option<impl AsRef<str>>,
+        security_group_uuid: Option<impl AsRef<str>>,
         service_settings_name: Option<impl AsRef<str>>,
         service_settings_uuid: Option<impl AsRef<str>>,
         state: Option<Vec<CoreStates>>,
@@ -13896,6 +13898,14 @@ impl HttpClient {
             }
             if let Some(v) = runtime_state {
                 query_params.push(("runtime_state".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = security_group {
+                query_params
+                    .push(("security_group".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = security_group_uuid {
+                query_params
+                    .push(("security_group_uuid".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = service_settings_name {
                 query_params
@@ -14242,6 +14252,8 @@ impl HttpClient {
         project_uuid: Option<impl AsRef<str>>,
         query: Option<impl AsRef<str>>,
         runtime_state: Option<impl AsRef<str>>,
+        security_group: Option<impl AsRef<str>>,
+        security_group_uuid: Option<impl AsRef<str>>,
         service_settings_name: Option<impl AsRef<str>>,
         service_settings_uuid: Option<impl AsRef<str>>,
         state: Option<Vec<CoreStates>>,
@@ -14330,6 +14342,14 @@ impl HttpClient {
             }
             if let Some(v) = runtime_state {
                 query_params.push(("runtime_state".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = security_group {
+                query_params
+                    .push(("security_group".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = security_group_uuid {
+                query_params
+                    .push(("security_group_uuid".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = service_settings_name {
                 query_params

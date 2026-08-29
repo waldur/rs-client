@@ -8332,6 +8332,13 @@ pub struct OpenStackSecurityGroup {
     pub error_message: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error_traceback: Option<String>,
+    ///Number of instances the security group is attached to. It is annotated by the security group endpoints only, so it is null when the group is rendered as a nested object.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub instance_count: Option<Option<i64>>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -18170,6 +18177,8 @@ pub enum OpenStackSecurityGroupFieldEnum {
     ErrorMessage,
     #[serde(rename = "error_traceback")]
     ErrorTraceback,
+    #[serde(rename = "instance_count")]
+    InstanceCount,
     #[serde(rename = "is_limit_based")]
     IsLimitBased,
     #[serde(rename = "is_usage_based")]
@@ -18243,6 +18252,7 @@ impl OpenStackSecurityGroupFieldEnum {
             Self::Description => "description",
             Self::ErrorMessage => "error_message",
             Self::ErrorTraceback => "error_traceback",
+            Self::InstanceCount => "instance_count",
             Self::IsLimitBased => "is_limit_based",
             Self::IsUsageBased => "is_usage_based",
             Self::MarketplaceCategoryName => "marketplace_category_name",
