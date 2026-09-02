@@ -7241,6 +7241,9 @@ pub struct OpenStackInstance {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub marketplace_resource_uuid: Option<Option<String>>,
+    ///Nova instance metadata as string-to-string pairs. At most 128 entries; keys and values up to 255 characters.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<OpenStackInstanceMetadata>,
     ///Minimum disk size in MiB
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_disk: Option<i64>,
@@ -7417,6 +7420,14 @@ impl AsRef<str> for PolicyEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
+}
+///Nova instance metadata as string-to-string pairs. At most 128 entries; keys and values up to 255 characters.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct OpenStackInstanceMetadata {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, String>,
 }
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct OpenStackInstanceMarketplaceOfferingPluginOptions {
@@ -9897,6 +9908,20 @@ impl AsRef<str> for ExecutionStateEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct InstanceSetMetadataRequest {
+    ///Nova instance metadata as string-to-string pairs. At most 128 entries; keys and values up to 255 characters.
+    pub metadata: InstanceSetMetadataRequestMetadata,
+}
+///Nova instance metadata as string-to-string pairs. At most 128 entries; keys and values up to 255 characters.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct InstanceSetMetadataRequestMetadata {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -16655,6 +16680,8 @@ pub enum OpenStackInstanceFieldEnum {
     MarketplaceResourceState,
     #[serde(rename = "marketplace_resource_uuid")]
     MarketplaceResourceUuid,
+    #[serde(rename = "metadata")]
+    Metadata,
     #[serde(rename = "min_disk")]
     MinDisk,
     #[serde(rename = "min_ram")]
@@ -16761,6 +16788,7 @@ impl OpenStackInstanceFieldEnum {
             Self::MarketplacePlanUuid => "marketplace_plan_uuid",
             Self::MarketplaceResourceState => "marketplace_resource_state",
             Self::MarketplaceResourceUuid => "marketplace_resource_uuid",
+            Self::Metadata => "metadata",
             Self::MinDisk => "min_disk",
             Self::MinRam => "min_ram",
             Self::Modified => "modified",
