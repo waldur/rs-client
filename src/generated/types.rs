@@ -11147,13 +11147,19 @@ impl AsRef<str> for AccessorTypeEnum {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct DashboardPendingAction {
+    pub actions: Vec<CorrectiveAction>,
+    pub can_silence: bool,
     pub count: Option<i64>,
     pub customer_uuid: Option<uuid::Uuid>,
     pub deadline: Option<chrono::DateTime<chrono::Utc>>,
     pub description: String,
+    pub route_name: Option<String>,
+    pub route_params: DashboardPendingActionRouteParams,
     pub target_uuid: Option<uuid::Uuid>,
     pub title: String,
     pub r#type: String,
+    pub urgency: Option<String>,
+    pub uuid: Option<uuid::Uuid>,
     pub variant: VariantEnum,
 }
 ///
@@ -11185,6 +11191,13 @@ impl AsRef<str> for VariantEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
+}
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct DashboardPendingActionRouteParams {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///
 pub type CustomersUsersListResponse = Vec<CustomerUser>;
@@ -12919,6 +12932,138 @@ impl ::std::fmt::Display for LoadBalancerProtocolEnum {
     }
 }
 impl AsRef<str> for LoadBalancerProtocolEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct CorrectiveAction {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub api_endpoint: Option<bool>,
+    pub category: CorrectiveActionCategoryEnum,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub confirmation_required: Option<bool>,
+    pub label: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<CorrectiveActionMetadata>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub method: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub permissions_required: Option<Vec<String>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub route_name: Option<Option<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub route_params: Option<CorrectiveActionRouteParams>,
+    pub severity: CorrectiveActionSeverityEnum,
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum CorrectiveActionSeverityEnum {
+    #[default]
+    #[serde(rename = "safe")]
+    Safe,
+    #[serde(rename = "low")]
+    Low,
+    #[serde(rename = "medium")]
+    Medium,
+    #[serde(rename = "high")]
+    High,
+    #[serde(rename = "critical")]
+    Critical,
+}
+impl CorrectiveActionSeverityEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Safe => "safe",
+            Self::Low => "low",
+            Self::Medium => "medium",
+            Self::High => "high",
+            Self::Critical => "critical",
+        }
+    }
+}
+impl ::std::fmt::Display for CorrectiveActionSeverityEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for CorrectiveActionSeverityEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct CorrectiveActionRouteParams {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
+}
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct CorrectiveActionMetadata {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum CorrectiveActionCategoryEnum {
+    #[default]
+    #[serde(rename = "view")]
+    View,
+    #[serde(rename = "approve")]
+    Approve,
+    #[serde(rename = "reject")]
+    Reject,
+    #[serde(rename = "extend")]
+    Extend,
+    #[serde(rename = "terminate")]
+    Terminate,
+    #[serde(rename = "backup")]
+    Backup,
+    #[serde(rename = "migrate")]
+    Migrate,
+    #[serde(rename = "contact")]
+    Contact,
+    #[serde(rename = "escalate")]
+    Escalate,
+    #[serde(rename = "configure")]
+    Configure,
+    #[serde(rename = "repair")]
+    Repair,
+    #[serde(rename = "monitor")]
+    Monitor,
+}
+impl CorrectiveActionCategoryEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::View => "view",
+            Self::Approve => "approve",
+            Self::Reject => "reject",
+            Self::Extend => "extend",
+            Self::Terminate => "terminate",
+            Self::Backup => "backup",
+            Self::Migrate => "migrate",
+            Self::Contact => "contact",
+            Self::Escalate => "escalate",
+            Self::Configure => "configure",
+            Self::Repair => "repair",
+            Self::Monitor => "monitor",
+        }
+    }
+}
+impl ::std::fmt::Display for CorrectiveActionCategoryEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for CorrectiveActionCategoryEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }

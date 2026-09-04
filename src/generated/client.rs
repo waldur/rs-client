@@ -48796,7 +48796,7 @@ impl HttpClient {
     }
     /// Get pending dashboard actions feed
     ///
-    /// Returns a typed feed of actions the current user should take, aggregating pending orders, failed resources, overdue invoices, missing Terms of Service consents, and incomplete profile state.
+    /// Returns a typed feed of actions the current user should take, aggregating pending orders, failed resources, overdue invoices, missing Terms of Service consents, and incomplete profile state. Where USER_ACTIONS_ENABLED is set, the persistent UserAction queue is folded in as well; those items carry a uuid addressing the user-actions endpoints, along with any corrective actions and the route recorded for them.
     ///
     /// `GET /api/users/dashboard-pending-actions/`
     pub async fn users_dashboard_pending_actions_list(
