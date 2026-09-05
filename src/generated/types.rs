@@ -16296,6 +16296,12 @@ impl OpenStackBackupRequestBuilder {
     }
 }
 ///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct OpenStackConsoleLogRequest {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub length: Option<i64>,
+}
+///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
 pub enum OpenStackFlavorFieldEnum {
     #[default]
@@ -19496,6 +19502,7 @@ pub struct OpenstackFlavorsUsageStatsRetrieveResponse {
     #[serde(flatten)]
     pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
+pub type OpenstackInstancesConsoleLogResponse = String;
 pub type OpenstackInstancesConsoleLogRetrieveResponse = String;
 pub type OpenstackMarketplaceTenantsUploadImageDataRequest = bytes::Bytes;
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
