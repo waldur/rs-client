@@ -3238,7 +3238,7 @@ pub struct PatchedOpenStackSubNetRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
-    pub gateway_ip: Option<Option<PatchedOpenStackSubNetRequestGatewayIp>>,
+    pub gateway_ip: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_routes: Option<Vec<OpenStackStaticRouteRequest>>,
     ///Constraint: minLength=1, maxLength=150
@@ -3255,8 +3255,6 @@ pub struct PatchedOpenStackSubNetRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub skip_router_connection: Option<bool>,
 }
-///IP address of the gateway for this subnet
-pub type PatchedOpenStackSubNetRequestGatewayIp = String;
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct PatchedOpenStackSnapshotRequest {
@@ -4466,7 +4464,7 @@ pub struct OpenStackSubNetRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
-    pub gateway_ip: Option<Option<OpenStackSubNetRequestGatewayIp>>,
+    pub gateway_ip: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_routes: Option<Vec<OpenStackStaticRouteRequest>>,
     ///Constraint: minLength=1, maxLength=150
@@ -4553,7 +4551,7 @@ impl OpenStackSubNetRequestBuilder {
         "Set the optional nullable `", "gateway_ip", "` request field to a value."
     )]
     #[must_use]
-    pub fn gateway_ip(mut self, gateway_ip: OpenStackSubNetRequestGatewayIp) -> Self {
+    pub fn gateway_ip(mut self, gateway_ip: String) -> Self {
         self.value.gateway_ip = Some(Some(gateway_ip));
         self
     }
@@ -4610,8 +4608,6 @@ impl OpenStackSubNetRequestBuilder {
         self.value
     }
 }
-///IP address of the gateway for this subnet
-pub type OpenStackSubNetRequestGatewayIp = String;
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenStackSubNetAllocationPoolRequest {
@@ -4674,7 +4670,7 @@ pub struct OpenStackSubNet {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
-    pub gateway_ip: Option<Option<OpenStackSubNetGatewayIp>>,
+    pub gateway_ip: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub host_routes: Option<Vec<OpenStackStaticRoute>>,
     ///IP protocol version (4 or 6)
@@ -4818,8 +4814,6 @@ pub struct OpenStackSubNetMarketplaceOfferingPluginOptions {
     #[serde(flatten)]
     pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
-///IP address of the gateway for this subnet
-pub type OpenStackSubNetGatewayIp = String;
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackSubNetAccessUrl {
@@ -14562,32 +14556,6 @@ pub struct AnswerAnswerData {
     pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///
-pub type NullEnum = ();
-///
-#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
-pub enum BlankEnum {
-    #[default]
-    #[serde(rename = "")]
-    Value,
-}
-impl BlankEnum {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            Self::Value => "",
-        }
-    }
-}
-impl ::std::fmt::Display for BlankEnum {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-impl AsRef<str> for BlankEnum {
-    fn as_ref(&self) -> &str {
-        self.as_str()
-    }
-}
-///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AllocationCandidatesResponse {
     ///Total number of allocation candidates Placement returned.
@@ -14663,6 +14631,32 @@ impl ::std::fmt::Display for CoreStates {
     }
 }
 impl AsRef<str> for CoreStates {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+///
+pub type NullEnum = ();
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum BlankEnum {
+    #[default]
+    #[serde(rename = "")]
+    Value,
+}
+impl BlankEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Value => "",
+        }
+    }
+}
+impl ::std::fmt::Display for BlankEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for BlankEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
