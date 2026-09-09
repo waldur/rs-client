@@ -3251,6 +3251,9 @@ pub struct PatchedOpenStackSubNetRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub router: Option<Option<String>>,
+    ///Create the subnet without attaching it to a router. Off by default, so an omitted field behaves exactly as before: Waldur attaches the subnet to a router of the tenant.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub skip_router_connection: Option<bool>,
 }
 ///IP address of the gateway for this subnet
 pub type PatchedOpenStackSubNetRequestGatewayIp = String;
@@ -4475,6 +4478,9 @@ pub struct OpenStackSubNetRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub router: Option<Option<String>>,
+    ///Create the subnet without attaching it to a router. Off by default, so an omitted field behaves exactly as before: Waldur attaches the subnet to a router of the tenant.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub skip_router_connection: Option<bool>,
 }
 impl OpenStackSubNetRequest {
     /// Construct this request with every required wire field.
@@ -4489,6 +4495,7 @@ impl OpenStackSubNetRequest {
             gateway_ip: None,
             host_routes: None,
             router: None,
+            skip_router_connection: None,
         }
     }
     /// Start a dependency-free builder with every required wire field.
@@ -4590,6 +4597,12 @@ impl OpenStackSubNetRequestBuilder {
     #[must_use]
     pub fn router_absent(mut self) -> Self {
         self.value.router = None;
+        self
+    }
+    #[doc = concat!("Set the optional `", "skip_router_connection", "` request field.")]
+    #[must_use]
+    pub fn skip_router_connection(mut self, skip_router_connection: bool) -> Self {
+        self.value.skip_router_connection = Some(skip_router_connection);
         self
     }
     /// Finish building the request model.
@@ -19042,6 +19055,8 @@ pub enum OpenStackSubNetFieldEnum {
     ServiceSettingsState,
     #[serde(rename = "service_settings_uuid")]
     ServiceSettingsUuid,
+    #[serde(rename = "skip_router_connection")]
+    SkipRouterConnection,
     #[serde(rename = "state")]
     State,
     #[serde(rename = "tenant")]
@@ -19106,6 +19121,7 @@ impl OpenStackSubNetFieldEnum {
             Self::ServiceSettingsErrorMessage => "service_settings_error_message",
             Self::ServiceSettingsState => "service_settings_state",
             Self::ServiceSettingsUuid => "service_settings_uuid",
+            Self::SkipRouterConnection => "skip_router_connection",
             Self::State => "state",
             Self::Tenant => "tenant",
             Self::TenantName => "tenant_name",
