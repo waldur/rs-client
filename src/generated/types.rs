@@ -11269,6 +11269,21 @@ pub type CustomersProvidersListResponse = Vec<ServiceProvider>;
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct ServiceProvider {
+    ///Provider-level default home directory prefix. Blank means each offering decides for itself.
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account_homedir_prefix: Option<String>,
+    ///Provider-level default login shell. Blank means each offering decides for itself.
+    ///Constraint: maxLength=255
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account_login_shell: Option<String>,
+    ///Default for this provider's offerings: hold user accounts per offering (the historical behaviour) or once per provider. Choose 'provider' when one directory fronts several offerings. Any single offering can override this with an 'account_scope' plugin option, so a provider can run both -- for example a cluster with its own separate directory alongside offerings that share the main one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account_scope: Option<AccountScope>,
+    ///Provider-level default for the offering plugin option of the same name. Blank means each offering decides for itself.
+    ///Constraint: maxLength=50
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account_username_generation_policy: Option<String>,
     ///List of allowed domains for offering endpoints. Only staff can modify this field.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allowed_domains: Option<Vec<String>>,
@@ -13671,6 +13686,33 @@ pub struct Quota {
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub usage: Option<i64>,
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum AccountScope {
+    #[default]
+    #[serde(rename = "offering")]
+    Offering,
+    #[serde(rename = "provider")]
+    Provider,
+}
+impl AccountScope {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Offering => "offering",
+            Self::Provider => "provider",
+        }
+    }
+}
+impl ::std::fmt::Display for AccountScope {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for AccountScope {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
@@ -20798,6 +20840,14 @@ pub struct SendNotificationResponse {
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
 pub enum ServiceProviderFieldEnum {
     #[default]
+    #[serde(rename = "account_homedir_prefix")]
+    AccountHomedirPrefix,
+    #[serde(rename = "account_login_shell")]
+    AccountLoginShell,
+    #[serde(rename = "account_scope")]
+    AccountScope,
+    #[serde(rename = "account_username_generation_policy")]
+    AccountUsernameGenerationPolicy,
     #[serde(rename = "allowed_domains")]
     AllowedDomains,
     #[serde(rename = "created")]
@@ -20836,6 +20886,10 @@ pub enum ServiceProviderFieldEnum {
 impl ServiceProviderFieldEnum {
     pub fn as_str(&self) -> &'static str {
         match self {
+            Self::AccountHomedirPrefix => "account_homedir_prefix",
+            Self::AccountLoginShell => "account_login_shell",
+            Self::AccountScope => "account_scope",
+            Self::AccountUsernameGenerationPolicy => "account_username_generation_policy",
             Self::AllowedDomains => "allowed_domains",
             Self::Created => "created",
             Self::Customer => "customer",
