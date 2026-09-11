@@ -772,6 +772,9 @@ pub struct UserMe {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    ///Extra details from authentication backend.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<UserMeDetails>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub eduperson_assurance: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -951,6 +954,13 @@ pub enum UserMeGender {
     GenderEnum(GenderEnum),
     BlankEnum(BlankEnum),
     NullEnum(NullEnum),
+}
+///Extra details from authentication backend.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct UserMeDetails {
+    /// Additional properties not explicitly defined in the schema
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///Per-attribute source and freshness tracking. Format: {'field_name': {'source': 'isd:<name>', 'timestamp': 'ISO8601'}}.
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -9014,6 +9024,9 @@ pub struct User {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    ///Extra details from authentication backend.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<UserDetails>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub eduperson_assurance: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9196,6 +9209,13 @@ pub enum UserGender {
     BlankEnum(BlankEnum),
     NullEnum(NullEnum),
 }
+///Extra details from authentication backend.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct UserDetails {
+    /// Additional properties not explicitly defined in the schema
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
+}
 ///Per-attribute source and freshness tracking. Format: {'field_name': {'source': 'isd:<name>', 'timestamp': 'ISO8601'}}.
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct UserAttributeSources {
@@ -9281,6 +9301,8 @@ pub struct Permission {
     pub scope_type: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -13663,6 +13685,8 @@ pub struct UserRoleDetails {
     pub role_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -21149,6 +21173,8 @@ pub enum UserFieldEnum {
     DeactivationReason,
     #[serde(rename = "description")]
     Description,
+    #[serde(rename = "details")]
+    Details,
     #[serde(rename = "eduperson_assurance")]
     EdupersonAssurance,
     #[serde(rename = "email")]
@@ -21268,6 +21294,7 @@ impl UserFieldEnum {
             Self::DateJoined => "date_joined",
             Self::DeactivationReason => "deactivation_reason",
             Self::Description => "description",
+            Self::Details => "details",
             Self::EdupersonAssurance => "eduperson_assurance",
             Self::Email => "email",
             Self::FirstName => "first_name",
@@ -21364,6 +21391,8 @@ pub enum UserMeFieldEnum {
     DeactivationReason,
     #[serde(rename = "description")]
     Description,
+    #[serde(rename = "details")]
+    Details,
     #[serde(rename = "eduperson_assurance")]
     EdupersonAssurance,
     #[serde(rename = "email")]
@@ -21485,6 +21514,7 @@ impl UserMeFieldEnum {
             Self::DateJoined => "date_joined",
             Self::DeactivationReason => "deactivation_reason",
             Self::Description => "description",
+            Self::Details => "details",
             Self::EdupersonAssurance => "eduperson_assurance",
             Self::Email => "email",
             Self::FirstName => "first_name",
@@ -21710,6 +21740,8 @@ pub enum UserRoleDetailsFieldEnum {
     RoleName,
     #[serde(rename = "role_uuid")]
     RoleUuid,
+    #[serde(rename = "source")]
+    Source,
     #[serde(rename = "user_email")]
     UserEmail,
     #[serde(rename = "user_full_name")]
@@ -21732,6 +21764,7 @@ impl UserRoleDetailsFieldEnum {
             Self::ExpirationTime => "expiration_time",
             Self::RoleName => "role_name",
             Self::RoleUuid => "role_uuid",
+            Self::Source => "source",
             Self::UserEmail => "user_email",
             Self::UserFullName => "user_full_name",
             Self::UserImage => "user_image",
