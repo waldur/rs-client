@@ -2078,6 +2078,72 @@ pub struct RoleModifyRequestPermissions {
     pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
 ///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct RoleHygieneReport {
+    pub error_count: i64,
+    pub findings: Vec<RoleHygieneFinding>,
+    pub info_count: i64,
+    pub roles_checked: i64,
+    pub roles_with_findings: i64,
+    pub warning_count: i64,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct RoleHygieneFinding {
+    pub check: String,
+    pub details: RoleHygieneFindingDetails,
+    pub is_system_role: bool,
+    pub message: String,
+    pub role_description: String,
+    pub role_name: String,
+    pub role_uuid: String,
+    pub scope_type: Option<RoleHygieneFindingScopeType>,
+    pub severity: RoleHygieneFindingSeverityEnum,
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum RoleHygieneFindingSeverityEnum {
+    #[default]
+    #[serde(rename = "error")]
+    Error,
+    #[serde(rename = "warning")]
+    Warning,
+    #[serde(rename = "info")]
+    Info,
+}
+impl RoleHygieneFindingSeverityEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Error => "error",
+            Self::Warning => "warning",
+            Self::Info => "info",
+        }
+    }
+}
+impl ::std::fmt::Display for RoleHygieneFindingSeverityEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for RoleHygieneFindingSeverityEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(untagged)]
+pub enum RoleHygieneFindingScopeType {
+    Role(RoleType),
+    NullEnum(NullEnum),
+}
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct RoleHygieneFindingDetails {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
+}
+///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct RoleDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
