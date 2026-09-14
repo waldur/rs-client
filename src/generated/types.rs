@@ -11368,6 +11368,10 @@ pub struct ServiceProvider {
     ///Default for this provider's offerings: hold user accounts per offering (the historical behaviour) or once per provider. Choose 'provider' when one directory fronts several offerings. Any single offering can override this with an 'account_scope' plugin option, so a provider can run both -- for example a cluster with its own separate directory alongside offerings that share the main one.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub account_scope: Option<AccountScope>,
+    ///Provider-level default prefix for anonymized usernames, which are the prefix followed by the account's POSIX UID. Blank means each offering decides for itself.
+    ///Constraint: maxLength=100
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account_username_anonymized_prefix: Option<String>,
     ///Provider-level default for the offering plugin option of the same name. Blank means each offering decides for itself.
     ///Constraint: maxLength=50
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20936,6 +20940,8 @@ pub enum ServiceProviderFieldEnum {
     AccountLoginShell,
     #[serde(rename = "account_scope")]
     AccountScope,
+    #[serde(rename = "account_username_anonymized_prefix")]
+    AccountUsernameAnonymizedPrefix,
     #[serde(rename = "account_username_generation_policy")]
     AccountUsernameGenerationPolicy,
     #[serde(rename = "allowed_domains")]
@@ -20979,6 +20985,7 @@ impl ServiceProviderFieldEnum {
             Self::AccountHomedirPrefix => "account_homedir_prefix",
             Self::AccountLoginShell => "account_login_shell",
             Self::AccountScope => "account_scope",
+            Self::AccountUsernameAnonymizedPrefix => "account_username_anonymized_prefix",
             Self::AccountUsernameGenerationPolicy => "account_username_generation_policy",
             Self::AllowedDomains => "allowed_domains",
             Self::Created => "created",
