@@ -2417,7 +2417,7 @@ impl HttpClient {
     }
     /// List customers
     ///
-    /// Retrieve a list of customers. The list is filtered based on the user's permissions.
+    /// Retrieve a list of customers. The list is filtered based on the user's permissions. A user whose only link to an organization is a role on its service provider sees it with a restricted field set: url, uuid, name, native_name, display_name, abbreviation, slug, image, country, country_name, is_service_provider, service_provider and service_provider_uuid. All other fields are omitted for that row.
     ///
     /// `GET /api/customers/`
     pub async fn customers_list(
@@ -4492,7 +4492,7 @@ impl HttpClient {
     }
     /// Retrieve customer details
     ///
-    /// Fetch the details of a specific customer by its UUID.
+    /// Fetch the details of a specific customer by its UUID. A user whose only link to the organization is a role on its service provider receives the restricted field set described on the list operation.
     ///
     /// `GET /api/customers/{uuid}/`
     pub async fn customers_retrieve(

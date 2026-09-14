@@ -12412,6 +12412,9 @@ pub struct Customer {
     pub image: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_service_provider: Option<bool>,
+    ///True when the requesting user's only link to this organization is a role on its service provider. Such a row carries only identity fields.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_service_provider_manager_only: Option<bool>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -15092,6 +15095,8 @@ pub enum CustomerFieldEnum {
     Image,
     #[serde(rename = "is_service_provider")]
     IsServiceProvider,
+    #[serde(rename = "is_service_provider_manager_only")]
+    IsServiceProviderManagerOnly,
     #[serde(rename = "latitude")]
     Latitude,
     #[serde(rename = "longitude")]
@@ -15187,6 +15192,7 @@ impl CustomerFieldEnum {
             Self::Household => "household",
             Self::Image => "image",
             Self::IsServiceProvider => "is_service_provider",
+            Self::IsServiceProviderManagerOnly => "is_service_provider_manager_only",
             Self::Latitude => "latitude",
             Self::Longitude => "longitude",
             Self::MaxServiceAccounts => "max_service_accounts",
