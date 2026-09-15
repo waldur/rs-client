@@ -29,7 +29,10 @@ Build Rust SDK:
     - set -e
     - export PATH="$CARGO_HOME/bin:$PATH"
     # waldur-openapi-schema.yaml is downloaded automatically from needs
-    - cargo install --locked openapi-to-rust
+    # Pinned: a new generator release can change what the generated code
+    # needs from Cargo.toml (0.17.0 added futures-util and reqwest's `stream`
+    # feature). Bump deliberately, together with Cargo.toml.
+    - cargo install --locked openapi-to-rust --version 0.17.0
     # No positional source arg: that switches the tool to "direct mode",
     # which ignores openapi-to-rust.toml entirely (including the
     # `operations` tag filter) and generates the full API surface.
