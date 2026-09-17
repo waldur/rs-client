@@ -10098,6 +10098,22 @@ pub struct SubNetMapping {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct InvitationDuplicateCheckResponse {
     pub duplicates: Vec<InvitationDuplicate>,
+    pub existing_roles: Vec<InvitationExistingRole>,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct InvitationExistingRole {
+    pub email: String,
+    ///UUID of the role the user already holds in the scope
+    pub existing_role: uuid::Uuid,
+    ///Human-readable description of the role the user already holds, for display. Falls back to the role name when the description is blank.
+    pub existing_role_description: String,
+    ///Name of the role the user already holds in the scope
+    pub existing_role_name: String,
+    ///Whether the role already held is the one being requested. This reports what the scope currently holds, not the outcome of a grant: acceptance is decided per accepting user and also depends on the INVITATION_DISABLE_MULTIPLE_ROLES and ONLY_ONE_PROJECT_MANAGER settings.
+    pub is_same_role: bool,
+    ///UUID of the role requested for this email
+    pub role: uuid::Uuid,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]

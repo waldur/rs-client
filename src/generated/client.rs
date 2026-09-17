@@ -45626,7 +45626,7 @@ impl HttpClient {
     }
     /// Check for duplicate invitations
     ///
-    /// Returns pending invitations that already exist for the same email and role within the given scope.
+    /// Returns pending invitations that already exist for the same email and role within the given scope, along with the active roles those emails already hold in it.
     ///
     /// `POST /api/user-invitations/check-duplicates/`
     pub async fn user_invitations_check_duplicates(
