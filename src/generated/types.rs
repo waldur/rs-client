@@ -11575,9 +11575,9 @@ pub type CustomersProvidersListResponse = Vec<ServiceProvider>;
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct ServiceProvider {
-    ///Account settings for this provider's offerings, under the same keys as an offering's plugin options. Each applies to every offering that does not set its own. Updated key by key: an omitted key is kept, and a blank value removes it.
+    ///Account settings for this provider's offerings, under the same keys as an offering's plugin options. Each applies to every offering that does not set its own; project_groups_enabled is the provider's own. Updated key by key: an omitted key is kept, and a blank value removes it.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub account_options: Option<AccountOptions>,
+    pub account_options: Option<ProviderAccountOptions>,
     ///List of allowed domains for offering endpoints. Only staff can modify this field.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub allowed_domains: Option<Vec<String>>,
@@ -15152,22 +15152,41 @@ impl AsRef<str> for AccessTypeEnum {
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct AccountOptions {
+pub struct ProviderAccountOptions {
     ///Where accounts are held: 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub account_scope: Option<AccountOptionsAccountScope>,
+    pub account_scope: Option<ProviderAccountOptionsAccountScope>,
     ///Prefix of each account's home directory; the username follows.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub homedir_prefix: Option<String>,
     ///Login shell assigned to GLAuth/LDAP accounts.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub login_shell: Option<String>,
+    ///Give every project with a resource on this provider's offerings one POSIX group, with a GID from the provider's POSIX ID pool (its group GID range when set). Turning it on also creates the groups of projects already using the provider.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub project_groups_enabled: Option<bool>,
     ///Prefix for anonymized usernames; the name is the prefix followed by the account's POSIX UID.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub username_anonymized_prefix: Option<String>,
     ///How the usernames of offering users are generated.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub username_generation_policy: Option<AccountOptionsUsernameGenerationPolicy>,
+    pub username_generation_policy: Option<
+        ProviderAccountOptionsUsernameGenerationPolicy,
+    >,
+}
+///How the usernames of offering users are generated.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(untagged)]
+pub enum ProviderAccountOptionsUsernameGenerationPolicy {
+    UsernameGenerationPolicyEnum(UsernameGenerationPolicyEnum),
+    BlankEnum(BlankEnum),
+}
+///Where accounts are held: 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings.
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(untagged)]
+pub enum ProviderAccountOptionsAccountScope {
+    AccountScope(AccountScope),
+    BlankEnum(BlankEnum),
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
@@ -15258,20 +15277,6 @@ impl AsRef<str> for AccountScope {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
-}
-///How the usernames of offering users are generated.
-#[derive(Debug, Clone, Deserialize, Serialize)]
-#[serde(untagged)]
-pub enum AccountOptionsUsernameGenerationPolicy {
-    UsernameGenerationPolicyEnum(UsernameGenerationPolicyEnum),
-    BlankEnum(BlankEnum),
-}
-///Where accounts are held: 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings.
-#[derive(Debug, Clone, Deserialize, Serialize)]
-#[serde(untagged)]
-pub enum AccountOptionsAccountScope {
-    AccountScope(AccountScope),
-    BlankEnum(BlankEnum),
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
