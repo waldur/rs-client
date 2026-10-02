@@ -3388,21 +3388,6 @@ pub struct PatchedOpenStackSnapshotRequestMetadata {
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedOpenStackPortRequest {
-    ///Constraint: maxLength=4096
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    ///Constraint: minLength=1, maxLength=150
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub security_groups: Option<Vec<OpenStackPortNestedSecurityGroupRequest>>,
-    ///Target tenant for shared network port creation. If not specified, defaults to network's tenant.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_tenant: Option<String>,
-}
-///
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct PatchedNetworkRBACPolicyRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub network: Option<String>,
@@ -6167,8 +6152,7 @@ impl OpenStackPortRequestBuilder {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenStackPortNestedSecurityGroupRequest {
-    ///Constraint: minLength=1, maxLength=150
-    pub name: String,
+    pub url: String,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -6378,7 +6362,6 @@ pub struct OpenStackPort {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct OpenStackPortNestedSecurityGroup {
-    ///Constraint: maxLength=150
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -20319,6 +20302,19 @@ pub struct PatchedOpenStackNetworkRequest {
     ///Constraint: minLength=1, maxLength=150
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct PatchedOpenStackPortRequest {
+    ///Constraint: maxLength=4096
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///Constraint: minLength=1, maxLength=150
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Target tenant for shared network port creation. If not specified, defaults to network's tenant.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_tenant: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
