@@ -9651,6 +9651,8 @@ pub struct Project {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub grace_period_days: Option<Option<i64>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_metrics: Option<bool>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -20600,6 +20602,8 @@ pub enum ProjectFieldEnum {
     EndDateUpdatedAt,
     #[serde(rename = "grace_period_days")]
     GracePeriodDays,
+    #[serde(rename = "has_metrics")]
+    HasMetrics,
     #[serde(rename = "image")]
     Image,
     #[serde(rename = "is_in_grace_period")]
@@ -20689,6 +20693,7 @@ impl ProjectFieldEnum {
             Self::EndDateRequestedBy => "end_date_requested_by",
             Self::EndDateUpdatedAt => "end_date_updated_at",
             Self::GracePeriodDays => "grace_period_days",
+            Self::HasMetrics => "has_metrics",
             Self::Image => "image",
             Self::IsInGracePeriod => "is_in_grace_period",
             Self::IsIndustry => "is_industry",
