@@ -2,6 +2,11 @@
 name = "waldur-client"
 version = "8.1.2"
 edition = "2021"
+# Must match the rust image in .gitlab-ci.yml. With resolver 3, cargo picks
+# the newest dependency versions that still build on this toolchain, so a
+# crate raising its MSRV (uuid 1.27 -> 1.89) cannot break the nightly build.
+rust-version = "1.88"
+resolver = "3"
 license = "MIT"
 description = "Rust client for Waldur MasterMind, generated from the OpenAPI schema (OpenStack + team management surface)"
 repository = "https://github.com/waldur/rs-client"
