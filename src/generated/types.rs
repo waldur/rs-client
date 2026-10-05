@@ -4017,8 +4017,12 @@ pub struct OpenStackVolume {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub availability_zone: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub availability_zone_name: Option<String>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub availability_zone_name: Option<Option<String>>,
     ///Volume ID in the OpenStack backend
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -4200,8 +4204,12 @@ pub struct OpenStackVolume {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub r#type: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_name: Option<String>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub type_name: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -7415,8 +7423,12 @@ pub struct OpenStackInstance {
     )]
     pub availability_zone: Option<Option<String>>,
     ///Name of the availability zone where instance is located
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub availability_zone_name: Option<String>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub availability_zone_name: Option<Option<String>>,
     ///Instance ID in the OpenStack backend
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -7689,8 +7701,12 @@ pub struct OpenStackNestedVolume {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub r#type: Option<Option<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub type_name: Option<String>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub type_name: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
