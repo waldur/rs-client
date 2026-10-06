@@ -5001,6 +5001,9 @@ pub struct OpenStackSubNet {
     pub state: Option<CoreStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<String>,
+    ///False when the subnet's network belongs to an OpenStack project that Waldur does not manage and only reaches tenants through an RBAC share.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tenant_is_managed: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -19581,6 +19584,8 @@ pub enum OpenStackSubNetFieldEnum {
     State,
     #[serde(rename = "tenant")]
     Tenant,
+    #[serde(rename = "tenant_is_managed")]
+    TenantIsManaged,
     #[serde(rename = "tenant_name")]
     TenantName,
     #[serde(rename = "url")]
@@ -19646,6 +19651,7 @@ impl OpenStackSubNetFieldEnum {
             Self::SkipRouterConnection => "skip_router_connection",
             Self::State => "state",
             Self::Tenant => "tenant",
+            Self::TenantIsManaged => "tenant_is_managed",
             Self::TenantName => "tenant_name",
             Self::Url => "url",
             Self::Uuid => "uuid",
