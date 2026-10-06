@@ -4423,6 +4423,9 @@ pub struct OpenStackTenant {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub is_limit_based: Option<Option<bool>>,
+    ///False for an OpenStack project that Waldur does not manage but that shares networks with managed tenants. Waldur only reads such a project: it holds no credentials for it and never provisions, pulls with tenant credentials, bills or deletes it.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_managed: Option<bool>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -6877,6 +6880,9 @@ pub struct OpenStackNetwork {
     ///OpenStack tenant this network belongs to
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<String>,
+    ///False when the network belongs to an OpenStack project that Waldur does not manage and only reaches tenants through an RBAC share.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tenant_is_managed: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -18038,6 +18044,8 @@ pub enum OpenStackNetworkFieldEnum {
     Subnets,
     #[serde(rename = "tenant")]
     Tenant,
+    #[serde(rename = "tenant_is_managed")]
+    TenantIsManaged,
     #[serde(rename = "tenant_name")]
     TenantName,
     #[serde(rename = "tenant_uuid")]
@@ -18095,6 +18103,7 @@ impl OpenStackNetworkFieldEnum {
             Self::State => "state",
             Self::Subnets => "subnets",
             Self::Tenant => "tenant",
+            Self::TenantIsManaged => "tenant_is_managed",
             Self::TenantName => "tenant_name",
             Self::TenantUuid => "tenant_uuid",
             Self::Type_ => "type",
@@ -19698,6 +19707,8 @@ pub enum OpenStackTenantFieldEnum {
     InternalNetworkId,
     #[serde(rename = "is_limit_based")]
     IsLimitBased,
+    #[serde(rename = "is_managed")]
+    IsManaged,
     #[serde(rename = "is_usage_based")]
     IsUsageBased,
     #[serde(rename = "marketplace_category_name")]
@@ -19777,6 +19788,7 @@ impl OpenStackTenantFieldEnum {
             Self::ExternalNetworkRefUuid => "external_network_ref_uuid",
             Self::InternalNetworkId => "internal_network_id",
             Self::IsLimitBased => "is_limit_based",
+            Self::IsManaged => "is_managed",
             Self::IsUsageBased => "is_usage_based",
             Self::MarketplaceCategoryName => "marketplace_category_name",
             Self::MarketplaceCategoryUuid => "marketplace_category_uuid",
