@@ -13575,12 +13575,16 @@ pub struct ComponentStats {
     pub description: String,
     pub limit: i64,
     pub limit_usage: i64,
+    ///Part of limit_usage that came from terminated resources.
+    pub limit_usage_terminated: i64,
     pub measured_unit: String,
     pub name: String,
     pub offering_name: String,
     pub offering_uuid: uuid::Uuid,
     pub r#type: String,
     pub usage: i64,
+    ///Part of usage that came from terminated resources.
+    pub usage_terminated: i64,
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]

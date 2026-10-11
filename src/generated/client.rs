@@ -4615,6 +4615,7 @@ impl HttpClient {
         &self,
         uuid: impl AsRef<str>,
         for_current_month: Option<bool>,
+        include_terminated: Option<bool>,
     ) -> Result<ComponentsUsageStats, ApiOpError<serde_json::Value>> {
         let request_url = format!(
             "{}{}", self.base_url, format!("/api/customers/{}/stats/",
@@ -4625,6 +4626,9 @@ impl HttpClient {
             let mut query_params: Vec<(String, String)> = Vec::new();
             if let Some(v) = for_current_month {
                 query_params.push(("for_current_month".to_string(), v.to_string()));
+            }
+            if let Some(v) = include_terminated {
+                query_params.push(("include_terminated".to_string(), v.to_string()));
             }
             if !query_params.is_empty() {
                 req = req.query(&query_params);
@@ -41816,6 +41820,7 @@ impl HttpClient {
         &self,
         uuid: impl AsRef<str>,
         for_current_month: Option<bool>,
+        include_terminated: Option<bool>,
     ) -> Result<ComponentsUsageStats, ApiOpError<serde_json::Value>> {
         let request_url = format!(
             "{}{}", self.base_url, format!("/api/projects/{}/stats/",
@@ -41826,6 +41831,9 @@ impl HttpClient {
             let mut query_params: Vec<(String, String)> = Vec::new();
             if let Some(v) = for_current_month {
                 query_params.push(("for_current_month".to_string(), v.to_string()));
+            }
+            if let Some(v) = include_terminated {
+                query_params.push(("include_terminated".to_string(), v.to_string()));
             }
             if !query_params.is_empty() {
                 req = req.query(&query_params);
