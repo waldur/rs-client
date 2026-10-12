@@ -2441,7 +2441,7 @@ pub struct ProjectRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub science_sub_domain: Option<Option<uuid::Uuid>>,
-    ///URL-friendly identifier. Only editable by staff users.
+    ///URL-friendly identifier. Editable by staff; on create also by holders of PROJECT.SET_SLUG on the organization, otherwise ignored.
     ///Constraint: maxLength=50, pattern=`^[-a-zA-Z0-9_]+$`
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
@@ -3184,7 +3184,7 @@ pub struct PatchedProjectRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub science_sub_domain: Option<Option<uuid::Uuid>>,
-    ///URL-friendly identifier. Only editable by staff users.
+    ///URL-friendly identifier. Editable by staff; on create also by holders of PROJECT.SET_SLUG on the organization, otherwise ignored.
     ///Constraint: maxLength=50, pattern=`^[-a-zA-Z0-9_]+$`
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
@@ -9745,7 +9745,7 @@ pub struct Project {
     pub science_sub_domain_code: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub science_sub_domain_name: Option<String>,
-    ///URL-friendly identifier. Only editable by staff users.
+    ///URL-friendly identifier. Editable by staff; on create also by holders of PROJECT.SET_SLUG on the organization, otherwise ignored.
     ///Constraint: maxLength=50, pattern=`^[-a-zA-Z0-9_]+$`
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
@@ -20792,6 +20792,12 @@ pub struct ProjectRecoveryRequest {
     ///Whether to send invitations to users who had access before project deletion
     #[serde(skip_serializing_if = "Option::is_none")]
     pub send_invitations_to_previous_members: Option<bool>,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct ProjectSlugRequest {
+    ///Constraint: minLength=1, maxLength=50, pattern=`^[-a-zA-Z0-9_]+$`
+    pub slug: String,
 }
 ///No checklist configured
 pub type ProjectsChecklistRetrieveResponse400 = serde_json::Value;
