@@ -1,6 +1,6 @@
 [package]
 name = "waldur-client"
-version = "8.1.2"
+version = "8.1.3"
 edition = "2021"
 # Must match the rust image in .gitlab-ci.yml. With resolver 3, cargo picks
 # the newest dependency versions that still build on this toolchain, so a
