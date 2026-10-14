@@ -3487,6 +3487,9 @@ pub struct PatchedCustomerRequest {
         default
     )]
     pub image: Option<Option<bytes::Bytes>>,
+    ///Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_private_person: Option<bool>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -11921,6 +11924,9 @@ pub struct CustomerRequest {
         default
     )]
     pub image: Option<Option<bytes::Bytes>>,
+    ///Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_private_person: Option<bool>,
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -12035,6 +12041,7 @@ impl CustomerRequest {
             house_nr: None,
             household: None,
             image: None,
+            is_private_person: None,
             latitude: None,
             longitude: None,
             max_service_accounts: None,
@@ -12261,6 +12268,12 @@ impl CustomerRequestBuilder {
     #[must_use]
     pub fn image_absent(mut self) -> Self {
         self.value.image = None;
+        self
+    }
+    #[doc = concat!("Set the optional `", "is_private_person", "` request field.")]
+    #[must_use]
+    pub fn is_private_person(mut self, is_private_person: bool) -> Self {
+        self.value.is_private_person = Some(is_private_person);
         self
     }
     #[doc = concat!(
@@ -12632,6 +12645,9 @@ pub struct Customer {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub image: Option<Option<String>>,
+    ///Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_private_person: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_service_provider: Option<bool>,
     ///True when the requesting user's only link to this organization is a role on its service provider. Such a row carries only identity fields.
@@ -12749,6 +12765,24 @@ pub struct Customer {
     ///Constraint: maxLength=20
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vat_code: Option<String>,
+    ///Whether the EU VIES service confirmed the current VAT number.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vat_code_verified: Option<bool>,
+    ///VAT percent calculated from EU VAT rules, when VAT taxation is on.
+    ///Constraint: pattern=`^-?\d{0,2}(?:\.\d{0,2})?$`
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub vat_percent: Option<Option<String>>,
+    ///Which EU VAT rule picked vat_percent, or why it cannot be calculated.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub vat_rule: Option<Option<String>>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -15477,6 +15511,8 @@ pub enum CustomerFieldEnum {
     Household,
     #[serde(rename = "image")]
     Image,
+    #[serde(rename = "is_private_person")]
+    IsPrivatePerson,
     #[serde(rename = "is_service_provider")]
     IsServiceProvider,
     #[serde(rename = "is_service_provider_manager_only")]
@@ -15537,6 +15573,12 @@ pub enum CustomerFieldEnum {
     Uuid,
     #[serde(rename = "vat_code")]
     VatCode,
+    #[serde(rename = "vat_code_verified")]
+    VatCodeVerified,
+    #[serde(rename = "vat_percent")]
+    VatPercent,
+    #[serde(rename = "vat_rule")]
+    VatRule,
 }
 impl CustomerFieldEnum {
     pub fn as_str(&self) -> &'static str {
@@ -15575,6 +15617,7 @@ impl CustomerFieldEnum {
             Self::HouseNr => "house_nr",
             Self::Household => "household",
             Self::Image => "image",
+            Self::IsPrivatePerson => "is_private_person",
             Self::IsServiceProvider => "is_service_provider",
             Self::IsServiceProviderManagerOnly => "is_service_provider_manager_only",
             Self::Latitude => "latitude",
@@ -15605,6 +15648,9 @@ impl CustomerFieldEnum {
             Self::UsersCount => "users_count",
             Self::Uuid => "uuid",
             Self::VatCode => "vat_code",
+            Self::VatCodeVerified => "vat_code_verified",
+            Self::VatPercent => "vat_percent",
+            Self::VatRule => "vat_rule",
         }
     }
 }
