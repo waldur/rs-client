@@ -45371,19 +45371,28 @@ impl HttpClient {
     }
     /// Accept an invitation
     ///
-    /// Accepts an invitation for the currently authenticated user. This grants the user the specified role in the invitation's scope.
+    /// Accepts an invitation for the currently authenticated user. This grants the user the specified role in the invitation's scope. Staff may pass `user` to accept it for that user instead, for example from a service account that registers users elsewhere; the user's email must match the invitation.
     ///
     /// `POST /api/user-invitations/{uuid}/accept/`
     pub async fn user_invitations_accept(
         &self,
         uuid: impl AsRef<str>,
+        request: Option<UserInvitationAcceptRequest>,
     ) -> Result<(), ApiOpError<serde_json::Value>> {
         let request_url = format!(
             "{}{}", self.base_url, format!("/api/user-invitations/{}/accept/",
             __pct_encode_path_segment(uuid.as_ref()))
         );
         let mut req = self.http_client.post(request_url);
-        req = req.header(reqwest::header::CONTENT_LENGTH, "0");
+        if let Some(request) = request {
+            req = req
+                .body(
+                    serde_json::to_vec(&request).map_err(HttpError::serialization_error)?,
+                )
+                .header("content-type", "application/json");
+        } else {
+            req = req.header(reqwest::header::CONTENT_LENGTH, "0");
+        }
         if let Some(api_key) = &self.api_key {
             req = req.header("Authorization", api_key.as_str());
         }

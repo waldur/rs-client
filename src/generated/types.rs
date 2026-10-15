@@ -21893,6 +21893,17 @@ impl AsRef<str> for UserFieldEnum {
         self.as_str()
     }
 }
+///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct UserInvitationAcceptRequest {
+    ///Staff only. Accept the invitation for this user instead of the caller. The user's email must match the invitation. Empty, null or the caller's own uuid accepts for the caller.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub user: Option<Option<uuid::Uuid>>,
+}
 ///Invitation has been successfully canceled.
 pub type UserInvitationsCancelResponse = serde_json::Value;
 ///
