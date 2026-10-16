@@ -3487,6 +3487,10 @@ pub struct PatchedCustomerRequest {
         default
     )]
     pub image: Option<Option<bytes::Bytes>>,
+    ///Comma-separated list of email addresses that receive invoice notifications instead of the organization owners
+    ///Constraint: maxLength=640
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub invoice_emails: Option<String>,
     ///Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_private_person: Option<bool>,
@@ -11924,6 +11928,10 @@ pub struct CustomerRequest {
         default
     )]
     pub image: Option<Option<bytes::Bytes>>,
+    ///Comma-separated list of email addresses that receive invoice notifications instead of the organization owners
+    ///Constraint: maxLength=640
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub invoice_emails: Option<String>,
     ///Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_private_person: Option<bool>,
@@ -12041,6 +12049,7 @@ impl CustomerRequest {
             house_nr: None,
             household: None,
             image: None,
+            invoice_emails: None,
             is_private_person: None,
             latitude: None,
             longitude: None,
@@ -12268,6 +12277,12 @@ impl CustomerRequestBuilder {
     #[must_use]
     pub fn image_absent(mut self) -> Self {
         self.value.image = None;
+        self
+    }
+    #[doc = concat!("Set the optional `", "invoice_emails", "` request field.")]
+    #[must_use]
+    pub fn invoice_emails(mut self, invoice_emails: String) -> Self {
+        self.value.invoice_emails = Some(invoice_emails);
         self
     }
     #[doc = concat!("Set the optional `", "is_private_person", "` request field.")]
@@ -12645,6 +12660,10 @@ pub struct Customer {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub image: Option<Option<String>>,
+    ///Comma-separated list of email addresses that receive invoice notifications instead of the organization owners
+    ///Constraint: maxLength=640
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub invoice_emails: Option<String>,
     ///Organization represents a private person rather than a legal entity. Used for EU VAT calculation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_private_person: Option<bool>,
@@ -15405,6 +15424,10 @@ pub struct CustomerContactUpdate {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub homepage: Option<String>,
+    ///Comma-separated list of email addresses that receive invoice notifications instead of the organization owners
+    ///Constraint: maxLength=640
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub invoice_emails: Option<String>,
     ///Comma-separated list of notification email addresses
     ///Constraint: maxLength=640
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -15425,6 +15448,10 @@ pub struct CustomerContactUpdateRequest {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub homepage: Option<String>,
+    ///Comma-separated list of email addresses that receive invoice notifications instead of the organization owners
+    ///Constraint: maxLength=640
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub invoice_emails: Option<String>,
     ///Comma-separated list of notification email addresses
     ///Constraint: maxLength=640
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -15511,6 +15538,8 @@ pub enum CustomerFieldEnum {
     Household,
     #[serde(rename = "image")]
     Image,
+    #[serde(rename = "invoice_emails")]
+    InvoiceEmails,
     #[serde(rename = "is_private_person")]
     IsPrivatePerson,
     #[serde(rename = "is_service_provider")]
@@ -15617,6 +15646,7 @@ impl CustomerFieldEnum {
             Self::HouseNr => "house_nr",
             Self::Household => "household",
             Self::Image => "image",
+            Self::InvoiceEmails => "invoice_emails",
             Self::IsPrivatePerson => "is_private_person",
             Self::IsServiceProvider => "is_service_provider",
             Self::IsServiceProviderManagerOnly => "is_service_provider_manager_only",
