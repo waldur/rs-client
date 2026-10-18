@@ -1508,6 +1508,13 @@ pub struct RoleModifyRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_bg: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_cs: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -1529,7 +1536,21 @@ pub struct RoleModifyRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_el: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_en: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_en_gb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -1592,6 +1613,13 @@ pub struct RoleModifyRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_mk: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_nb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -1600,6 +1628,20 @@ pub struct RoleModifyRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub description_ru: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sl: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sq: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -1626,10 +1668,13 @@ impl RoleModifyRequest {
             permissions,
             description: None,
             description_ar: None,
+            description_bg: None,
             description_cs: None,
             description_da: None,
             description_de: None,
+            description_el: None,
             description_en: None,
+            description_en_gb: None,
             description_es: None,
             description_et: None,
             description_fr: None,
@@ -1638,8 +1683,11 @@ impl RoleModifyRequest {
             description_km: None,
             description_lt: None,
             description_lv: None,
+            description_mk: None,
             description_nb: None,
             description_ru: None,
+            description_sl: None,
+            description_sq: None,
             description_sv: None,
             is_active: None,
         }
@@ -1698,6 +1746,30 @@ impl RoleModifyRequestBuilder {
     #[must_use]
     pub fn description_ar_absent(mut self) -> Self {
         self.value.description_ar = None;
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_bg", "` request field to a value."
+    )]
+    #[must_use]
+    pub fn description_bg(mut self, description_bg: String) -> Self {
+        self.value.description_bg = Some(Some(description_bg));
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_bg", "` request field to JSON null."
+    )]
+    #[must_use]
+    pub fn description_bg_null(mut self) -> Self {
+        self.value.description_bg = Some(None);
+        self
+    }
+    #[doc = concat!(
+        "Omit the optional nullable `", "description_bg", "` request field."
+    )]
+    #[must_use]
+    pub fn description_bg_absent(mut self) -> Self {
+        self.value.description_bg = None;
         self
     }
     #[doc = concat!(
@@ -1773,6 +1845,30 @@ impl RoleModifyRequestBuilder {
         self
     }
     #[doc = concat!(
+        "Set the optional nullable `", "description_el", "` request field to a value."
+    )]
+    #[must_use]
+    pub fn description_el(mut self, description_el: String) -> Self {
+        self.value.description_el = Some(Some(description_el));
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_el", "` request field to JSON null."
+    )]
+    #[must_use]
+    pub fn description_el_null(mut self) -> Self {
+        self.value.description_el = Some(None);
+        self
+    }
+    #[doc = concat!(
+        "Omit the optional nullable `", "description_el", "` request field."
+    )]
+    #[must_use]
+    pub fn description_el_absent(mut self) -> Self {
+        self.value.description_el = None;
+        self
+    }
+    #[doc = concat!(
         "Set the optional nullable `", "description_en", "` request field to a value."
     )]
     #[must_use]
@@ -1794,6 +1890,31 @@ impl RoleModifyRequestBuilder {
     #[must_use]
     pub fn description_en_absent(mut self) -> Self {
         self.value.description_en = None;
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_en_gb", "` request field to a value."
+    )]
+    #[must_use]
+    pub fn description_en_gb(mut self, description_en_gb: String) -> Self {
+        self.value.description_en_gb = Some(Some(description_en_gb));
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_en_gb",
+        "` request field to JSON null."
+    )]
+    #[must_use]
+    pub fn description_en_gb_null(mut self) -> Self {
+        self.value.description_en_gb = Some(None);
+        self
+    }
+    #[doc = concat!(
+        "Omit the optional nullable `", "description_en_gb", "` request field."
+    )]
+    #[must_use]
+    pub fn description_en_gb_absent(mut self) -> Self {
+        self.value.description_en_gb = None;
         self
     }
     #[doc = concat!(
@@ -1989,6 +2110,30 @@ impl RoleModifyRequestBuilder {
         self
     }
     #[doc = concat!(
+        "Set the optional nullable `", "description_mk", "` request field to a value."
+    )]
+    #[must_use]
+    pub fn description_mk(mut self, description_mk: String) -> Self {
+        self.value.description_mk = Some(Some(description_mk));
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_mk", "` request field to JSON null."
+    )]
+    #[must_use]
+    pub fn description_mk_null(mut self) -> Self {
+        self.value.description_mk = Some(None);
+        self
+    }
+    #[doc = concat!(
+        "Omit the optional nullable `", "description_mk", "` request field."
+    )]
+    #[must_use]
+    pub fn description_mk_absent(mut self) -> Self {
+        self.value.description_mk = None;
+        self
+    }
+    #[doc = concat!(
         "Set the optional nullable `", "description_nb", "` request field to a value."
     )]
     #[must_use]
@@ -2034,6 +2179,54 @@ impl RoleModifyRequestBuilder {
     #[must_use]
     pub fn description_ru_absent(mut self) -> Self {
         self.value.description_ru = None;
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_sl", "` request field to a value."
+    )]
+    #[must_use]
+    pub fn description_sl(mut self, description_sl: String) -> Self {
+        self.value.description_sl = Some(Some(description_sl));
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_sl", "` request field to JSON null."
+    )]
+    #[must_use]
+    pub fn description_sl_null(mut self) -> Self {
+        self.value.description_sl = Some(None);
+        self
+    }
+    #[doc = concat!(
+        "Omit the optional nullable `", "description_sl", "` request field."
+    )]
+    #[must_use]
+    pub fn description_sl_absent(mut self) -> Self {
+        self.value.description_sl = None;
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_sq", "` request field to a value."
+    )]
+    #[must_use]
+    pub fn description_sq(mut self, description_sq: String) -> Self {
+        self.value.description_sq = Some(Some(description_sq));
+        self
+    }
+    #[doc = concat!(
+        "Set the optional nullable `", "description_sq", "` request field to JSON null."
+    )]
+    #[must_use]
+    pub fn description_sq_null(mut self) -> Self {
+        self.value.description_sq = Some(None);
+        self
+    }
+    #[doc = concat!(
+        "Omit the optional nullable `", "description_sq", "` request field."
+    )]
+    #[must_use]
+    pub fn description_sq_absent(mut self) -> Self {
+        self.value.description_sq = None;
         self
     }
     #[doc = concat!(
@@ -2176,6 +2369,13 @@ pub struct RoleDetails {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_bg: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_cs: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -2197,7 +2397,21 @@ pub struct RoleDetails {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_el: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_en: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_en_gb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -2260,6 +2474,13 @@ pub struct RoleDetails {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_mk: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_nb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -2268,6 +2489,20 @@ pub struct RoleDetails {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub description_ru: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sl: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sq: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -15220,7 +15455,7 @@ impl AsRef<str> for AccessTypeEnum {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct ProviderAccountOptions {
-    ///Where accounts are held: 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings.
+    ///Where accounts are held: 'offering' keeps one account per offering (the historical behavior); 'provider' shares one account per user across the provider's offerings.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub account_scope: Option<ProviderAccountOptionsAccountScope>,
     ///Prefix of each account's home directory; the username follows.
@@ -15248,7 +15483,7 @@ pub enum ProviderAccountOptionsUsernameGenerationPolicy {
     UsernameGenerationPolicyEnum(UsernameGenerationPolicyEnum),
     BlankEnum(BlankEnum),
 }
-///Where accounts are held: 'offering' keeps one account per offering (the historical behaviour); 'provider' shares one account per user across the provider's offerings.
+///Where accounts are held: 'offering' keeps one account per offering (the historical behavior); 'provider' shares one account per user across the provider's offerings.
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum ProviderAccountOptionsAccountScope {
@@ -20487,6 +20722,13 @@ pub struct PatchedRoleDetailsRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_bg: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_cs: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -20508,7 +20750,21 @@ pub struct PatchedRoleDetailsRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_el: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_en: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_en_gb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -20571,6 +20827,13 @@ pub struct PatchedRoleDetailsRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_mk: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_nb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -20579,6 +20842,20 @@ pub struct PatchedRoleDetailsRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub description_ru: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sl: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sq: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -21040,6 +21317,13 @@ pub struct RoleDescription {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_bg: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_cs: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -21061,7 +21345,21 @@ pub struct RoleDescription {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_el: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_en: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_en_gb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -21124,6 +21422,13 @@ pub struct RoleDescription {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_mk: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_nb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -21132,6 +21437,20 @@ pub struct RoleDescription {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub description_ru: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sl: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sq: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -21159,6 +21478,13 @@ pub struct RoleDescriptionRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_bg: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_cs: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -21180,7 +21506,21 @@ pub struct RoleDescriptionRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_el: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_en: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_en_gb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -21243,6 +21583,13 @@ pub struct RoleDescriptionRequest {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
+    pub description_mk: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
     pub description_nb: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
@@ -21251,6 +21598,20 @@ pub struct RoleDescriptionRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub description_ru: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sl: Option<Option<String>>,
+    ///Constraint: maxLength=4096
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub description_sq: Option<Option<String>>,
     ///Constraint: maxLength=4096
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -21273,14 +21634,20 @@ pub enum RoleDetailsFieldEnum {
     Description,
     #[serde(rename = "description_ar")]
     DescriptionAr,
+    #[serde(rename = "description_bg")]
+    DescriptionBg,
     #[serde(rename = "description_cs")]
     DescriptionCs,
     #[serde(rename = "description_da")]
     DescriptionDa,
     #[serde(rename = "description_de")]
     DescriptionDe,
+    #[serde(rename = "description_el")]
+    DescriptionEl,
     #[serde(rename = "description_en")]
     DescriptionEn,
+    #[serde(rename = "description_en_gb")]
+    DescriptionEnGb,
     #[serde(rename = "description_es")]
     DescriptionEs,
     #[serde(rename = "description_et")]
@@ -21297,10 +21664,16 @@ pub enum RoleDetailsFieldEnum {
     DescriptionLt,
     #[serde(rename = "description_lv")]
     DescriptionLv,
+    #[serde(rename = "description_mk")]
+    DescriptionMk,
     #[serde(rename = "description_nb")]
     DescriptionNb,
     #[serde(rename = "description_ru")]
     DescriptionRu,
+    #[serde(rename = "description_sl")]
+    DescriptionSl,
+    #[serde(rename = "description_sq")]
+    DescriptionSq,
     #[serde(rename = "description_sv")]
     DescriptionSv,
     #[serde(rename = "is_active")]
@@ -21328,10 +21701,13 @@ impl RoleDetailsFieldEnum {
             Self::CustomerUuid => "customer_uuid",
             Self::Description => "description",
             Self::DescriptionAr => "description_ar",
+            Self::DescriptionBg => "description_bg",
             Self::DescriptionCs => "description_cs",
             Self::DescriptionDa => "description_da",
             Self::DescriptionDe => "description_de",
+            Self::DescriptionEl => "description_el",
             Self::DescriptionEn => "description_en",
+            Self::DescriptionEnGb => "description_en_gb",
             Self::DescriptionEs => "description_es",
             Self::DescriptionEt => "description_et",
             Self::DescriptionFr => "description_fr",
@@ -21340,8 +21716,11 @@ impl RoleDetailsFieldEnum {
             Self::DescriptionKm => "description_km",
             Self::DescriptionLt => "description_lt",
             Self::DescriptionLv => "description_lv",
+            Self::DescriptionMk => "description_mk",
             Self::DescriptionNb => "description_nb",
             Self::DescriptionRu => "description_ru",
+            Self::DescriptionSl => "description_sl",
+            Self::DescriptionSq => "description_sq",
             Self::DescriptionSv => "description_sv",
             Self::IsActive => "is_active",
             Self::IsSystemRole => "is_system_role",
