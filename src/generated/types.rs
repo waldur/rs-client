@@ -2608,6 +2608,8 @@ pub type ProjectsListUsersListResponse = Vec<UserRoleDetails>;
 ///
 pub type ProjectsListResponse = Vec<Project>;
 ///
+pub type ProjectsHistoryListResponse = Vec<VersionHistory>;
+///
 pub type ProjectTypesListResponse = Vec<ProjectType>;
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -21164,6 +21166,20 @@ pub type ProjectsChecklistTemplateRetrieveResponse404 = serde_json::Value;
 pub type ProjectsCompletionStatusRetrieveResponse400 = serde_json::Value;
 ///Object not found
 pub type ProjectsCompletionStatusRetrieveResponse404 = serde_json::Value;
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct ProjectsHistoryAtRetrieveResponse400 {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
+}
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct ProjectsHistoryAtRetrieveResponse404 {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
+}
 ///Validation error or no checklist configured
 pub type ProjectsSubmitAnswersResponse400 = serde_json::Value;
 ///Object not found

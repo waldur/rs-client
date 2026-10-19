@@ -383,6 +383,12 @@ pub enum ProjectsCompletionStatusRetrieveApiError {
     Status400(ProjectsCompletionStatusRetrieveResponse400),
     Status404(ProjectsCompletionStatusRetrieveResponse404),
 }
+///Typed error responses for `projects_history_at_retrieve`. One variant per declared non-2xx response.
+#[derive(Debug, Clone)]
+pub enum ProjectsHistoryAtRetrieveApiError {
+    Status400(ProjectsHistoryAtRetrieveResponse400),
+    Status404(ProjectsHistoryAtRetrieveResponse404),
+}
 ///Typed error responses for `projects_submit_answers`. One variant per declared non-2xx response.
 #[derive(Debug, Clone)]
 pub enum ProjectsSubmitAnswersApiError {
@@ -40376,6 +40382,447 @@ impl HttpClient {
                         format!(
                             "unexpected successful status {}; generated return type selects `{}`",
                             status_code, "204",
+                        ),
+                    ),
+                }),
+            )
+        } else {
+            let typed: Option<serde_json::Value>;
+            let parse_error: Option<String>;
+            match status_code {
+                _ => {
+                    match serde_json::from_str::<serde_json::Value>(&body_text) {
+                        Ok(v) => {
+                            typed = Some(v);
+                            parse_error = None;
+                        }
+                        Err(e) => {
+                            typed = None;
+                            parse_error = Some(e.to_string());
+                        }
+                    }
+                }
+            }
+            Err(
+                ApiOpError::Api(ApiError {
+                    status: status_code,
+                    headers,
+                    body: body_text,
+                    raw_body,
+                    typed,
+                    parse_error,
+                }),
+            )
+        }
+    }
+    /// Get object state at a specific timestamp
+    ///
+    /// Returns the state of the object as it was at the specified timestamp. Only accessible by staff and support users.
+    ///
+    /// `GET /api/projects/{uuid}/history/at/`
+    pub async fn projects_history_at_retrieve(
+        &self,
+        uuid: impl AsRef<str>,
+        timestamp: impl AsRef<str>,
+    ) -> Result<VersionHistory, ApiOpError<ProjectsHistoryAtRetrieveApiError>> {
+        let request_url = format!(
+            "{}{}", self.base_url, format!("/api/projects/{}/history/at/",
+            __pct_encode_path_segment(uuid.as_ref()))
+        );
+        let mut req = self.http_client.get(request_url);
+        {
+            let mut query_params: Vec<(String, String)> = Vec::new();
+            query_params.push(("timestamp".to_string(), timestamp.as_ref().to_string()));
+            if !query_params.is_empty() {
+                req = req.query(&query_params);
+            }
+        }
+        if let Some(api_key) = &self.api_key {
+            req = req.header("Authorization", api_key.as_str());
+        }
+        for (name, value) in &self.custom_headers {
+            if !name.eq_ignore_ascii_case("accept") {
+                req = req.header(name, value);
+            }
+        }
+        req = req.header(reqwest::header::ACCEPT, "application/json");
+        let response = req.send().await?;
+        let status = response.status();
+        let status_code = status.as_u16();
+        let headers = response.headers().clone();
+        let body_bytes = __read_bounded_response_body(
+                response,
+                self.max_response_body_bytes,
+            )
+            .await?;
+        let raw_body = body_bytes;
+        let body_text = String::from_utf8_lossy(&raw_body).into_owned();
+        if false || status_code == 200u16 {
+            match serde_json::from_str(&body_text) {
+                Ok(body) => Ok(body),
+                Err(e) => {
+                    Err(
+                        ApiOpError::Api(ApiError {
+                            status: status_code,
+                            headers: headers,
+                            body: body_text,
+                            raw_body,
+                            typed: None,
+                            parse_error: Some(
+                                format!("failed to deserialize 2xx response body: {}", e),
+                            ),
+                        }),
+                    )
+                }
+            }
+        } else if status.is_success() {
+            Err(
+                ApiOpError::Api(ApiError {
+                    status: status_code,
+                    headers,
+                    body: body_text,
+                    raw_body,
+                    typed: None,
+                    parse_error: Some(
+                        format!(
+                            "unexpected successful status {}; generated return type selects `{}`",
+                            status_code, "200",
+                        ),
+                    ),
+                }),
+            )
+        } else {
+            let typed: Option<ProjectsHistoryAtRetrieveApiError>;
+            let parse_error: Option<String>;
+            match status_code {
+                400u16 => {
+                    match serde_json::from_str::<
+                        ProjectsHistoryAtRetrieveResponse400,
+                    >(&body_text) {
+                        Ok(v) => {
+                            typed = Some(
+                                ProjectsHistoryAtRetrieveApiError::Status400(v),
+                            );
+                            parse_error = None;
+                        }
+                        Err(e) => {
+                            typed = None;
+                            parse_error = Some(e.to_string());
+                        }
+                    }
+                }
+                404u16 => {
+                    match serde_json::from_str::<
+                        ProjectsHistoryAtRetrieveResponse404,
+                    >(&body_text) {
+                        Ok(v) => {
+                            typed = Some(
+                                ProjectsHistoryAtRetrieveApiError::Status404(v),
+                            );
+                            parse_error = None;
+                        }
+                        Err(e) => {
+                            typed = None;
+                            parse_error = Some(e.to_string());
+                        }
+                    }
+                }
+                _ => {
+                    typed = None;
+                    parse_error = None;
+                }
+            }
+            Err(
+                ApiOpError::Api(ApiError {
+                    status: status_code,
+                    headers,
+                    body: body_text,
+                    raw_body,
+                    typed,
+                    parse_error,
+                }),
+            )
+        }
+    }
+    /// Get version history
+    ///
+    /// Returns the version history for this object. Only accessible by staff and support users.
+    ///
+    /// `GET /api/projects/{uuid}/history/`
+    pub async fn projects_history_list(
+        &self,
+        uuid: impl AsRef<str>,
+        accounting_is_running: Option<bool>,
+        affiliation_name: Option<impl AsRef<str>>,
+        affiliation_uuid: Option<Vec<String>>,
+        backend_id: Option<impl AsRef<str>>,
+        can_admin: Option<bool>,
+        can_manage: Option<bool>,
+        conceal_finished_projects: Option<bool>,
+        created: Option<impl AsRef<str>>,
+        created_after: Option<impl AsRef<str>>,
+        created_before: Option<impl AsRef<str>>,
+        current_user_has_role: Option<Vec<String>>,
+        customer: Option<Vec<String>>,
+        customer_abbreviation: Option<impl AsRef<str>>,
+        customer_name: Option<impl AsRef<str>>,
+        customer_native_name: Option<impl AsRef<str>>,
+        description: Option<impl AsRef<str>>,
+        has_affiliation: Option<bool>,
+        is_removed: Option<bool>,
+        modified: Option<impl AsRef<str>>,
+        modified_before: Option<impl AsRef<str>>,
+        name: Option<impl AsRef<str>>,
+        name_exact: Option<impl AsRef<str>>,
+        o: Option<Vec<MarketplaceProviderCustomerProjectOEnum>>,
+        page: Option<i64>,
+        page_size: Option<i64>,
+        query: Option<impl AsRef<str>>,
+        science_domain_uuid: Option<impl AsRef<str>>,
+        science_sub_domain_uuid: Option<impl AsRef<str>>,
+        slug: Option<impl AsRef<str>>,
+        user_uuid: Option<impl AsRef<str>>,
+        user_uuid_with_active_role: Option<impl AsRef<str>>,
+    ) -> Result<ProjectsHistoryListResponse, ApiOpError<serde_json::Value>> {
+        let request_url = format!(
+            "{}{}", self.base_url, format!("/api/projects/{}/history/",
+            __pct_encode_path_segment(uuid.as_ref()))
+        );
+        let mut req = self.http_client.get(request_url);
+        {
+            let mut query_params: Vec<(String, String)> = Vec::new();
+            if let Some(v) = accounting_is_running {
+                query_params.push(("accounting_is_running".to_string(), v.to_string()));
+            }
+            if let Some(v) = affiliation_name {
+                query_params
+                    .push(("affiliation_name".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = affiliation_uuid {
+                if v.is_empty() {
+                    query_params
+                        .push((format!("{}[]", "affiliation_uuid"), String::new()));
+                } else {
+                    for item in v {
+                        query_params
+                            .push(("affiliation_uuid".to_string(), item.to_string()));
+                    }
+                }
+            }
+            if let Some(v) = backend_id {
+                query_params.push(("backend_id".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = can_admin {
+                query_params.push(("can_admin".to_string(), v.to_string()));
+            }
+            if let Some(v) = can_manage {
+                query_params.push(("can_manage".to_string(), v.to_string()));
+            }
+            if let Some(v) = conceal_finished_projects {
+                query_params
+                    .push(("conceal_finished_projects".to_string(), v.to_string()));
+            }
+            if let Some(v) = created {
+                query_params.push(("created".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = created_after {
+                query_params.push(("created_after".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = created_before {
+                query_params
+                    .push(("created_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = current_user_has_role {
+                if v.is_empty() {
+                    query_params
+                        .push((format!("{}[]", "current_user_has_role"), String::new()));
+                } else {
+                    let mut parts = Vec::with_capacity(v.len());
+                    for item in &v {
+                        let item = item.to_string();
+                        if item.contains(',') {
+                            return Err(
+                                HttpError::serialization_error(
+                                        format!(
+                                            "query array `{}` contains a comma; use explode=true for lossless string values",
+                                            "current_user_has_role",
+                                        ),
+                                    )
+                                    .into(),
+                            );
+                        }
+                        parts.push(item);
+                    }
+                    query_params
+                        .push(("current_user_has_role".to_string(), parts.join(",")));
+                }
+            }
+            if let Some(v) = customer {
+                if v.is_empty() {
+                    query_params.push((format!("{}[]", "customer"), String::new()));
+                } else {
+                    let mut parts = Vec::with_capacity(v.len());
+                    for item in &v {
+                        let item = item.to_string();
+                        if item.contains(',') {
+                            return Err(
+                                HttpError::serialization_error(
+                                        format!(
+                                            "query array `{}` contains a comma; use explode=true for lossless string values",
+                                            "customer",
+                                        ),
+                                    )
+                                    .into(),
+                            );
+                        }
+                        parts.push(item);
+                    }
+                    query_params.push(("customer".to_string(), parts.join(",")));
+                }
+            }
+            if let Some(v) = customer_abbreviation {
+                query_params
+                    .push(("customer_abbreviation".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = customer_name {
+                query_params.push(("customer_name".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = customer_native_name {
+                query_params
+                    .push(("customer_native_name".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = description {
+                query_params.push(("description".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = has_affiliation {
+                query_params.push(("has_affiliation".to_string(), v.to_string()));
+            }
+            if let Some(v) = is_removed {
+                query_params.push(("is_removed".to_string(), v.to_string()));
+            }
+            if let Some(v) = modified {
+                query_params.push(("modified".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = modified_before {
+                query_params
+                    .push(("modified_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = name {
+                query_params.push(("name".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = name_exact {
+                query_params.push(("name_exact".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = o {
+                if v.is_empty() {
+                    query_params.push((format!("{}[]", "o"), String::new()));
+                } else {
+                    let mut parts = Vec::with_capacity(v.len());
+                    for item in &v {
+                        let item = item.to_string();
+                        if item.contains(',') {
+                            return Err(
+                                HttpError::serialization_error(
+                                        format!(
+                                            "query array `{}` contains a comma; use explode=true for lossless string values",
+                                            "o",
+                                        ),
+                                    )
+                                    .into(),
+                            );
+                        }
+                        parts.push(item);
+                    }
+                    query_params.push(("o".to_string(), parts.join(",")));
+                }
+            }
+            if let Some(v) = page {
+                query_params.push(("page".to_string(), v.to_string()));
+            }
+            if let Some(v) = page_size {
+                query_params.push(("page_size".to_string(), v.to_string()));
+            }
+            if let Some(v) = query {
+                query_params.push(("query".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = science_domain_uuid {
+                query_params
+                    .push(("science_domain_uuid".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = science_sub_domain_uuid {
+                query_params
+                    .push((
+                        "science_sub_domain_uuid".to_string(),
+                        v.as_ref().to_string(),
+                    ));
+            }
+            if let Some(v) = slug {
+                query_params.push(("slug".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = user_uuid {
+                query_params.push(("user_uuid".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = user_uuid_with_active_role {
+                query_params
+                    .push((
+                        "user_uuid_with_active_role".to_string(),
+                        v.as_ref().to_string(),
+                    ));
+            }
+            if !query_params.is_empty() {
+                req = req.query(&query_params);
+            }
+        }
+        if let Some(api_key) = &self.api_key {
+            req = req.header("Authorization", api_key.as_str());
+        }
+        for (name, value) in &self.custom_headers {
+            if !name.eq_ignore_ascii_case("accept") {
+                req = req.header(name, value);
+            }
+        }
+        req = req.header(reqwest::header::ACCEPT, "application/json");
+        let response = req.send().await?;
+        let status = response.status();
+        let status_code = status.as_u16();
+        let headers = response.headers().clone();
+        let body_bytes = __read_bounded_response_body(
+                response,
+                self.max_response_body_bytes,
+            )
+            .await?;
+        let raw_body = body_bytes;
+        let body_text = String::from_utf8_lossy(&raw_body).into_owned();
+        if false || status_code == 200u16 {
+            match serde_json::from_str(&body_text) {
+                Ok(body) => Ok(body),
+                Err(e) => {
+                    Err(
+                        ApiOpError::Api(ApiError {
+                            status: status_code,
+                            headers: headers,
+                            body: body_text,
+                            raw_body,
+                            typed: None,
+                            parse_error: Some(
+                                format!("failed to deserialize 2xx response body: {}", e),
+                            ),
+                        }),
+                    )
+                }
+            }
+        } else if status.is_success() {
+            Err(
+                ApiOpError::Api(ApiError {
+                    status: status_code,
+                    headers,
+                    body: body_text,
+                    raw_body,
+                    typed: None,
+                    parse_error: Some(
+                        format!(
+                            "unexpected successful status {}; generated return type selects `{}`",
+                            status_code, "200",
                         ),
                     ),
                 }),
