@@ -7864,8 +7864,12 @@ pub struct OpenStackInstance {
     pub runtime_state: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub security_groups: Option<Vec<OpenStackNestedSecurityGroup>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub server_group: Option<OpenStackNestedServerGroup>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub server_group: Option<Option<OpenStackNestedServerGroup>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_name: Option<String>,
     ///OpenStack provider settings
