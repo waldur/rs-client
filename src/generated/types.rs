@@ -8226,7 +8226,7 @@ pub struct OpenStackFloatingIP {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
-    pub address: Option<Option<OpenStackFloatingIPAddress>>,
+    pub address: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub backend_id: Option<String>,
     ///ID of network in OpenStack where this floating IP is allocated
@@ -8394,8 +8394,6 @@ pub struct OpenStackFloatingIPMarketplaceOfferingPluginOptions {
 }
 ///Optional address that maps to floating IP's address in external networks
 pub type OpenStackFloatingIPExternalAddress = String;
-///The public IPv4 address of the floating IP
-pub type OpenStackFloatingIPAddress = String;
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackFloatingIPAccessUrl {
@@ -9134,7 +9132,7 @@ pub struct OpenStackNestedFloatingIP {
         default,
         deserialize_with = "tri_state_serde::deserialize"
     )]
-    pub address: Option<Option<OpenStackNestedFloatingIPAddress>>,
+    pub address: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_fixed_ips: Option<Vec<OpenStackFixedIp>>,
     ///MAC address of the port
@@ -9160,8 +9158,6 @@ pub struct OpenStackNestedFloatingIP {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
-///The public IPv4 address of the floating IP
-pub type OpenStackNestedFloatingIPAddress = String;
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct OpenStackFixedIp {
