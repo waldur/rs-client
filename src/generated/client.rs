@@ -2697,6 +2697,7 @@ impl HttpClient {
         page: Option<i64>,
         page_size: Option<i64>,
         role: Option<Vec<String>>,
+        role_template: Option<Vec<String>>,
         search_string: Option<impl AsRef<str>>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
@@ -2746,6 +2747,16 @@ impl HttpClient {
                 } else {
                     for item in v {
                         query_params.push(("role".to_string(), item.to_string()));
+                    }
+                }
+            }
+            if let Some(v) = role_template {
+                if v.is_empty() {
+                    query_params.push((format!("{}[]", "role_template"), String::new()));
+                } else {
+                    for item in v {
+                        query_params
+                            .push(("role_template".to_string(), item.to_string()));
                     }
                 }
             }
@@ -2850,6 +2861,7 @@ impl HttpClient {
         page: Option<i64>,
         page_size: Option<i64>,
         role: Option<Vec<String>>,
+        role_template: Option<Vec<String>>,
         search_string: Option<impl AsRef<str>>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
@@ -2899,6 +2911,16 @@ impl HttpClient {
                 } else {
                     for item in v {
                         query_params.push(("role".to_string(), item.to_string()));
+                    }
+                }
+            }
+            if let Some(v) = role_template {
+                if v.is_empty() {
+                    query_params.push((format!("{}[]", "role_template"), String::new()));
+                } else {
+                    for item in v {
+                        query_params
+                            .push(("role_template".to_string(), item.to_string()));
                     }
                 }
             }
@@ -41287,6 +41309,7 @@ impl HttpClient {
         page: Option<i64>,
         page_size: Option<i64>,
         role: Option<Vec<String>>,
+        role_template: Option<Vec<String>>,
         search_string: Option<impl AsRef<str>>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
@@ -41336,6 +41359,16 @@ impl HttpClient {
                 } else {
                     for item in v {
                         query_params.push(("role".to_string(), item.to_string()));
+                    }
+                }
+            }
+            if let Some(v) = role_template {
+                if v.is_empty() {
+                    query_params.push((format!("{}[]", "role_template"), String::new()));
+                } else {
+                    for item in v {
+                        query_params
+                            .push(("role_template".to_string(), item.to_string()));
                     }
                 }
             }
@@ -41440,6 +41473,7 @@ impl HttpClient {
         page: Option<i64>,
         page_size: Option<i64>,
         role: Option<Vec<String>>,
+        role_template: Option<Vec<String>>,
         search_string: Option<impl AsRef<str>>,
         user: Option<impl AsRef<str>>,
         user_slug: Option<impl AsRef<str>>,
@@ -41489,6 +41523,16 @@ impl HttpClient {
                 } else {
                     for item in v {
                         query_params.push(("role".to_string(), item.to_string()));
+                    }
+                }
+            }
+            if let Some(v) = role_template {
+                if v.is_empty() {
+                    query_params.push((format!("{}[]", "role_template"), String::new()));
+                } else {
+                    for item in v {
+                        query_params
+                            .push(("role_template".to_string(), item.to_string()));
                     }
                 }
             }
