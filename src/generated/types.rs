@@ -2558,6 +2558,8 @@ pub enum RoleType {
     Call,
     #[serde(rename = "proposal")]
     Proposal,
+    #[serde(rename = "global")]
+    Global,
 }
 impl RoleType {
     pub fn as_str(&self) -> &'static str {
@@ -2571,6 +2573,7 @@ impl RoleType {
             Self::ResourceProject => "resource_project",
             Self::Call => "call",
             Self::Proposal => "proposal",
+            Self::Global => "global",
         }
     }
 }
