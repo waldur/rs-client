@@ -10057,23 +10057,6 @@ pub enum ProjectOecdFos2007Code {
     BlankEnum(BlankEnum),
     NullEnum(NullEnum),
 }
-///
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct ProjectMetadataAnswer {
-    ///Human-readable answer value; select-type option UUIDs are resolved to their labels.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub answer: Option<serde_json::Value>,
-    ///When this answer was last saved.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub modified: Option<chrono::DateTime<chrono::Utc>>,
-    ///Question description.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub question: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub question_type: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub question_uuid: Option<String>,
-}
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct ProjectMarketplaceResourceCount {
     /// Additional properties matching the spec's
@@ -10260,12 +10243,6 @@ impl AsRef<str> for OecdFos2007CodeEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
-}
-///
-#[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct AnswerSubmitRequest {
-    pub answer_data: Option<serde_json::Value>,
-    pub question_uuid: uuid::Uuid,
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
@@ -10779,6 +10756,53 @@ pub struct AttributeSourceDetail {
     pub is_stale: bool,
     pub source: String,
     pub timestamp: String,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct AnswerSubmitRequest {
+    pub answer_data: Option<serde_json::Value>,
+    pub question_uuid: uuid::Uuid,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct ProjectMetadataAnswer {
+    ///Human-readable answer value; select-type option UUIDs are resolved to their labels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub answer: Option<serde_json::Value>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub likert_high_label: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub likert_low_label: Option<String>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub likert_scale_length: Option<Option<i64>>,
+    ///Constraint: pattern=`^-?\d{0,16}(?:\.\d{0,4})?$`
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub max_value: Option<Option<String>>,
+    ///Constraint: pattern=`^-?\d{0,16}(?:\.\d{0,4})?$`
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub min_value: Option<Option<String>>,
+    ///When this answer was last saved.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub modified: Option<chrono::DateTime<chrono::Utc>>,
+    ///Question description.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub question: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub question_type: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub question_uuid: Option<String>,
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
