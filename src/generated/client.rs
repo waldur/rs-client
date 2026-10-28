@@ -40016,6 +40016,7 @@ impl HttpClient {
         science_domain_uuid: Option<impl AsRef<str>>,
         science_sub_domain_uuid: Option<impl AsRef<str>>,
         slug: Option<impl AsRef<str>>,
+        user_role: Option<impl AsRef<str>>,
         user_uuid: Option<impl AsRef<str>>,
         user_uuid_with_active_role: Option<impl AsRef<str>>,
     ) -> Result<(), ApiOpError<serde_json::Value>> {
@@ -40190,6 +40191,9 @@ impl HttpClient {
             }
             if let Some(v) = slug {
                 query_params.push(("slug".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = user_role {
+                query_params.push(("user_role".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = user_uuid {
                 query_params.push(("user_uuid".to_string(), v.as_ref().to_string()));
@@ -40701,6 +40705,7 @@ impl HttpClient {
         science_domain_uuid: Option<impl AsRef<str>>,
         science_sub_domain_uuid: Option<impl AsRef<str>>,
         slug: Option<impl AsRef<str>>,
+        user_role: Option<impl AsRef<str>>,
         user_uuid: Option<impl AsRef<str>>,
         user_uuid_with_active_role: Option<impl AsRef<str>>,
     ) -> Result<ProjectsHistoryListResponse, ApiOpError<serde_json::Value>> {
@@ -40879,6 +40884,9 @@ impl HttpClient {
             if let Some(v) = slug {
                 query_params.push(("slug".to_string(), v.as_ref().to_string()));
             }
+            if let Some(v) = user_role {
+                query_params.push(("user_role".to_string(), v.as_ref().to_string()));
+            }
             if let Some(v) = user_uuid {
                 query_params.push(("user_uuid".to_string(), v.as_ref().to_string()));
             }
@@ -41013,6 +41021,7 @@ impl HttpClient {
         science_domain_uuid: Option<impl AsRef<str>>,
         science_sub_domain_uuid: Option<impl AsRef<str>>,
         slug: Option<impl AsRef<str>>,
+        user_role: Option<impl AsRef<str>>,
         user_uuid: Option<impl AsRef<str>>,
         user_uuid_with_active_role: Option<impl AsRef<str>>,
     ) -> Result<ProjectsListResponse, ApiOpError<serde_json::Value>> {
@@ -41196,6 +41205,9 @@ impl HttpClient {
             }
             if let Some(v) = slug {
                 query_params.push(("slug".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = user_role {
+                query_params.push(("user_role".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = user_uuid {
                 query_params.push(("user_uuid".to_string(), v.as_ref().to_string()));
