@@ -3628,17 +3628,6 @@ pub struct PatchedOpenStackSnapshotRequestMetadata {
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedNetworkRBACPolicyRequest {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub network: Option<String>,
-    ///Type of access granted - either shared access or external network access
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub policy_type: Option<PolicyTypeEnum>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub target_tenant: Option<String>,
-}
-///
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct PatchedMigrationDetailsRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error_message: Option<String>,
@@ -6273,8 +6262,6 @@ pub enum OpenStackRouterAccessUrl {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct OpenStackPortRequest {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub allowed_address_pairs: Option<Vec<OpenStackAllowedAddressPairRequest>>,
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -6307,7 +6294,6 @@ impl OpenStackPortRequest {
     pub fn new(name: String) -> Self {
         Self {
             name,
-            allowed_address_pairs: None,
             description: None,
             fixed_ips: None,
             mac_address: None,
@@ -6334,15 +6320,6 @@ impl OpenStackPortRequestBuilder {
         Self {
             value: OpenStackPortRequest::new(name),
         }
-    }
-    #[doc = concat!("Set the optional `", "allowed_address_pairs", "` request field.")]
-    #[must_use]
-    pub fn allowed_address_pairs(
-        mut self,
-        allowed_address_pairs: Vec<OpenStackAllowedAddressPairRequest>,
-    ) -> Self {
-        self.value.allowed_address_pairs = Some(allowed_address_pairs);
-        self
     }
     #[doc = concat!("Set the optional `", "description", "` request field.")]
     #[must_use]
