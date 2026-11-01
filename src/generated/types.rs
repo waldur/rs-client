@@ -2704,10 +2704,19 @@ pub struct ProjectRequest {
     pub r#type: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
+    ///Required assurance URIs (REFEDS). User must have all of these.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_assurance_levels: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_identity_sources: Option<Vec<String>>,
+    ///Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_nationalities: Option<Vec<String>>,
+    ///Allowed organization type URNs (SCHAC). User must match one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_organization_types: Option<Vec<String>>,
 }
 impl ProjectRequest {
     /// Construct this request with every required wire field.
@@ -2730,8 +2739,11 @@ impl ProjectRequest {
             start_date: None,
             r#type: None,
             user_affiliations: None,
+            user_assurance_levels: None,
             user_email_patterns: None,
             user_identity_sources: None,
+            user_nationalities: None,
+            user_organization_types: None,
         }
     }
     /// Start a dependency-free builder with every required wire field.
@@ -2987,6 +2999,12 @@ impl ProjectRequestBuilder {
         self.value.user_affiliations = Some(user_affiliations);
         self
     }
+    #[doc = concat!("Set the optional `", "user_assurance_levels", "` request field.")]
+    #[must_use]
+    pub fn user_assurance_levels(mut self, user_assurance_levels: Vec<String>) -> Self {
+        self.value.user_assurance_levels = Some(user_assurance_levels);
+        self
+    }
     #[doc = concat!("Set the optional `", "user_email_patterns", "` request field.")]
     #[must_use]
     pub fn user_email_patterns(mut self, user_email_patterns: Vec<String>) -> Self {
@@ -2997,6 +3015,21 @@ impl ProjectRequestBuilder {
     #[must_use]
     pub fn user_identity_sources(mut self, user_identity_sources: Vec<String>) -> Self {
         self.value.user_identity_sources = Some(user_identity_sources);
+        self
+    }
+    #[doc = concat!("Set the optional `", "user_nationalities", "` request field.")]
+    #[must_use]
+    pub fn user_nationalities(mut self, user_nationalities: Vec<String>) -> Self {
+        self.value.user_nationalities = Some(user_nationalities);
+        self
+    }
+    #[doc = concat!("Set the optional `", "user_organization_types", "` request field.")]
+    #[must_use]
+    pub fn user_organization_types(
+        mut self,
+        user_organization_types: Vec<String>,
+    ) -> Self {
+        self.value.user_organization_types = Some(user_organization_types);
         self
     }
     /// Finish building the request model.
@@ -3378,8 +3411,6 @@ pub struct PatchedProjectRequest {
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub backend_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer: Option<String>,
     ///Project description (HTML content will be sanitized)
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -3447,10 +3478,19 @@ pub struct PatchedProjectRequest {
     pub r#type: Option<Option<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
+    ///Required assurance URIs (REFEDS). User must have all of these.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_assurance_levels: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_identity_sources: Option<Vec<String>>,
+    ///Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_nationalities: Option<Vec<String>>,
+    ///Allowed organization type URNs (SCHAC). User must match one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_organization_types: Option<Vec<String>>,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -3800,10 +3840,19 @@ pub struct PatchedCustomerRequest {
     pub street: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
+    ///Required assurance URIs (REFEDS). User must have all of these.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_assurance_levels: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_identity_sources: Option<Vec<String>>,
+    ///Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_nationalities: Option<Vec<String>>,
+    ///Allowed organization type URNs (SCHAC). User must match one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_organization_types: Option<Vec<String>>,
     ///VAT number
     ///Constraint: maxLength=20
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -10013,10 +10062,19 @@ pub struct Project {
     pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
+    ///Required assurance URIs (REFEDS). User must have all of these.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_assurance_levels: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_identity_sources: Option<Vec<String>>,
+    ///Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_nationalities: Option<Vec<String>>,
+    ///Allowed organization type URNs (SCHAC). User must match one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_organization_types: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
@@ -12252,10 +12310,19 @@ pub struct CustomerRequest {
     pub street: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
+    ///Required assurance URIs (REFEDS). User must have all of these.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_assurance_levels: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_identity_sources: Option<Vec<String>>,
+    ///Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_nationalities: Option<Vec<String>>,
+    ///Allowed organization type URNs (SCHAC). User must match one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_organization_types: Option<Vec<String>>,
     ///VAT number
     ///Constraint: maxLength=20
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -12308,8 +12375,11 @@ impl CustomerRequest {
             state: None,
             street: None,
             user_affiliations: None,
+            user_assurance_levels: None,
             user_email_patterns: None,
             user_identity_sources: None,
+            user_nationalities: None,
+            user_organization_types: None,
             vat_code: None,
         }
     }
@@ -12741,6 +12811,12 @@ impl CustomerRequestBuilder {
         self.value.user_affiliations = Some(user_affiliations);
         self
     }
+    #[doc = concat!("Set the optional `", "user_assurance_levels", "` request field.")]
+    #[must_use]
+    pub fn user_assurance_levels(mut self, user_assurance_levels: Vec<String>) -> Self {
+        self.value.user_assurance_levels = Some(user_assurance_levels);
+        self
+    }
     #[doc = concat!("Set the optional `", "user_email_patterns", "` request field.")]
     #[must_use]
     pub fn user_email_patterns(mut self, user_email_patterns: Vec<String>) -> Self {
@@ -12751,6 +12827,21 @@ impl CustomerRequestBuilder {
     #[must_use]
     pub fn user_identity_sources(mut self, user_identity_sources: Vec<String>) -> Self {
         self.value.user_identity_sources = Some(user_identity_sources);
+        self
+    }
+    #[doc = concat!("Set the optional `", "user_nationalities", "` request field.")]
+    #[must_use]
+    pub fn user_nationalities(mut self, user_nationalities: Vec<String>) -> Self {
+        self.value.user_nationalities = Some(user_nationalities);
+        self
+    }
+    #[doc = concat!("Set the optional `", "user_organization_types", "` request field.")]
+    #[must_use]
+    pub fn user_organization_types(
+        mut self,
+        user_organization_types: Vec<String>,
+    ) -> Self {
+        self.value.user_organization_types = Some(user_organization_types);
         self
     }
     #[doc = concat!("Set the optional `", "vat_code", "` request field.")]
@@ -13012,10 +13103,19 @@ pub struct Customer {
     pub url: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_affiliations: Option<Vec<String>>,
+    ///Required assurance URIs (REFEDS). User must have all of these.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_assurance_levels: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email_patterns: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_identity_sources: Option<Vec<String>>,
+    ///Allowed nationality codes (ISO 3166-1 alpha-2). User must have one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_nationalities: Option<Vec<String>>,
+    ///Allowed organization type URNs (SCHAC). User must match one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_organization_types: Option<Vec<String>>,
     ///Number of users with access to this organization
     #[serde(skip_serializing_if = "Option::is_none")]
     pub users_count: Option<i64>,
@@ -15833,10 +15933,16 @@ pub enum CustomerFieldEnum {
     Url,
     #[serde(rename = "user_affiliations")]
     UserAffiliations,
+    #[serde(rename = "user_assurance_levels")]
+    UserAssuranceLevels,
     #[serde(rename = "user_email_patterns")]
     UserEmailPatterns,
     #[serde(rename = "user_identity_sources")]
     UserIdentitySources,
+    #[serde(rename = "user_nationalities")]
+    UserNationalities,
+    #[serde(rename = "user_organization_types")]
+    UserOrganizationTypes,
     #[serde(rename = "users_count")]
     UsersCount,
     #[serde(rename = "uuid")]
@@ -15914,8 +16020,11 @@ impl CustomerFieldEnum {
             Self::Street => "street",
             Self::Url => "url",
             Self::UserAffiliations => "user_affiliations",
+            Self::UserAssuranceLevels => "user_assurance_levels",
             Self::UserEmailPatterns => "user_email_patterns",
             Self::UserIdentitySources => "user_identity_sources",
+            Self::UserNationalities => "user_nationalities",
+            Self::UserOrganizationTypes => "user_organization_types",
             Self::UsersCount => "users_count",
             Self::Uuid => "uuid",
             Self::VatCode => "vat_code",
@@ -21057,10 +21166,16 @@ pub enum ProjectFieldEnum {
     Url,
     #[serde(rename = "user_affiliations")]
     UserAffiliations,
+    #[serde(rename = "user_assurance_levels")]
+    UserAssuranceLevels,
     #[serde(rename = "user_email_patterns")]
     UserEmailPatterns,
     #[serde(rename = "user_identity_sources")]
     UserIdentitySources,
+    #[serde(rename = "user_nationalities")]
+    UserNationalities,
+    #[serde(rename = "user_organization_types")]
+    UserOrganizationTypes,
     #[serde(rename = "uuid")]
     Uuid,
 }
@@ -21119,8 +21234,11 @@ impl ProjectFieldEnum {
             Self::TypeUuid => "type_uuid",
             Self::Url => "url",
             Self::UserAffiliations => "user_affiliations",
+            Self::UserAssuranceLevels => "user_assurance_levels",
             Self::UserEmailPatterns => "user_email_patterns",
             Self::UserIdentitySources => "user_identity_sources",
+            Self::UserNationalities => "user_nationalities",
+            Self::UserOrganizationTypes => "user_organization_types",
             Self::Uuid => "uuid",
         }
     }
