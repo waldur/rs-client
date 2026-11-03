@@ -41615,7 +41615,7 @@ impl HttpClient {
             )
         }
     }
-    /// A list of users which can be added to the current project from other projects of the same customer.
+    /// Users with a role in the caller's other projects of the same organization, whom the caller may add to the current project. The current project must be one the caller can see; otherwise the response is 404. A personal access token lists only the users of projects its bindings reach.
     ///
     /// `GET /api/projects/{project_uuid}/other_users/`
     pub async fn projects_other_users_list(
