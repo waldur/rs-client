@@ -2426,7 +2426,7 @@ impl HttpClient {
     }
     /// List customers
     ///
-    /// Retrieve a list of customers. The list is filtered based on the user's permissions. A user whose only link to an organization is a role on its service provider sees it with a restricted field set: url, uuid, name, native_name, display_name, abbreviation, slug, image, country, country_name, is_service_provider, service_provider and service_provider_uuid. All other fields are omitted for that row.
+    /// Retrieve a list of customers. The list is filtered based on the user's permissions. A user whose only link to an organization is a role on its service provider sees it with a restricted field set: url, uuid, name, native_name, display_name, abbreviation, slug, image, country, country_name, is_service_provider, service_provider and service_provider_uuid. All other fields are omitted for that row. Except to staff and support, an organization that limits portal access to some networks is hidden from callers outside them; only a user whose sole link to it is a service provider role still finds it, with the restricted field set.
     ///
     /// `GET /api/customers/`
     pub async fn customers_list(
