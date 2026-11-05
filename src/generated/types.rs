@@ -3668,16 +3668,6 @@ pub struct PatchedOpenStackSnapshotRequestMetadata {
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
-pub struct PatchedMigrationDetailsRequest {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub error_message: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub error_traceback: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub mappings: Option<MappingRequest>,
-}
-///
-#[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct PatchedCustomerRequest {
     ///Constraint: maxLength=12
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -9332,59 +9322,6 @@ pub struct NestedSecurityGroupRule {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub to_port: Option<Option<i64>>,
-}
-///
-#[derive(Debug, Clone, Deserialize, Serialize)]
-pub struct MigrationDetailsRequest {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub error_message: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub error_traceback: Option<String>,
-    pub mappings: MappingRequest,
-}
-impl MigrationDetailsRequest {
-    /// Construct this request with every required wire field.
-    pub fn new(mappings: MappingRequest) -> Self {
-        Self {
-            mappings,
-            error_message: None,
-            error_traceback: None,
-        }
-    }
-    /// Start a dependency-free builder with every required wire field.
-    pub fn builder(mappings: MappingRequest) -> MigrationDetailsRequestBuilder {
-        MigrationDetailsRequestBuilder::new(mappings)
-    }
-}
-/// Dependency-free builder for [`#struct_name`].
-#[derive(Debug, Clone)]
-#[must_use]
-pub struct MigrationDetailsRequestBuilder {
-    value: MigrationDetailsRequest,
-}
-impl MigrationDetailsRequestBuilder {
-    /// Start a builder with every required wire field.
-    pub fn new(mappings: MappingRequest) -> Self {
-        Self {
-            value: MigrationDetailsRequest::new(mappings),
-        }
-    }
-    #[doc = concat!("Set the optional `", "error_message", "` request field.")]
-    #[must_use]
-    pub fn error_message(mut self, error_message: String) -> Self {
-        self.value.error_message = Some(error_message);
-        self
-    }
-    #[doc = concat!("Set the optional `", "error_traceback", "` request field.")]
-    #[must_use]
-    pub fn error_traceback(mut self, error_traceback: String) -> Self {
-        self.value.error_traceback = Some(error_traceback);
-        self
-    }
-    /// Finish building the request model.
-    pub fn build(self) -> MigrationDetailsRequest {
-        self.value
-    }
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
