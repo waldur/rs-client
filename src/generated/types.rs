@@ -9822,6 +9822,12 @@ pub struct Project {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub affiliation_uuid: Option<Option<uuid::Uuid>>,
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub awarded_proposal: Option<Option<AwardedProposal>>,
     ///Constraint: maxLength=255
     #[serde(skip_serializing_if = "Option::is_none")]
     pub backend_id: Option<String>,
@@ -10218,6 +10224,25 @@ impl AsRef<str> for OecdFos2007CodeEnum {
     fn as_ref(&self) -> &str {
         self.as_str()
     }
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct AwardedProposal {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub call_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub call_uuid: Option<uuid::Uuid>,
+    ///Whether the viewer may open the proposal: its team and the call's overseers do; a collaborator added to the project later sees only where it came from.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub can_read: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub proposal_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub proposal_uuid: Option<uuid::Uuid>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub round_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub round_uuid: Option<uuid::Uuid>,
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
@@ -21014,6 +21039,8 @@ pub enum ProjectFieldEnum {
     AffiliationName,
     #[serde(rename = "affiliation_uuid")]
     AffiliationUuid,
+    #[serde(rename = "awarded_proposal")]
+    AwardedProposal,
     #[serde(rename = "backend_id")]
     BackendId,
     #[serde(rename = "billing_price_estimate")]
@@ -21126,6 +21153,7 @@ impl ProjectFieldEnum {
             Self::AffiliationCode => "affiliation_code",
             Self::AffiliationName => "affiliation_name",
             Self::AffiliationUuid => "affiliation_uuid",
+            Self::AwardedProposal => "awarded_proposal",
             Self::BackendId => "backend_id",
             Self::BillingPriceEstimate => "billing_price_estimate",
             Self::Created => "created",
