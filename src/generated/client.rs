@@ -35145,7 +35145,7 @@ impl HttpClient {
     }
     /// List unique volume type names
     ///
-    /// Return a list of unique volume type names.
+    /// Return the distinct names of the volume types the caller can see.
     ///
     /// `GET /api/openstack-volume-types/names/`
     pub async fn openstack_volume_types_names_retrieve(

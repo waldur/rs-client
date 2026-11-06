@@ -3883,6 +3883,9 @@ pub struct OpenStackVolumeType {
     ///Constraint: maxLength=4096
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    ///Whether every project of the cloud may use the volume type. Cinder gives a private type only to the projects it is assigned to.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_public: Option<bool>,
     ///Constraint: maxLength=150
     pub name: String,
     pub settings: String,
