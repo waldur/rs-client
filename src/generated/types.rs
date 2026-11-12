@@ -2603,6 +2603,44 @@ pub struct RoleAvailabilityDetails {
     pub scope_uuid: Option<String>,
     pub uuid: uuid::Uuid,
 }
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct ReauthenticationChallenge {
+    ///The change that needs a grant.
+    pub action: ReauthenticationActionEnum,
+    ///Always reauthentication_required.
+    pub code: String,
+    pub detail: String,
+    ///The methods this user can obtain a grant with.
+    pub methods: Vec<ReauthenticationMethodEnum>,
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum ReauthenticationMethodEnum {
+    #[default]
+    #[serde(rename = "password")]
+    Password,
+    #[serde(rename = "passkey")]
+    Passkey,
+}
+impl ReauthenticationMethodEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Password => "password",
+            Self::Passkey => "passkey",
+        }
+    }
+}
+impl ::std::fmt::Display for ReauthenticationMethodEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for ReauthenticationMethodEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
 pub type ProjectsSubmitAnswersRequest = Vec<AnswerSubmitRequest>;
 ///
 pub type ProjectsOtherUsersListResponse = Vec<BasicUser>;
@@ -3854,6 +3892,45 @@ pub struct PatchedCustomerRequest {
 pub enum PatchedCustomerRequestCountry {
     CountryEnum(CountryEnum),
     BlankEnum(BlankEnum),
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum ReauthenticationActionEnum {
+    #[default]
+    #[serde(rename = "token_lifetime")]
+    TokenLifetime,
+    #[serde(rename = "change_email")]
+    ChangeEmail,
+    #[serde(rename = "register_passkey")]
+    RegisterPasskey,
+    #[serde(rename = "revoke_passkey")]
+    RevokePasskey,
+    #[serde(rename = "create_personal_access_token")]
+    CreatePersonalAccessToken,
+    #[serde(rename = "change_password")]
+    ChangePassword,
+}
+impl ReauthenticationActionEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::TokenLifetime => "token_lifetime",
+            Self::ChangeEmail => "change_email",
+            Self::RegisterPasskey => "register_passkey",
+            Self::RevokePasskey => "revoke_passkey",
+            Self::CreatePersonalAccessToken => "create_personal_access_token",
+            Self::ChangePassword => "change_password",
+        }
+    }
+}
+impl ::std::fmt::Display for ReauthenticationActionEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for ReauthenticationActionEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -21026,6 +21103,12 @@ pub struct ProjectDigestPreviewResponse {
     pub html_body: String,
     pub subject: String,
     pub text_body: String,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct ProjectDigestSendTestResponse {
+    pub detail: String,
+    pub sent: bool,
 }
 ///
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]

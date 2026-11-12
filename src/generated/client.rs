@@ -395,11 +395,31 @@ pub enum ProjectsSubmitAnswersApiError {
     Status400(ProjectsSubmitAnswersResponse400),
     Status404(ProjectsSubmitAnswersResponse404),
 }
+///Typed error responses for `users_change_email`. One variant per declared non-2xx response.
+#[derive(Debug, Clone)]
+pub enum UsersChangeEmailApiError {
+    Status401(ReauthenticationChallenge),
+}
+///Typed error responses for `users_change_password`. One variant per declared non-2xx response.
+#[derive(Debug, Clone)]
+pub enum UsersChangePasswordApiError {
+    Status401(ReauthenticationChallenge),
+}
 ///Typed error responses for `users_history_at_retrieve`. One variant per declared non-2xx response.
 #[derive(Debug, Clone)]
 pub enum UsersHistoryAtRetrieveApiError {
     Status400(UsersHistoryAtRetrieveResponse400),
     Status404(UsersHistoryAtRetrieveResponse404),
+}
+///Typed error responses for `users_partial_update`. One variant per declared non-2xx response.
+#[derive(Debug, Clone)]
+pub enum UsersPartialUpdateApiError {
+    Status401(ReauthenticationChallenge),
+}
+///Typed error responses for `users_update`. One variant per declared non-2xx response.
+#[derive(Debug, Clone)]
+pub enum UsersUpdateApiError {
+    Status401(ReauthenticationChallenge),
 }
 impl HttpClient {
     /// Close customer permission review
@@ -3334,13 +3354,13 @@ impl HttpClient {
     }
     /// Send a test digest email
     ///
-    /// Send a test digest email to the requesting user.
+    /// Send a test digest email to the requesting user. When nothing is sent, `sent` is false and `detail` says why.
     ///
     /// `POST /api/customers/{uuid}/project-digest-config/send-test/`
     pub async fn customers_project_digest_config_send_test(
         &self,
         uuid: impl AsRef<str>,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
+    ) -> Result<ProjectDigestSendTestResponse, ApiOpError<serde_json::Value>> {
         let request_url = format!(
             "{}{}", self.base_url,
             format!("/api/customers/{}/project-digest-config/send-test/",
@@ -3352,8 +3372,11 @@ impl HttpClient {
             req = req.header("Authorization", api_key.as_str());
         }
         for (name, value) in &self.custom_headers {
-            req = req.header(name, value);
+            if !name.eq_ignore_ascii_case("accept") {
+                req = req.header(name, value);
+            }
         }
+        req = req.header(reqwest::header::ACCEPT, "application/json");
         let response = req.send().await?;
         let status = response.status();
         let status_code = status.as_u16();
@@ -3366,10 +3389,23 @@ impl HttpClient {
         let raw_body = body_bytes;
         let body_text = String::from_utf8_lossy(&raw_body).into_owned();
         if false || status_code == 200u16 {
-            let _ = body_text;
-            let _ = raw_body;
-            let _ = headers;
-            Ok(())
+            match serde_json::from_str(&body_text) {
+                Ok(body) => Ok(body),
+                Err(e) => {
+                    Err(
+                        ApiOpError::Api(ApiError {
+                            status: status_code,
+                            headers: headers,
+                            body: body_text,
+                            raw_body,
+                            typed: None,
+                            parse_error: Some(
+                                format!("failed to deserialize 2xx response body: {}", e),
+                            ),
+                        }),
+                    )
+                }
+            }
         } else if status.is_success() {
             Err(
                 ApiOpError::Api(ApiError {
@@ -48182,14 +48218,15 @@ impl HttpClient {
     }
     /// Request email change
     ///
-    /// Allows to change email for user.
+    /// Allows to change email for user. Requires a re-authentication grant for change_email, except for a user changing their own email who has no method to re-authenticate with. Refused when the user's identity provider supplies the email.
     ///
     /// `POST /api/users/{uuid}/change_email/`
     pub async fn users_change_email(
         &self,
         uuid: impl AsRef<str>,
+        x_reauthentication_grant: Option<impl AsRef<str>>,
         request: UserEmailChangeRequest,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
+    ) -> Result<(), ApiOpError<UsersChangeEmailApiError>> {
         let request_url = format!(
             "{}{}", self.base_url, format!("/api/users/{}/change_email/",
             __pct_encode_path_segment(uuid.as_ref()))
@@ -48198,6 +48235,9 @@ impl HttpClient {
         req = req
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
+        if let Some(v) = x_reauthentication_grant {
+            req = req.header("X-Reauthentication-Grant", v.as_ref());
+        }
         if let Some(api_key) = &self.api_key {
             req = req.header("Authorization", api_key.as_str());
         }
@@ -48237,13 +48277,13 @@ impl HttpClient {
                 }),
             )
         } else {
-            let typed: Option<serde_json::Value>;
+            let typed: Option<UsersChangeEmailApiError>;
             let parse_error: Option<String>;
             match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
+                401u16 => {
+                    match serde_json::from_str::<ReauthenticationChallenge>(&body_text) {
                         Ok(v) => {
-                            typed = Some(v);
+                            typed = Some(UsersChangeEmailApiError::Status401(v));
                             parse_error = None;
                         }
                         Err(e) => {
@@ -48251,6 +48291,10 @@ impl HttpClient {
                             parse_error = Some(e.to_string());
                         }
                     }
+                }
+                _ => {
+                    typed = None;
+                    parse_error = None;
                 }
             }
             Err(
@@ -48267,14 +48311,15 @@ impl HttpClient {
     }
     /// Change user password
     ///
-    /// Allows staff user to change password for any user.
+    /// Allows staff user to change password for any user. Requires the staff user's own re-authentication grant for change_password.
     ///
     /// `POST /api/users/{uuid}/change_password/`
     pub async fn users_change_password(
         &self,
         uuid: impl AsRef<str>,
+        x_reauthentication_grant: Option<impl AsRef<str>>,
         request: PasswordChangeRequest,
-    ) -> Result<(), ApiOpError<serde_json::Value>> {
+    ) -> Result<(), ApiOpError<UsersChangePasswordApiError>> {
         let request_url = format!(
             "{}{}", self.base_url, format!("/api/users/{}/change_password/",
             __pct_encode_path_segment(uuid.as_ref()))
@@ -48283,6 +48328,9 @@ impl HttpClient {
         req = req
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
+        if let Some(v) = x_reauthentication_grant {
+            req = req.header("X-Reauthentication-Grant", v.as_ref());
+        }
         if let Some(api_key) = &self.api_key {
             req = req.header("Authorization", api_key.as_str());
         }
@@ -48322,13 +48370,13 @@ impl HttpClient {
                 }),
             )
         } else {
-            let typed: Option<serde_json::Value>;
+            let typed: Option<UsersChangePasswordApiError>;
             let parse_error: Option<String>;
             match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
+                401u16 => {
+                    match serde_json::from_str::<ReauthenticationChallenge>(&body_text) {
                         Ok(v) => {
-                            typed = Some(v);
+                            typed = Some(UsersChangePasswordApiError::Status401(v));
                             parse_error = None;
                         }
                         Err(e) => {
@@ -48336,6 +48384,10 @@ impl HttpClient {
                             parse_error = Some(e.to_string());
                         }
                     }
+                }
+                _ => {
+                    typed = None;
+                    parse_error = None;
                 }
             }
             Err(
@@ -50355,8 +50407,9 @@ impl HttpClient {
     pub async fn users_partial_update(
         &self,
         uuid: impl AsRef<str>,
+        x_reauthentication_grant: Option<impl AsRef<str>>,
         request: Option<PatchedUserRequest>,
-    ) -> Result<User, ApiOpError<serde_json::Value>> {
+    ) -> Result<User, ApiOpError<UsersPartialUpdateApiError>> {
         let request_url = format!(
             "{}{}", self.base_url, format!("/api/users/{}/",
             __pct_encode_path_segment(uuid.as_ref()))
@@ -50370,6 +50423,9 @@ impl HttpClient {
                 .header("content-type", "application/json");
         } else {
             req = req.header(reqwest::header::CONTENT_LENGTH, "0");
+        }
+        if let Some(v) = x_reauthentication_grant {
+            req = req.header("X-Reauthentication-Grant", v.as_ref());
         }
         if let Some(api_key) = &self.api_key {
             req = req.header("Authorization", api_key.as_str());
@@ -50426,13 +50482,13 @@ impl HttpClient {
                 }),
             )
         } else {
-            let typed: Option<serde_json::Value>;
+            let typed: Option<UsersPartialUpdateApiError>;
             let parse_error: Option<String>;
             match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
+                401u16 => {
+                    match serde_json::from_str::<ReauthenticationChallenge>(&body_text) {
                         Ok(v) => {
-                            typed = Some(v);
+                            typed = Some(UsersPartialUpdateApiError::Status401(v));
                             parse_error = None;
                         }
                         Err(e) => {
@@ -50440,6 +50496,10 @@ impl HttpClient {
                             parse_error = Some(e.to_string());
                         }
                     }
+                }
+                _ => {
+                    typed = None;
+                    parse_error = None;
                 }
             }
             Err(
@@ -51384,8 +51444,9 @@ impl HttpClient {
     pub async fn users_update(
         &self,
         uuid: impl AsRef<str>,
+        x_reauthentication_grant: Option<impl AsRef<str>>,
         request: UserRequest,
-    ) -> Result<User, ApiOpError<serde_json::Value>> {
+    ) -> Result<User, ApiOpError<UsersUpdateApiError>> {
         let request_url = format!(
             "{}{}", self.base_url, format!("/api/users/{}/",
             __pct_encode_path_segment(uuid.as_ref()))
@@ -51394,6 +51455,9 @@ impl HttpClient {
         req = req
             .body(serde_json::to_vec(&request).map_err(HttpError::serialization_error)?)
             .header("content-type", "application/json");
+        if let Some(v) = x_reauthentication_grant {
+            req = req.header("X-Reauthentication-Grant", v.as_ref());
+        }
         if let Some(api_key) = &self.api_key {
             req = req.header("Authorization", api_key.as_str());
         }
@@ -51449,13 +51513,13 @@ impl HttpClient {
                 }),
             )
         } else {
-            let typed: Option<serde_json::Value>;
+            let typed: Option<UsersUpdateApiError>;
             let parse_error: Option<String>;
             match status_code {
-                _ => {
-                    match serde_json::from_str::<serde_json::Value>(&body_text) {
+                401u16 => {
+                    match serde_json::from_str::<ReauthenticationChallenge>(&body_text) {
                         Ok(v) => {
-                            typed = Some(v);
+                            typed = Some(UsersUpdateApiError::Status401(v));
                             parse_error = None;
                         }
                         Err(e) => {
@@ -51463,6 +51527,10 @@ impl HttpClient {
                             parse_error = Some(e.to_string());
                         }
                     }
+                }
+                _ => {
+                    typed = None;
+                    parse_error = None;
                 }
             }
             Err(
