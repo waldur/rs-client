@@ -3909,6 +3909,8 @@ pub enum ReauthenticationActionEnum {
     CreatePersonalAccessToken,
     #[serde(rename = "change_password")]
     ChangePassword,
+    #[serde(rename = "widen_personal_access_token_networks")]
+    WidenPersonalAccessTokenNetworks,
 }
 impl ReauthenticationActionEnum {
     pub fn as_str(&self) -> &'static str {
@@ -3919,6 +3921,9 @@ impl ReauthenticationActionEnum {
             Self::RevokePasskey => "revoke_passkey",
             Self::CreatePersonalAccessToken => "create_personal_access_token",
             Self::ChangePassword => "change_password",
+            Self::WidenPersonalAccessTokenNetworks => {
+                "widen_personal_access_token_networks"
+            }
         }
     }
 }
