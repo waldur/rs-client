@@ -12046,7 +12046,7 @@ pub struct ProjectAnswer {
     pub project_uuid: uuid::Uuid,
     ///Get review requirement status.
     pub requires_review: bool,
-    ///Get count of unanswered required questions.
+    ///Get count of unanswered required questions shown to the user.
     pub unanswered_required_count: i64,
 }
 ///
