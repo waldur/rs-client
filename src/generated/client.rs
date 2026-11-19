@@ -39058,6 +39058,7 @@ impl HttpClient {
     pub async fn projects_count(
         &self,
         accounting_is_running: Option<bool>,
+        active_during: Option<impl AsRef<str>>,
         affiliation_name: Option<impl AsRef<str>>,
         affiliation_uuid: Option<Vec<String>>,
         backend_id: Option<impl AsRef<str>>,
@@ -39072,7 +39073,11 @@ impl HttpClient {
         customer_name: Option<impl AsRef<str>>,
         customer_native_name: Option<impl AsRef<str>>,
         description: Option<impl AsRef<str>>,
+        end_date_after: Option<impl AsRef<str>>,
+        end_date_before: Option<impl AsRef<str>>,
+        ended: Option<bool>,
         has_affiliation: Option<bool>,
+        in_grace: Option<bool>,
         include_terminated: Option<bool>,
         is_removed: Option<bool>,
         modified: Option<impl AsRef<str>>,
@@ -39086,6 +39091,9 @@ impl HttpClient {
         science_domain_uuid: Option<impl AsRef<str>>,
         science_sub_domain_uuid: Option<impl AsRef<str>>,
         slug: Option<impl AsRef<str>>,
+        start_date_after: Option<impl AsRef<str>>,
+        start_date_before: Option<impl AsRef<str>>,
+        started: Option<bool>,
         user_role: Option<impl AsRef<str>>,
         user_uuid: Option<impl AsRef<str>>,
         user_uuid_with_active_role: Option<impl AsRef<str>>,
@@ -39096,6 +39104,9 @@ impl HttpClient {
             let mut query_params: Vec<(String, String)> = Vec::new();
             if let Some(v) = accounting_is_running {
                 query_params.push(("accounting_is_running".to_string(), v.to_string()));
+            }
+            if let Some(v) = active_during {
+                query_params.push(("active_during".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = affiliation_name {
                 query_params
@@ -39194,8 +39205,22 @@ impl HttpClient {
             if let Some(v) = description {
                 query_params.push(("description".to_string(), v.as_ref().to_string()));
             }
+            if let Some(v) = end_date_after {
+                query_params
+                    .push(("end_date_after".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = end_date_before {
+                query_params
+                    .push(("end_date_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = ended {
+                query_params.push(("ended".to_string(), v.to_string()));
+            }
             if let Some(v) = has_affiliation {
                 query_params.push(("has_affiliation".to_string(), v.to_string()));
+            }
+            if let Some(v) = in_grace {
+                query_params.push(("in_grace".to_string(), v.to_string()));
             }
             if let Some(v) = include_terminated {
                 query_params.push(("include_terminated".to_string(), v.to_string()));
@@ -39261,6 +39286,17 @@ impl HttpClient {
             }
             if let Some(v) = slug {
                 query_params.push(("slug".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = start_date_after {
+                query_params
+                    .push(("start_date_after".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = start_date_before {
+                query_params
+                    .push(("start_date_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = started {
+                query_params.push(("started".to_string(), v.to_string()));
             }
             if let Some(v) = user_role {
                 query_params.push(("user_role".to_string(), v.as_ref().to_string()));
@@ -39747,6 +39783,7 @@ impl HttpClient {
         &self,
         uuid: impl AsRef<str>,
         accounting_is_running: Option<bool>,
+        active_during: Option<impl AsRef<str>>,
         affiliation_name: Option<impl AsRef<str>>,
         affiliation_uuid: Option<Vec<String>>,
         backend_id: Option<impl AsRef<str>>,
@@ -39762,7 +39799,11 @@ impl HttpClient {
         customer_name: Option<impl AsRef<str>>,
         customer_native_name: Option<impl AsRef<str>>,
         description: Option<impl AsRef<str>>,
+        end_date_after: Option<impl AsRef<str>>,
+        end_date_before: Option<impl AsRef<str>>,
+        ended: Option<bool>,
         has_affiliation: Option<bool>,
+        in_grace: Option<bool>,
         is_removed: Option<bool>,
         modified: Option<impl AsRef<str>>,
         modified_before: Option<impl AsRef<str>>,
@@ -39775,6 +39816,9 @@ impl HttpClient {
         science_domain_uuid: Option<impl AsRef<str>>,
         science_sub_domain_uuid: Option<impl AsRef<str>>,
         slug: Option<impl AsRef<str>>,
+        start_date_after: Option<impl AsRef<str>>,
+        start_date_before: Option<impl AsRef<str>>,
+        started: Option<bool>,
         user_role: Option<impl AsRef<str>>,
         user_uuid: Option<impl AsRef<str>>,
         user_uuid_with_active_role: Option<impl AsRef<str>>,
@@ -39788,6 +39832,9 @@ impl HttpClient {
             let mut query_params: Vec<(String, String)> = Vec::new();
             if let Some(v) = accounting_is_running {
                 query_params.push(("accounting_is_running".to_string(), v.to_string()));
+            }
+            if let Some(v) = active_during {
+                query_params.push(("active_during".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = affiliation_name {
                 query_params
@@ -39889,8 +39936,22 @@ impl HttpClient {
             if let Some(v) = description {
                 query_params.push(("description".to_string(), v.as_ref().to_string()));
             }
+            if let Some(v) = end_date_after {
+                query_params
+                    .push(("end_date_after".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = end_date_before {
+                query_params
+                    .push(("end_date_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = ended {
+                query_params.push(("ended".to_string(), v.to_string()));
+            }
             if let Some(v) = has_affiliation {
                 query_params.push(("has_affiliation".to_string(), v.to_string()));
+            }
+            if let Some(v) = in_grace {
+                query_params.push(("in_grace".to_string(), v.to_string()));
             }
             if let Some(v) = is_removed {
                 query_params.push(("is_removed".to_string(), v.to_string()));
@@ -39953,6 +40014,17 @@ impl HttpClient {
             }
             if let Some(v) = slug {
                 query_params.push(("slug".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = start_date_after {
+                query_params
+                    .push(("start_date_after".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = start_date_before {
+                query_params
+                    .push(("start_date_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = started {
+                query_params.push(("started".to_string(), v.to_string()));
             }
             if let Some(v) = user_role {
                 query_params.push(("user_role".to_string(), v.as_ref().to_string()));
@@ -40062,6 +40134,7 @@ impl HttpClient {
     pub async fn projects_list(
         &self,
         accounting_is_running: Option<bool>,
+        active_during: Option<impl AsRef<str>>,
         affiliation_name: Option<impl AsRef<str>>,
         affiliation_uuid: Option<Vec<String>>,
         backend_id: Option<impl AsRef<str>>,
@@ -40076,8 +40149,12 @@ impl HttpClient {
         customer_name: Option<impl AsRef<str>>,
         customer_native_name: Option<impl AsRef<str>>,
         description: Option<impl AsRef<str>>,
+        end_date_after: Option<impl AsRef<str>>,
+        end_date_before: Option<impl AsRef<str>>,
+        ended: Option<bool>,
         field: Option<Vec<ProjectFieldEnum>>,
         has_affiliation: Option<bool>,
+        in_grace: Option<bool>,
         include_terminated: Option<bool>,
         is_removed: Option<bool>,
         modified: Option<impl AsRef<str>>,
@@ -40091,6 +40168,9 @@ impl HttpClient {
         science_domain_uuid: Option<impl AsRef<str>>,
         science_sub_domain_uuid: Option<impl AsRef<str>>,
         slug: Option<impl AsRef<str>>,
+        start_date_after: Option<impl AsRef<str>>,
+        start_date_before: Option<impl AsRef<str>>,
+        started: Option<bool>,
         user_role: Option<impl AsRef<str>>,
         user_uuid: Option<impl AsRef<str>>,
         user_uuid_with_active_role: Option<impl AsRef<str>>,
@@ -40101,6 +40181,9 @@ impl HttpClient {
             let mut query_params: Vec<(String, String)> = Vec::new();
             if let Some(v) = accounting_is_running {
                 query_params.push(("accounting_is_running".to_string(), v.to_string()));
+            }
+            if let Some(v) = active_during {
+                query_params.push(("active_during".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = affiliation_name {
                 query_params
@@ -40199,6 +40282,17 @@ impl HttpClient {
             if let Some(v) = description {
                 query_params.push(("description".to_string(), v.as_ref().to_string()));
             }
+            if let Some(v) = end_date_after {
+                query_params
+                    .push(("end_date_after".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = end_date_before {
+                query_params
+                    .push(("end_date_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = ended {
+                query_params.push(("ended".to_string(), v.to_string()));
+            }
             if let Some(v) = field {
                 if v.is_empty() {
                     query_params.push((format!("{}[]", "field"), String::new()));
@@ -40210,6 +40304,9 @@ impl HttpClient {
             }
             if let Some(v) = has_affiliation {
                 query_params.push(("has_affiliation".to_string(), v.to_string()));
+            }
+            if let Some(v) = in_grace {
+                query_params.push(("in_grace".to_string(), v.to_string()));
             }
             if let Some(v) = include_terminated {
                 query_params.push(("include_terminated".to_string(), v.to_string()));
@@ -40275,6 +40372,17 @@ impl HttpClient {
             }
             if let Some(v) = slug {
                 query_params.push(("slug".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = start_date_after {
+                query_params
+                    .push(("start_date_after".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = start_date_before {
+                query_params
+                    .push(("start_date_before".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = started {
+                query_params.push(("started".to_string(), v.to_string()));
             }
             if let Some(v) = user_role {
                 query_params.push(("user_role".to_string(), v.as_ref().to_string()));
