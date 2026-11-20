@@ -22499,7 +22499,14 @@ impl AsRef<str> for UserFieldEnum {
 ///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct UserInvitationAcceptRequest {
-    ///Staff only. Accept the invitation for this user instead of the caller. The user's email must match the invitation. Empty, null or the caller's own uuid accepts for the caller.
+    ///Only with user. Accept even though the user's email differs from the invitation's, for a caller that has verified the person's identity itself. Has no effect while ENABLE_STRICT_CHECK_ACCEPTING_INVITATION is on. The role-granted event records the bypass in email_check_bypassed, invitation_uuid and invitation_email.
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub allow_email_mismatch: Option<Option<bool>>,
+    ///Staff only. Accept the invitation for this user instead of the caller. The user's email must match the invitation unless allow_email_mismatch is set. Empty, null or the caller's own uuid accepts for the caller.
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,

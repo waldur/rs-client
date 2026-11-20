@@ -45150,7 +45150,7 @@ impl HttpClient {
     }
     /// Accept an invitation
     ///
-    /// Accepts an invitation for the currently authenticated user. This grants the user the specified role in the invitation's scope. Staff may pass `user` to accept it for that user instead, for example from a service account that registers users elsewhere; the user's email must match the invitation.
+    /// Accepts an invitation for the currently authenticated user. This grants the user the specified role in the invitation's scope. Staff may pass `user` to accept it for that user instead, for example from a service account that registers users elsewhere; the user's email must match the invitation unless `allow_email_mismatch` is set, for a caller that has verified the person's identity itself.
     ///
     /// `POST /api/user-invitations/{uuid}/accept/`
     pub async fn user_invitations_accept(
