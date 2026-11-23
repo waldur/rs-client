@@ -826,6 +826,9 @@ pub struct UserMe {
     ///Designates whether the user is allowed to manage remote user identities.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_identity_manager: Option<bool>,
+    ///Created for an integration, such as a site agent, to hold a role and authenticate with its token. Signing in to it through single sign-on is allowed and recorded as an event.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_service_account: Option<bool>,
     ///Designates whether the user can log into this admin site.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_staff: Option<bool>,
@@ -9650,6 +9653,9 @@ pub struct User {
     ///Designates whether the user is allowed to manage remote user identities.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_identity_manager: Option<bool>,
+    ///Created for an integration, such as a site agent, to hold a role and authenticate with its token. Signing in to it through single sign-on is allowed and recorded as an event.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_service_account: Option<bool>,
     ///Designates whether the user can log into this admin site.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_staff: Option<bool>,
@@ -9873,6 +9879,8 @@ pub struct Permission {
     pub source: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_email: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_is_service_account: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -14533,6 +14541,8 @@ pub struct UserRoleDetails {
     pub user_full_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_image: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_is_service_account: Option<bool>,
     ///Required. 128 characters or fewer. Lowercase letters, numbers and @/./+/-/_ characters
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_username: Option<String>,
@@ -22348,6 +22358,8 @@ pub enum UserFieldEnum {
     IsAdminDeactivated,
     #[serde(rename = "is_identity_manager")]
     IsIdentityManager,
+    #[serde(rename = "is_service_account")]
+    IsServiceAccount,
     #[serde(rename = "is_staff")]
     IsStaff,
     #[serde(rename = "is_support")]
@@ -22450,6 +22462,7 @@ impl UserFieldEnum {
             Self::IsActive => "is_active",
             Self::IsAdminDeactivated => "is_admin_deactivated",
             Self::IsIdentityManager => "is_identity_manager",
+            Self::IsServiceAccount => "is_service_account",
             Self::IsStaff => "is_staff",
             Self::IsSupport => "is_support",
             Self::JobTitle => "job_title",
@@ -22584,6 +22597,8 @@ pub enum UserMeFieldEnum {
     IsAdminDeactivated,
     #[serde(rename = "is_identity_manager")]
     IsIdentityManager,
+    #[serde(rename = "is_service_account")]
+    IsServiceAccount,
     #[serde(rename = "is_staff")]
     IsStaff,
     #[serde(rename = "is_support")]
@@ -22688,6 +22703,7 @@ impl UserMeFieldEnum {
             Self::IsActive => "is_active",
             Self::IsAdminDeactivated => "is_admin_deactivated",
             Self::IsIdentityManager => "is_identity_manager",
+            Self::IsServiceAccount => "is_service_account",
             Self::IsStaff => "is_staff",
             Self::IsSupport => "is_support",
             Self::JobTitle => "job_title",
@@ -22903,6 +22919,8 @@ pub enum UserRoleDetailsFieldEnum {
     UserFullName,
     #[serde(rename = "user_image")]
     UserImage,
+    #[serde(rename = "user_is_service_account")]
+    UserIsServiceAccount,
     #[serde(rename = "user_username")]
     UserUsername,
     #[serde(rename = "user_uuid")]
@@ -22923,6 +22941,7 @@ impl UserRoleDetailsFieldEnum {
             Self::UserEmail => "user_email",
             Self::UserFullName => "user_full_name",
             Self::UserImage => "user_image",
+            Self::UserIsServiceAccount => "user_is_service_account",
             Self::UserUsername => "user_username",
             Self::UserUuid => "user_uuid",
             Self::Uuid => "uuid",
