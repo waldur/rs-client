@@ -6590,6 +6590,9 @@ pub struct OpenStackPort {
     pub error_traceback: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub fixed_ips: Option<Vec<OpenStackFixedIp>>,
+    ///Floating IPs associated with the port, with the public IP each one is mapped to, if any
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub floating_ip_addresses: Option<Vec<OpenStackPortFloatingIp>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub floating_ips: Option<Vec<String>>,
     #[serde(
@@ -6741,6 +6744,28 @@ pub struct OpenStackPortMarketplaceOfferingPluginOptions {
     #[serde(flatten)]
     pub additional_properties: std::collections::BTreeMap<String, serde_json::Value>,
 }
+///
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct OpenStackPortFloatingIp {
+    ///The public IPv4 address of the floating IP
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub address: Option<Option<String>>,
+    ///Optional address that maps to floating IP's address in external networks
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "tri_state_serde::deserialize"
+    )]
+    pub external_address: Option<Option<OpenStackPortFloatingIpExternalAddress>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uuid: Option<uuid::Uuid>,
+}
+///Optional address that maps to floating IP's address in external networks
+pub type OpenStackPortFloatingIpExternalAddress = String;
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum OpenStackPortAccessUrl {
@@ -19004,6 +19029,8 @@ pub enum OpenStackPortFieldEnum {
     ErrorTraceback,
     #[serde(rename = "fixed_ips")]
     FixedIps,
+    #[serde(rename = "floating_ip_addresses")]
+    FloatingIpAddresses,
     #[serde(rename = "floating_ips")]
     FloatingIps,
     #[serde(rename = "is_limit_based")]
@@ -19098,6 +19125,7 @@ impl OpenStackPortFieldEnum {
             Self::ErrorMessage => "error_message",
             Self::ErrorTraceback => "error_traceback",
             Self::FixedIps => "fixed_ips",
+            Self::FloatingIpAddresses => "floating_ip_addresses",
             Self::FloatingIps => "floating_ips",
             Self::IsLimitBased => "is_limit_based",
             Self::IsUsageBased => "is_usage_based",

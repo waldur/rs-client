@@ -8971,6 +8971,7 @@ impl HttpClient {
         project: Option<impl AsRef<str>>,
         project_name: Option<impl AsRef<str>>,
         project_uuid: Option<impl AsRef<str>>,
+        query: Option<impl AsRef<str>>,
         runtime_state: Option<impl AsRef<str>>,
         service_settings_name: Option<impl AsRef<str>>,
         service_settings_uuid: Option<impl AsRef<str>>,
@@ -9037,6 +9038,9 @@ impl HttpClient {
             }
             if let Some(v) = project_uuid {
                 query_params.push(("project_uuid".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = query {
+                query_params.push(("query".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = runtime_state {
                 query_params.push(("runtime_state".to_string(), v.as_ref().to_string()));
@@ -9341,6 +9345,7 @@ impl HttpClient {
         project: Option<impl AsRef<str>>,
         project_name: Option<impl AsRef<str>>,
         project_uuid: Option<impl AsRef<str>>,
+        query: Option<impl AsRef<str>>,
         runtime_state: Option<impl AsRef<str>>,
         service_settings_name: Option<impl AsRef<str>>,
         service_settings_uuid: Option<impl AsRef<str>>,
@@ -9416,6 +9421,9 @@ impl HttpClient {
             }
             if let Some(v) = project_uuid {
                 query_params.push(("project_uuid".to_string(), v.as_ref().to_string()));
+            }
+            if let Some(v) = query {
+                query_params.push(("query".to_string(), v.as_ref().to_string()));
             }
             if let Some(v) = runtime_state {
                 query_params.push(("runtime_state".to_string(), v.as_ref().to_string()));
