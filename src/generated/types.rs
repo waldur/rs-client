@@ -779,6 +779,9 @@ pub struct UserMe {
     pub eduperson_assurance: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
+    ///Effective values of the user-scoped feature flags for this user: the global value, or on when a feature rule matches the user. Same section -> key -> bool shape as FEATURES in the configuration.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub features: Option<UserMeFeatures>,
     ///Constraint: maxLength=100
     #[serde(skip_serializing_if = "Option::is_none")]
     pub first_name: Option<String>,
@@ -843,6 +846,9 @@ pub struct UserMe {
     pub last_name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub managed_isds: Option<Vec<String>>,
+    ///Whether each micro-app with an operator setting is offered to this user. An app that is absent has no setting and follows the user.show_micro_apps feature.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub micro_apps: Option<UserMeMicroApps>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub nationalities: Option<Vec<String>>,
     ///Primary citizenship (ISO 3166-1 alpha-2 code)
@@ -950,6 +956,14 @@ pub struct UserMe {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<uuid::Uuid>,
 }
+///Whether each micro-app with an operator setting is offered to this user. An app that is absent has no setting and follows the user.show_micro_apps feature.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct UserMeMicroApps {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, bool>,
+}
 ///User's gender (male, female, or unknown)
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -957,6 +971,24 @@ pub enum UserMeGender {
     GenderEnum(GenderEnum),
     BlankEnum(BlankEnum),
     NullEnum(NullEnum),
+}
+///Effective values of the user-scoped feature flags for this user: the global value, or on when a feature rule matches the user. Same section -> key -> bool shape as FEATURES in the configuration.
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct UserMeFeatures {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<
+        String,
+        UserMeFeaturesAdditionalProperty,
+    >,
+}
+#[derive(Debug, Clone, Deserialize, Serialize, Default)]
+pub struct UserMeFeaturesAdditionalProperty {
+    /// Additional properties matching the spec's
+    /// `additionalProperties` value schema.
+    #[serde(flatten)]
+    pub additional_properties: std::collections::BTreeMap<String, bool>,
 }
 ///Extra details from authentication backend.
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
@@ -1121,6 +1153,61 @@ pub struct GroupInvitation {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user_identity_sources: Option<Vec<String>>,
     pub uuid: uuid::Uuid,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct UserFeaturesResponse {
+    pub features: Vec<UserFeatureState>,
+    ///Apps with an operator setting; the rest follow user.show_micro_apps.
+    pub micro_apps: Vec<UserMicroAppState>,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct UserMicroAppState {
+    pub enabled: bool,
+    pub mode: MicroAppModeEnum,
+    pub name: String,
+    pub rules: Vec<String>,
+}
+///
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct UserFeatureState {
+    pub enabled: bool,
+    pub key: String,
+    pub rules: Vec<String>,
+    pub scope: FeatureScopeEnum,
+    ///'global': on for everyone. 'rule': on for this user through the listed rules. 'off': off for this user.
+    pub source: UserFeatureStateSourceEnum,
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum UserFeatureStateSourceEnum {
+    #[default]
+    #[serde(rename = "global")]
+    Global,
+    #[serde(rename = "rule")]
+    Rule,
+    #[serde(rename = "off")]
+    Off,
+}
+impl UserFeatureStateSourceEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Global => "global",
+            Self::Rule => "rule",
+            Self::Off => "off",
+        }
+    }
+}
+impl ::std::fmt::Display for UserFeatureStateSourceEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for UserFeatureStateSourceEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -9548,6 +9635,36 @@ pub struct MigrationCreate {
     pub src_resource: uuid::Uuid,
 }
 ///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum MicroAppModeEnum {
+    #[default]
+    #[serde(rename = "off")]
+    Off,
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "audience")]
+    Audience,
+}
+impl MicroAppModeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Off => "off",
+            Self::All => "all",
+            Self::Audience => "audience",
+        }
+    }
+}
+impl ::std::fmt::Display for MicroAppModeEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for MicroAppModeEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+///
 #[derive(Debug, Clone, Deserialize, Serialize, Default)]
 pub struct BasicUser {
     ///Constraint: maxLength=320
@@ -10918,6 +11035,33 @@ pub struct ProjectMetadataAnswer {
     pub question_type: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub question_uuid: Option<String>,
+}
+///
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Default)]
+pub enum FeatureScopeEnum {
+    #[default]
+    #[serde(rename = "deployment")]
+    Deployment,
+    #[serde(rename = "user")]
+    User,
+}
+impl FeatureScopeEnum {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Deployment => "deployment",
+            Self::User => "user",
+        }
+    }
+}
+impl ::std::fmt::Display for FeatureScopeEnum {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+impl AsRef<str> for FeatureScopeEnum {
+    fn as_ref(&self) -> &str {
+        self.as_str()
+    }
 }
 ///
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -22593,6 +22737,8 @@ pub enum UserMeFieldEnum {
     EdupersonAssurance,
     #[serde(rename = "email")]
     Email,
+    #[serde(rename = "features")]
+    Features,
     #[serde(rename = "first_name")]
     FirstName,
     #[serde(rename = "full_name")]
@@ -22637,6 +22783,8 @@ pub enum UserMeFieldEnum {
     LastName,
     #[serde(rename = "managed_isds")]
     ManagedIsds,
+    #[serde(rename = "micro_apps")]
+    MicroApps,
     #[serde(rename = "nationalities")]
     Nationalities,
     #[serde(rename = "nationality")]
@@ -22715,6 +22863,7 @@ impl UserMeFieldEnum {
             Self::Details => "details",
             Self::EdupersonAssurance => "eduperson_assurance",
             Self::Email => "email",
+            Self::Features => "features",
             Self::FirstName => "first_name",
             Self::FullName => "full_name",
             Self::Gender => "gender",
@@ -22737,6 +22886,7 @@ impl UserMeFieldEnum {
             Self::JobTitle => "job_title",
             Self::LastName => "last_name",
             Self::ManagedIsds => "managed_isds",
+            Self::MicroApps => "micro_apps",
             Self::Nationalities => "nationalities",
             Self::Nationality => "nationality",
             Self::NativeName => "native_name",
