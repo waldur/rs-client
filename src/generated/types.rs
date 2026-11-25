@@ -200,7 +200,7 @@ pub struct UserRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub birth_date: Option<Option<chrono::NaiveDate>>,
-    ///Designates whether the user is allowed to create and use personal access tokens.
+    ///Designates whether the user is allowed to create and use personal access tokens while they are not enabled for every user (PAT_ENABLED).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_use_personal_access_tokens: Option<bool>,
     ///Constraint: maxLength=2
@@ -751,7 +751,7 @@ pub struct UserMe {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub birth_date: Option<Option<chrono::NaiveDate>>,
-    ///Designates whether the user is allowed to create and use personal access tokens.
+    ///Designates whether the user is allowed to create and use personal access tokens while they are not enabled for every user (PAT_ENABLED).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_use_personal_access_tokens: Option<bool>,
     #[serde(
@@ -3317,7 +3317,7 @@ pub struct PatchedUserRequest {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub birth_date: Option<Option<chrono::NaiveDate>>,
-    ///Designates whether the user is allowed to create and use personal access tokens.
+    ///Designates whether the user is allowed to create and use personal access tokens while they are not enabled for every user (PAT_ENABLED).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_use_personal_access_tokens: Option<bool>,
     ///Constraint: maxLength=2
@@ -9599,7 +9599,7 @@ pub struct User {
         deserialize_with = "tri_state_serde::deserialize"
     )]
     pub birth_date: Option<Option<chrono::NaiveDate>>,
-    ///Designates whether the user is allowed to create and use personal access tokens.
+    ///Designates whether the user is allowed to create and use personal access tokens while they are not enabled for every user (PAT_ENABLED).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub can_use_personal_access_tokens: Option<bool>,
     #[serde(
